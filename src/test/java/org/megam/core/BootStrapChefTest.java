@@ -19,6 +19,8 @@ import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.megam.chef.BootStrapChef;
+import org.megam.chef.exception.BootStrapChefException;
 
 /**
  * @author ram
@@ -28,10 +30,17 @@ public class BootStrapChefTest {
 
 	/**
 	 * @throws java.lang.Exception
+	 * @throws BootStrapChefException 
 	 */
 	@Before
-	public void setUp() throws Exception {
+	public void setUp()  {
 		//Call BootstrapChef
+		try {
+		System.out.println(BootStrapChef.boot());
+		}
+		catch(BootStrapChefException bsce) {
+			bsce.printStackTrace();
+		}
 	}
 
 	@Test

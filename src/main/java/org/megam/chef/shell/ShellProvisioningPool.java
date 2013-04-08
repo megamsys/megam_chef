@@ -28,8 +28,8 @@ public class ShellProvisioningPool {
 	/**
 	 * We need to convert the below listeners to ConcurrnetList
 	 */
-	private List<ShellProvisioningListener> listeners = new ArrayList<>();
-	private List<Stoppable> stopList  = new ArrayList<>();
+	private List<ShellProvisioningListener> listeners = new ArrayList<ShellProvisioningListener>();
+	private List<Stoppable> stopList  = new ArrayList<Stoppable>();
 	
 	private static ShellProvisioningPool spPool; 
 	private ForkJoinPool ourForky;

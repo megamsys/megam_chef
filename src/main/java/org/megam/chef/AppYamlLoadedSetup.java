@@ -21,36 +21,35 @@ import java.util.Map;
  * @author rajthilak
  *
  */
-public class AppYaml {
+public class AppYamlLoadedSetup {
 	
-    private static Map<String, String> yamlSource;    
+	private Map<String, String> megamchef;
+	private Map<String, String> development;
+	private Map<String, String> production;
 	
-    AppYaml(Map<String, String> type) {
-    	this.yamlSource= type;    	
-    }
-    
-    /**
-     * 
-     * @return
-     */
-	public String getSource() {
-		// move all the variables to private static final  
-    	return yamlSource.get("source");
-    }
-    
-    public String getHost() {
-    	return yamlSource.get("host");
-    }
-    
-    public String getPort() {
-    	return yamlSource.get("port");
-    }
-    
-    public String getBucket() {
-    	return yamlSource.get("bucket");
-    }
-    
-    public String getConfig() {
-    	return yamlSource.get("config");
-    }
+	public void setDevelopment(Map<String, String> development) {		
+		this.development = development;
+	}
+	
+	public Map<String, String> getDevelopment() {
+		return development;
+	}
+	
+	public void setProduction(Map<String, String> production) {
+		this.production = production;
+	}  
+	
+
+	public Map<String, String> getProduction() {
+		return production;
+	}
+
+	
+	public Map<String, String> getMegamChef() {
+		return megamchef;
+	}
+
+	public void setMegamChef(Map<String, String> megamchef) {
+		this.megamchef = megamchef;
+	}
 }

@@ -53,7 +53,7 @@ public class RiakSource implements Source {
 	 * 
 	 * }
 	 */
-	RiakSource(AppYaml app) {
+	public RiakSource(AppYaml app) {
 		this.app = app;
 	}
 

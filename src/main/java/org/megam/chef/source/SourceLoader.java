@@ -18,6 +18,7 @@ package org.megam.chef.source;
 import java.io.IOException;
 
 import org.megam.chef.AppYaml;
+import org.megam.chef.AppYamlLoader;
 import org.megam.chef.exception.SourceException;
 import org.megam.chef.source.riak.DropIn;
 import org.megam.chef.source.riak.RiakSource;
@@ -30,37 +31,35 @@ import org.megam.chef.source.riak.RiakSource;
 public class SourceLoader {
 
 	private static final String RIAK = "riak";	
-	
+	private Source source;
 	private AppYaml yaml;
-	
+	AppYamlLoader app;
+	private String jsonString;
 	SourceLoader(AppYaml tempYaml) {
 		this.yaml = tempYaml;
 	}
 
-	public  Source load() throws SourceException {		
-		source = null;
+	public void load() throws SourceException  {		
+		String SOURCE="riak";
 		/**
 		 * Use switch/case
 		 * Also write a NoneSource
 		 */
 		if (SOURCE.equals(RIAK)) {
-				 = new RiakSource(app.currentYaml());
-				rs.connection();
-				rs.bucket("rajBucket");
-				jsonString = rs.fetch("sample");
-			}
-			return rs;
-		} catch (IOException ioe) {
-			throw new SourceException(ioe);
-		}
+				source = new RiakSource(app.currentYaml());
+				source.connection();
+				source.bucket("rajBucket");
+				//jsonString = source.fetch("sample");
+		   }
+		
 	}
 
-    public String fetchRequestJSON(DropIn in) {
-    source().fetch(in.id());	
+    public String fetchRequestJSON(DropIn in) throws SourceException {
+    return source().fetch(in.getId());	
     }
     
-    Source source() {
-    	source;
+    private Source source() {
+    	return source;
     }
     	
 

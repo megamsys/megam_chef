@@ -34,15 +34,17 @@ public class Constants {
 	/**
 	 * The root directory from where the code runs
 	 */
-	public static final String MEGAM_CHEF_ROOT = "";
+	public static final String MEGAM_CHEF_ROOT = System.getProperty("user.dir");
 
 	/**
 	 * The location of the app yaml configuration file, relative to MEGAM_CHEF_ROOT
 	 */
-	public static final String MEGAM_CHEF_APP_YAML = MEGAM_CHEF_ROOT + "conf" + java.io.File.separator + "app.yaml";
+	public static final String MEGAM_CHEF_APP_YAML = MEGAM_CHEF_ROOT + java.io.File.separator + "conf" + java.io.File.separator + "app.yaml";
 	
 	/**
 	 * The location of the log file
 	 */
-	public static final String MEGAM_CHEF_LOG = MEGAM_CHEF_ROOT+ "logs" + java.io.File.separator + "megam_chef.log";
+	public static final String MEGAM_CHEF_LOG = MEGAM_CHEF_ROOT + java.io.File.separator + "logs" + java.io.File.separator + "megam_chef.log";
+	
+	
 }

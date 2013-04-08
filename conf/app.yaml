@@ -1,10 +1,10 @@
-megam_chef:
+megamchef:
       config: 'development'      
 development: 
       source: 'riak'
       host: 'localhost'
       port: '8098'
-      bucket: '-prov'
+      bucket: 'megam-prov'
 production: 
       source: 'riak'
       host: 'riak.megam.co'

@@ -21,7 +21,7 @@ package org.megam.chef.source.riak;
  */
 public class DropIn {
 
-	public void getId() {
-		
+	public String getId() {
+		return "sample";
 	}
 }

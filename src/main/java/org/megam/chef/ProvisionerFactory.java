@@ -36,6 +36,7 @@ public class ProvisionerFactory {
 	 * @return ProvisioningService
 	 * @throws ProvisionerException
 	 */
+	@SuppressWarnings("rawtypes")
 	public static ProvisioningService<?> create(TYPE type) throws ProvisionerException {
 		/**
 		 * Bit ugly, provisioner boostrapping it. We'll have an inmemory cache

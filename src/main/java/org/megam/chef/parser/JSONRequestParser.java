@@ -2,6 +2,8 @@ package org.megam.chef.parser;
 
 import java.util.Formatter;
 
+import com.google.gson.Gson;
+
 public class JSONRequestParser {
 
 	private JSONRequest reqData;

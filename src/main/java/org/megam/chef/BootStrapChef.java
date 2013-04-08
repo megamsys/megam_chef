@@ -36,9 +36,8 @@ public class BootStrapChef {
 	public static BootStrapChef boot() throws BootStrapChefException {
 		if(bootSingleton ==null) {
 			bootSingleton = new BootStrapChef();
-		}
-		return bootSingleton;
-		
+		}		
+		return bootSingleton;		
 	}
 	
 	public AppYaml yaml() {
@@ -47,15 +46,18 @@ public class BootStrapChef {
 	
 	private void configureRoot() {
 		/** MEGAM_ROOT_DIR **/
+		System.out.println("Working Directory = " +
+	              System.getProperty("user.dir"));
+		//MEGAM_CHEF_ROOT =  System.getProperty("user.dir");
 	}
 	
-	private void configure() throws BootStrapChefException {
-		AppYamlLoader yaml = new AppYamlLoader(MEGAM_CHEF_APP_YAML);
+	private void configure() throws BootStrapChefException {		
+		AppYamlLoader yaml = new AppYamlLoader(MEGAM_CHEF_APP_YAML);				
 		if (yaml.notReady()) {
 			throw new BootStrapChefException(new IllegalArgumentException(
 					"Something wrong in your yaml configuration file located in " + MEGAM_CHEF_APP_YAML));
 		}
-		bootedYaml = yaml.currentYaml();
+		bootedYaml = yaml.currentYaml();		
 	}
 	
 	private void bootedUp() {
