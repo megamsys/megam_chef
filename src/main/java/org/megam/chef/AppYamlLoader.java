@@ -20,12 +20,11 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Map;
 
 import org.megam.chef.exception.BootStrapChefException;
+import org.yaml.snakeyaml.constructor.Constructor;
 import org.yaml.snakeyaml.TypeDescription;
 import org.yaml.snakeyaml.Yaml;
-import org.yaml.snakeyaml.constructor.Constructor;
 
 /**
  * @author rajthilak
@@ -70,7 +69,7 @@ public class AppYamlLoader {
 		//System.out.println("111" + appYaml.getConfig());
 		// switch () {
 		// case			
-		System.out.println(new AppYaml(new AppYamlLoadedSetup().getMegamChef()));
+		System.out.println(new AppYaml(loadedYaml.getMegamchef()));
 		return (new AppYaml(new AppYamlLoadedSetup().getDevelopment()));
 	}
 
