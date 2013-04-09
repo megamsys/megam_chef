@@ -23,7 +23,7 @@ import java.util.Map;
  */
 public class AppYamlLoadedSetup {
 	
-	private Map<String, String> megamchef;
+	//private Map<String, String> megamchef;
 	private Map<String, String> development;
 	private Map<String, String> production;
 	
@@ -45,11 +45,11 @@ public class AppYamlLoadedSetup {
 	}
 
 	
-	public Map<String, String> getMegamChef() {
-		return megamchef;
-	}
+	//public Map<String, String> getMegamChef() {
+	//	return megamchef;
+	//}
 
-	public void setMegamChef(Map<String, String> megamchef) {
-		this.megamchef = megamchef;
-	}
+	//public void setMegamChef(Map<String, String> megamchef) {
+	//	this.megamchef = megamchef;
+	//}
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite failures="0" time="0.123" errors="3" skipped="0" tests="3" name="org.megam.core.BootStrapChefTest">
+<testsuite failures="3" time="0.097" errors="0" skipped="0" tests="3" name="org.megam.core.BootStrapChefTest">
   <properties>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
     <property name="sun.boot.library.path" value="/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/amd64"/>
@@ -59,94 +59,32 @@
     <property name="sun.desktop" value="gnome"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase time="0.114" classname="org.megam.core.BootStrapChefTest" name="testVersion">
-    <error message="null; Can&apos;t construct a java object for tag:yaml.org,2002:org.megam.chef.AppYamlLoadedSetup; exception=Cannot create property=megamchef for JavaBean=org.megam.chef.AppYamlLoadedSetup@5cd99967; Unable to find property &apos;megamchef&apos; on class: org.megam.chef.AppYamlLoadedSetup;  in &apos;reader&apos;, line 1, column 1:
-    megamchef:
-    ^" type="org.yaml.snakeyaml.constructor.ConstructorException">org.yaml.snakeyaml.constructor.ConstructorException: null; Can&apos;t construct a java object for tag:yaml.org,2002:org.megam.chef.AppYamlLoadedSetup; exception=Cannot create property=megamchef for JavaBean=org.megam.chef.AppYamlLoadedSetup@5cd99967; Unable to find property &apos;megamchef&apos; on class: org.megam.chef.AppYamlLoadedSetup;  in &apos;reader&apos;, line 1, column 1:
-    megamchef:
-    ^
-	at org.yaml.snakeyaml.introspector.PropertyUtils.getProperty(PropertyUtils.java:132)
-	at org.yaml.snakeyaml.introspector.PropertyUtils.getProperty(PropertyUtils.java:121)
-	at org.yaml.snakeyaml.constructor.Constructor$ConstructMapping.getProperty(Constructor.java:308)
-	at org.yaml.snakeyaml.constructor.Constructor$ConstructMapping.constructJavaBean2ndStep(Constructor.java:240)
-	at org.yaml.snakeyaml.constructor.Constructor$ConstructMapping.construct(Constructor.java:189)
-	at org.yaml.snakeyaml.constructor.Constructor$ConstructYamlObject.construct(Constructor.java:331)
-	at org.yaml.snakeyaml.constructor.BaseConstructor.constructObject(BaseConstructor.java:182)
-	at org.yaml.snakeyaml.constructor.BaseConstructor.constructDocument(BaseConstructor.java:141)
-	at org.yaml.snakeyaml.constructor.BaseConstructor.getSingleData(BaseConstructor.java:127)
-	at org.yaml.snakeyaml.Yaml.loadFromReader(Yaml.java:481)
-	at org.yaml.snakeyaml.Yaml.load(Yaml.java:412)
-	at org.megam.chef.AppYamlLoader.load(AppYamlLoader.java:56)
-	at org.megam.chef.AppYamlLoader.&lt;init&gt;(AppYamlLoader.java:43)
-	at org.megam.chef.BootStrapChef.configure(BootStrapChef.java:56)
-	at org.megam.chef.BootStrapChef.&lt;init&gt;(BootStrapChef.java:32)
-	at org.megam.chef.BootStrapChef.boot(BootStrapChef.java:38)
-	at org.megam.core.BootStrapChefTest.setUp(BootStrapChefTest.java:39)
-</error>
+  <testcase time="0.092" classname="org.megam.core.BootStrapChefTest" name="testVersion">
+    <failure message="Not yet implemented" type="java.lang.AssertionError">java.lang.AssertionError: Not yet implemented
+	at org.junit.Assert.fail(Assert.java:93)
+	at org.megam.core.BootStrapChefTest.testVersion(BootStrapChefTest.java:49)
+</failure>
     <system-out>Working Directory = /home/rajthilak/code/megam/workspace/megam_chef
-/home/rajthilak/code/megam/workspace/megam_chef/conf/app.yaml
-java.io.FileInputStream@3c21251c
-44
+{source=riak, host=localhost, port=8098, bucket=megam-prov}
+444
+riak
+org.megam.chef.BootStrapChef@63a751ff
+</system-out>
+  </testcase>
+  <testcase time="0.001" classname="org.megam.core.BootStrapChefTest" name="testMegamChefRoot">
+    <failure message="Not yet implemented" type="java.lang.AssertionError">java.lang.AssertionError: Not yet implemented
+	at org.junit.Assert.fail(Assert.java:93)
+	at org.megam.core.BootStrapChefTest.testMegamChefRoot(BootStrapChefTest.java:55)
+</failure>
+    <system-out>org.megam.chef.BootStrapChef@63a751ff
 </system-out>
   </testcase>
   <testcase time="0.004" classname="org.megam.core.BootStrapChefTest" name="testMegamChefYaml">
-    <error message="null; Can&apos;t construct a java object for tag:yaml.org,2002:org.megam.chef.AppYamlLoadedSetup; exception=Cannot create property=megamchef for JavaBean=org.megam.chef.AppYamlLoadedSetup@402c507f; Unable to find property &apos;megamchef&apos; on class: org.megam.chef.AppYamlLoadedSetup;  in &apos;reader&apos;, line 1, column 1:
-    megamchef:
-    ^" type="org.yaml.snakeyaml.constructor.ConstructorException">org.yaml.snakeyaml.constructor.ConstructorException: null; Can&apos;t construct a java object for tag:yaml.org,2002:org.megam.chef.AppYamlLoadedSetup; exception=Cannot create property=megamchef for JavaBean=org.megam.chef.AppYamlLoadedSetup@402c507f; Unable to find property &apos;megamchef&apos; on class: org.megam.chef.AppYamlLoadedSetup;  in &apos;reader&apos;, line 1, column 1:
-    megamchef:
-    ^
-	at org.yaml.snakeyaml.introspector.PropertyUtils.getProperty(PropertyUtils.java:132)
-	at org.yaml.snakeyaml.introspector.PropertyUtils.getProperty(PropertyUtils.java:121)
-	at org.yaml.snakeyaml.constructor.Constructor$ConstructMapping.getProperty(Constructor.java:308)
-	at org.yaml.snakeyaml.constructor.Constructor$ConstructMapping.constructJavaBean2ndStep(Constructor.java:240)
-	at org.yaml.snakeyaml.constructor.Constructor$ConstructMapping.construct(Constructor.java:189)
-	at org.yaml.snakeyaml.constructor.Constructor$ConstructYamlObject.construct(Constructor.java:331)
-	at org.yaml.snakeyaml.constructor.BaseConstructor.constructObject(BaseConstructor.java:182)
-	at org.yaml.snakeyaml.constructor.BaseConstructor.constructDocument(BaseConstructor.java:141)
-	at org.yaml.snakeyaml.constructor.BaseConstructor.getSingleData(BaseConstructor.java:127)
-	at org.yaml.snakeyaml.Yaml.loadFromReader(Yaml.java:481)
-	at org.yaml.snakeyaml.Yaml.load(Yaml.java:412)
-	at org.megam.chef.AppYamlLoader.load(AppYamlLoader.java:56)
-	at org.megam.chef.AppYamlLoader.&lt;init&gt;(AppYamlLoader.java:43)
-	at org.megam.chef.BootStrapChef.configure(BootStrapChef.java:56)
-	at org.megam.chef.BootStrapChef.&lt;init&gt;(BootStrapChef.java:32)
-	at org.megam.chef.BootStrapChef.boot(BootStrapChef.java:38)
-	at org.megam.core.BootStrapChefTest.setUp(BootStrapChefTest.java:39)
-</error>
-    <system-out>Working Directory = /home/rajthilak/code/megam/workspace/megam_chef
-/home/rajthilak/code/megam/workspace/megam_chef/conf/app.yaml
-java.io.FileInputStream@48f478b4
-44
-</system-out>
-  </testcase>
-  <testcase time="0.005" classname="org.megam.core.BootStrapChefTest" name="testMegamChefRoot">
-    <error message="null; Can&apos;t construct a java object for tag:yaml.org,2002:org.megam.chef.AppYamlLoadedSetup; exception=Cannot create property=megamchef for JavaBean=org.megam.chef.AppYamlLoadedSetup@11f7ef62; Unable to find property &apos;megamchef&apos; on class: org.megam.chef.AppYamlLoadedSetup;  in &apos;reader&apos;, line 1, column 1:
-    megamchef:
-    ^" type="org.yaml.snakeyaml.constructor.ConstructorException">org.yaml.snakeyaml.constructor.ConstructorException: null; Can&apos;t construct a java object for tag:yaml.org,2002:org.megam.chef.AppYamlLoadedSetup; exception=Cannot create property=megamchef for JavaBean=org.megam.chef.AppYamlLoadedSetup@11f7ef62; Unable to find property &apos;megamchef&apos; on class: org.megam.chef.AppYamlLoadedSetup;  in &apos;reader&apos;, line 1, column 1:
-    megamchef:
-    ^
-	at org.yaml.snakeyaml.introspector.PropertyUtils.getProperty(PropertyUtils.java:132)
-	at org.yaml.snakeyaml.introspector.PropertyUtils.getProperty(PropertyUtils.java:121)
-	at org.yaml.snakeyaml.constructor.Constructor$ConstructMapping.getProperty(Constructor.java:308)
-	at org.yaml.snakeyaml.constructor.Constructor$ConstructMapping.constructJavaBean2ndStep(Constructor.java:240)
-	at org.yaml.snakeyaml.constructor.Constructor$ConstructMapping.construct(Constructor.java:189)
-	at org.yaml.snakeyaml.constructor.Constructor$ConstructYamlObject.construct(Constructor.java:331)
-	at org.yaml.snakeyaml.constructor.BaseConstructor.constructObject(BaseConstructor.java:182)
-	at org.yaml.snakeyaml.constructor.BaseConstructor.constructDocument(BaseConstructor.java:141)
-	at org.yaml.snakeyaml.constructor.BaseConstructor.getSingleData(BaseConstructor.java:127)
-	at org.yaml.snakeyaml.Yaml.loadFromReader(Yaml.java:481)
-	at org.yaml.snakeyaml.Yaml.load(Yaml.java:412)
-	at org.megam.chef.AppYamlLoader.load(AppYamlLoader.java:56)
-	at org.megam.chef.AppYamlLoader.&lt;init&gt;(AppYamlLoader.java:43)
-	at org.megam.chef.BootStrapChef.configure(BootStrapChef.java:56)
-	at org.megam.chef.BootStrapChef.&lt;init&gt;(BootStrapChef.java:32)
-	at org.megam.chef.BootStrapChef.boot(BootStrapChef.java:38)
-	at org.megam.core.BootStrapChefTest.setUp(BootStrapChefTest.java:39)
-</error>
-    <system-out>Working Directory = /home/rajthilak/code/megam/workspace/megam_chef
-/home/rajthilak/code/megam/workspace/megam_chef/conf/app.yaml
-java.io.FileInputStream@1d58e2c3
-44
+    <failure message="Not yet implemented" type="java.lang.AssertionError">java.lang.AssertionError: Not yet implemented
+	at org.junit.Assert.fail(Assert.java:93)
+	at org.megam.core.BootStrapChefTest.testMegamChefYaml(BootStrapChefTest.java:61)
+</failure>
+    <system-out>org.megam.chef.BootStrapChef@63a751ff
 </system-out>
   </testcase>
 </testsuite>

@@ -45,12 +45,14 @@ public class AppYamlLoader {
 	private void load(String yamlFilePath) throws BootStrapChefException {
 		try {
 			InputStream input = new FileInputStream(new File(yamlFilePath));			
+		     
 			Constructor constructor = new Constructor(AppYamlLoadedSetup.class);
-			TypeDescription appDescription = new TypeDescription(
-					AppYamlLoadedSetup.class);
+			TypeDescription appDescription = new TypeDescription(AppYamlLoadedSetup.class);
 			constructor.addTypeDescription(appDescription);
 			Yaml yaml = new Yaml(constructor);			
-			loadedYaml = (AppYamlLoadedSetup) yaml.load(input);			
+			loadedYaml = (AppYamlLoadedSetup) yaml.load(input);	
+			System.out.println(loadedYaml.getDevelopment());
+			System.out.println("444");
 			notReady = (loadedYaml == null) ? true : false;
 		} catch (FileNotFoundException fnfe) {
 			fnfe.printStackTrace();
@@ -67,11 +69,11 @@ public class AppYamlLoader {
 	 */
 	public AppYaml currentYaml() {
 		//AppYaml current = null;
-		//System.out.println("111" + appYaml.getConfig());
+		
 		// switch () {
-		// case			
-		System.out.println(new AppYaml(new AppYamlLoadedSetup().getMegamChef()));
-		return (new AppYaml(new AppYamlLoadedSetup().getDevelopment()));
+		// case				
+		System.out.println(new AppYaml(loadedYaml.getDevelopment()).getSource());
+		return (new AppYaml(loadedYaml.getDevelopment()));
 	}
 
 	boolean notReady() {
