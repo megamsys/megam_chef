@@ -45,11 +45,13 @@ public class AppYamlLoadedSetup {
 	}
 
 	
-	//public Map<String, String> getMegamChef() {
-	//	return megamchef;
-	//}
 
-	//public void setMegamChef(Map<String, String> megamchef) {
-	//	this.megamchef = megamchef;
-	//}
+	public Map<String, String> getMegamchef() {
+		return megamchef;
+	}
+
+	public void setMegamchef(Map<String, String> megamchef) {
+		this.megamchef = megamchef;
+	}
+
 }

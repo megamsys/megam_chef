@@ -4,3 +4,25 @@
 *.jar
 *.war
 *.ear
+
+# Eclipse settings file
+.settings
+.metadata
+
+# Ignore temporary files
+/tmp
+/log/*.log
+*.lock
+/target
+*.*~
+*.*.save
+
+# Ignore all logfiles and tempfiles.
+/log/*.log
+/tmp
+
+# Ignore all files which ends with ~
+*~
+
+# Ignore all files which ends with lock
+*.lock
