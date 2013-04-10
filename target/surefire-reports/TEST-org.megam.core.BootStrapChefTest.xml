@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<testsuite failures="3" time="0.097" errors="0" skipped="0" tests="3" name="org.megam.core.BootStrapChefTest">
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="org.megam.core.BootStrapChefTest" time="0" tests="3" errors="0" skipped="0" failures="3">
   <properties>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
     <property name="sun.boot.library.path" value="/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/amd64"/>
@@ -20,8 +20,7 @@
     <property name="java.endorsed.dirs" value="/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/endorsed"/>
     <property name="os.arch" value="amd64"/>
     <property name="java.io.tmpdir" value="/tmp"/>
-    <property name="line.separator" value="
-"/>
+    <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="os.name" value="Linux"/>
     <property name="classworlds.conf" value="/home/rajthilak/software/apache/maven/bin/m2.conf"/>
@@ -59,32 +58,22 @@
     <property name="sun.desktop" value="gnome"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase time="0.092" classname="org.megam.core.BootStrapChefTest" name="testVersion">
+  <testcase name="testVersion" classname="org.megam.core.BootStrapChefTest" time="0">
     <failure message="Not yet implemented" type="java.lang.AssertionError">java.lang.AssertionError: Not yet implemented
-	at org.junit.Assert.fail(Assert.java:93)
-	at org.megam.core.BootStrapChefTest.testVersion(BootStrapChefTest.java:49)
+	at org.junit.Assert.fail(Assert.java:88)
+	at org.megam.core.BootStrapChefTest.testVersion(BootStrapChefTest.java:48)
 </failure>
-    <system-out>Working Directory = /home/rajthilak/code/megam/workspace/megam_chef
-{source=riak, host=localhost, port=8098, bucket=megam-prov}
-444
-riak
-org.megam.chef.BootStrapChef@63a751ff
-</system-out>
   </testcase>
-  <testcase time="0.001" classname="org.megam.core.BootStrapChefTest" name="testMegamChefRoot">
+  <testcase name="testMegamChefRoot" classname="org.megam.core.BootStrapChefTest" time="0">
     <failure message="Not yet implemented" type="java.lang.AssertionError">java.lang.AssertionError: Not yet implemented
-	at org.junit.Assert.fail(Assert.java:93)
-	at org.megam.core.BootStrapChefTest.testMegamChefRoot(BootStrapChefTest.java:55)
+	at org.junit.Assert.fail(Assert.java:88)
+	at org.megam.core.BootStrapChefTest.testMegamChefRoot(BootStrapChefTest.java:54)
 </failure>
-    <system-out>org.megam.chef.BootStrapChef@63a751ff
-</system-out>
   </testcase>
-  <testcase time="0.004" classname="org.megam.core.BootStrapChefTest" name="testMegamChefYaml">
+  <testcase name="testMegamChefYaml" classname="org.megam.core.BootStrapChefTest" time="0">
     <failure message="Not yet implemented" type="java.lang.AssertionError">java.lang.AssertionError: Not yet implemented
-	at org.junit.Assert.fail(Assert.java:93)
-	at org.megam.core.BootStrapChefTest.testMegamChefYaml(BootStrapChefTest.java:61)
+	at org.junit.Assert.fail(Assert.java:88)
+	at org.megam.core.BootStrapChefTest.testMegamChefYaml(BootStrapChefTest.java:60)
 </failure>
-    <system-out>org.megam.chef.BootStrapChef@63a751ff
-</system-out>
   </testcase>
 </testsuite>

@@ -65,6 +65,7 @@ public class RiakSource implements Source {
 	public void connection() throws SourceException {
 		// TODO Auto-generated method stub
 		try {
+			// create Riak Factory Connection Established
 			riakClient = RiakFactory.httpClient("http://" + app.getHost() + ":"
 					+ app.getPort() + "/" + app.getSource());
 		} catch (RiakException re) {
@@ -83,15 +84,16 @@ public class RiakSource implements Source {
 
 	}
 
+	/**
+	 * note that getValueAsString() will return null here if there's no value in
+	 * Riak
+	 */
 	public String fetch(String str) throws SourceException {
 		// TODO Auto-generated method stub
 		try {
 
 			IRiakObject myObject = ((com.basho.riak.client.bucket.Bucket) myBucket)
 					.fetch(str).execute();
-
-			// note that getValueAsString() will return null here if there's no
-			// value in Riak
 			return myObject.getValueAsString();
 		} catch (UnresolvedConflictException uce) {
 			throw new SourceException(uce);

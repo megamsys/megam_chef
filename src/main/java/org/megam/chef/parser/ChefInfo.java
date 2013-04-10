@@ -5,13 +5,14 @@ import java.util.Formatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ForkJoinPool;
-
 import org.megam.chef.core.Condition;
-import org.megam.chef.core.ScriptFeeder;
 import org.megam.chef.shell.Command;
-import org.megam.chef.shell.SingleShell;
 
+/**
+ * 
+ * @author rajthilak
+ * 
+ */
 @SuppressWarnings("rawtypes")
 public class ChefInfo extends ProvisionerInfo {
 
@@ -35,25 +36,32 @@ public class ChefInfo extends ProvisionerInfo {
 		super("CHEF");
 		token = new AccessData();
 		token();
-
 	}
 
+	/**
+	 * @return chef map
+	 */
 	public Map<String, String> map() {
 		return chef;
 	}
 
-	// set values to chef Map
-	// it is to get the values from config.json file
+	/**
+	 * 
+	 * @return set values to chef Map it is to get the values from config.json
+	 *         file
+	 * 
+	 */
 	public AccessData token() {
-		// System.out.println("----------------"+chef);
 		token.setCommand(chef.get(COMMAND));
 		token.setPlugin(chef.get(PLUGIN));
 		token.setRunList(chef.get(RUNLIST));
 		token.setName(chef.get(NAME));
 		return token;
-
 	}
 
+	/**
+	 * tostring method for chef map
+	 */
 	public String toString() {
 		StringBuilder strbd = new StringBuilder();
 		final Formatter formatter = new Formatter(strbd);
@@ -112,6 +120,11 @@ public class ChefInfo extends ProvisionerInfo {
 		return returnokvalue;
 	}
 
+	/**
+	 * 
+	 * @param key
+	 * @param value
+	 */
 	public void validate(String key, String value) {
 		for (Map.Entry<String, String> entry : map().entrySet()) {
 			if (entry.getKey().equals(key)) {

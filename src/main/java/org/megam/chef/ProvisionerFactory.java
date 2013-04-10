@@ -17,7 +17,6 @@ package org.megam.chef;
 
 import org.megam.chef.core.DefaultProvisioningService;
 import org.megam.chef.core.DefaultProvisioningServiceWithShell;
-import org.megam.chef.exception.BootStrapChefException;
 import org.megam.chef.exception.ProvisionerException;
 
 /**
@@ -37,29 +36,21 @@ public class ProvisionerFactory {
 	 * @throws ProvisionerException
 	 */
 	@SuppressWarnings("rawtypes")
-	public static ProvisioningService<?> create(TYPE type) throws ProvisionerException {
-		/**
-		 * Bit ugly, provisioner boostrapping it. We'll have an inmemory cache
-		 * for bootstrapped objects. and remove stale ones. will do later, for
-		 * now lets make it singleton
-		 */
-		try {
-			BootStrapChef.boot();
-			ProvisioningService<?> ps = null;
-			switch (type) {
-	        case CHEF_WITH_SHELL:
-	            ps = new DefaultProvisioningServiceWithShell(); 	            
-	            break;
-	        case    NONE:
-	            ps = new NoneProvisioningService();
-	            break;	        
-	        default: //default DefaultChefWithShell
-	        	ps = new DefaultProvisioningService();
-	            break; 
-	        }
-			return ps;
-		} catch (BootStrapChefException bsfce) {
-			throw new ProvisionerException(bsfce);
+	public static ProvisioningService<?> create(TYPE type)
+			throws ProvisionerException {
+
+		ProvisioningService<?> ps = null;
+		switch (type) {
+		case CHEF_WITH_SHELL:
+			ps = new DefaultProvisioningServiceWithShell();
+			break;
+		case NONE:
+			ps = new NoneProvisioningService();
+			break;
+		default: // default DefaultChefWithShell
+			ps = new DefaultProvisioningService();
+			break;
 		}
+		return ps;
 	}
 }

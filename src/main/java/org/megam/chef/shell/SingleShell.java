@@ -18,21 +18,33 @@ package org.megam.chef.shell;
 import java.lang.ProcessBuilder.Redirect;
 import java.util.concurrent.RecursiveAction;
 
-
+/**
+ * 
+ * @author rajthilak
+ * 
+ */
 public class SingleShell extends RecursiveAction {
-	
+
 	private Command cmd;
 	private String s;
 
+	/**
+	 * 
+	 * @param tempcmd
+	 */
 	public SingleShell(Command tempcmd) {
 		this.cmd = tempcmd;
 	}
 
+	/**
+	 * Processed the command using ProcessBuilder class Print the output's are
+	 * wrote in the some file
+	 */
 	public void compute() {
 		try {
-			// Processed the command using ProcessBuilder class
+			cmd.setRedirectOutput("kh");
+			cmd.setRedirectError("kh1");
 			ProcessBuilder p = new ProcessBuilder(cmd.getCommandList());
-			// Print the output's are wrote in the some file
 			p.redirectOutput(Redirect.appendTo(cmd.getRedirectOutputFile()));
 			Process p1 = p.start();
 		} catch (Exception e) {

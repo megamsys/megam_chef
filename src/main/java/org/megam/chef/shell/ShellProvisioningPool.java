@@ -34,7 +34,7 @@ public class ShellProvisioningPool {
 	private static ShellProvisioningPool spPool; 
 	private ForkJoinPool ourForky;
 	
-	private ShellProvisioningPool() {
+	public ShellProvisioningPool() {
 	     ourForky = new ForkJoinPool();
 	}
 	
