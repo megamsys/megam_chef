@@ -1,308 +1,0 @@
-...done
-Bootstrapping Chef on ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com --2013-04-11 06:26:40--  http://opscode.com/chef/install.sh
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com Resolving opscode.com (opscode.com)... 
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com 184.106.28.83
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com 
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com Connecting to opscode.com (opscode.com)|184.106.28.83|:80... 
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com connected.
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com HTTP request sent, awaiting response... 
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com 301 Moved Permanently
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com Location: http://www.opscode.com/chef/install.sh [following]
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com --2013-04-11 06:26:41--  http://www.opscode.com/chef/install.sh
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com Resolving www.opscode.com (www.opscode.com)... 
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com 184.106.28.82
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com 
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com Connecting to www.opscode.com (www.opscode.com)|184.106.28.82|:80... 
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com connected.
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com HTTP request sent, awaiting response... 
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com 200 OK
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com Length: 
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com 6470
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com  (6.3K)
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com  [application/x-sh]
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com Saving to: `STDOUT'
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com 
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com 
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com  0% [                                       ] 0           --.-K/s              
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com 
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com 100%[======================================>] 6,470       24.4K/s              
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com 
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com 100%[======================================>] 6,470       24.4K/s   in 0.3s    
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com 
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com 
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com 2013-04-11 06:26:42 (24.4 KB/s) - written to stdout [6470/6470]
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com 
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com Downloading Chef 10.24.0 for ubuntu...
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com Installing Chef 10.24.0
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com Selecting previously unselected package chef.
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com (Reading database ... 
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com (Reading database ... 5%
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com (Reading database ... 10%
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com (Reading database ... 15%
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com (Reading database ... 20%
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com (Reading database ... 25%
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com (Reading database ... 30%
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com (Reading database ... 35%
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com (Reading database ... 40%
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com (Reading database ... 45%
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com (Reading database ... 50%
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com (Reading database ... 55%
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com (Reading database ... 60%
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com (Reading database ... 65%
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com (Reading database ... 70%
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com (Reading database ... 75%
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com (Reading database ... 80%
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com (Reading database ... 85%
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com (Reading database ... 90%
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com (Reading database ... 95%
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com (Reading database ... 100%
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com (Reading database ... 
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com 47415 files and directories currently installed.)
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com Unpacking chef (from .../chef_10.24.0_amd64.deb) ...
-done
-Bootstrapping Chef on ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com Setting up chef (10.24.0-1.ubuntu.11.04) ...
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com Thank you for installing Chef!
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com Processing triggers for initramfs-tools ...
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com update-initramfs: Generating /boot/initrd.img-3.2.0-36-virtual
-done
-Bootstrapping Chef on ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com
-ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com --2013-04-11 06:27:22--  http://opscode.com/chef/install.sh
-ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com Resolving opscode.com (opscode.com)... 
-ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com 184.106.28.83
-ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com 
-ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com Connecting to opscode.com (opscode.com)|184.106.28.83|:80... 
-ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com connected.
-ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com HTTP request sent, awaiting response... 
-ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com 301 Moved Permanently
-ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com Location: http://www.opscode.com/chef/install.sh [following]
-ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com --2013-04-11 06:27:23--  http://www.opscode.com/chef/install.sh
-ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com Resolving www.opscode.com (www.opscode.com)... 
-ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com 184.106.28.83
-ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com 
-ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com Reusing existing connection to opscode.com:80.
-ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com HTTP request sent, awaiting response... 
-ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com 200 OK
-ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com Length: 
-ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com 6470
-ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com  (6.3K)
-ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com  [application/x-sh]
-ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com Saving to: `STDOUT'
-ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com 
-ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com 
-ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com  0% [                                       ] 0           --.-K/s              
-ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com 
-ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com 100%[======================================>] 6,470       25.1K/s              
-ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com 
-ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com 100%[======================================>] 6,470       25.1K/s   in 0.3s    
-ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com 
-ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com 
-ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com 2013-04-11 06:27:23 (25.1 KB/s) - written to stdout [6470/6470]
-ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com 
-ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com Downloading Chef 10.24.0 for ubuntu...
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com --2013-04-11 06:27:25--  http://opscode.com/chef/install.sh
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com Resolving opscode.com (opscode.com)... 
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com 184.106.28.83
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com 
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com Connecting to opscode.com (opscode.com)|184.106.28.83|:80... 
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com connected.
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com HTTP request sent, awaiting response... 
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com 301 Moved Permanently
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com Location: http://www.opscode.com/chef/install.sh [following]
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com --2013-04-11 06:27:26--  http://www.opscode.com/chef/install.sh
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com Resolving www.opscode.com (www.opscode.com)... 
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com 184.106.28.82
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com 
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com Connecting to www.opscode.com (www.opscode.com)|184.106.28.82|:80... 
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com connected.
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com HTTP request sent, awaiting response... 
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com 200 OK
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com Length: 
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com 6470
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com  (6.3K)
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com  [application/x-sh]
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com Saving to: `STDOUT'
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com 
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com 
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com  0% [                                       ] 0           --.-K/s              
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com 
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com 80% [==============================>        ] 5,216       20.1K/s              
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com 
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com 100%[======================================>] 6,470       24.9K/s   in 0.3s    
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com 
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com 
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com 2013-04-11 06:27:26 (24.9 KB/s) - written to stdout [6470/6470]
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com 
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com Downloading Chef 10.24.0 for ubuntu...
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com [2013-04-11T06:27:13+00:00] INFO: *** Chef 10.24.0 ***
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com [2013-04-11T06:27:14+00:00] INFO: [inet6] no default interface, picking the first ipaddress
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com [2013-04-11T06:27:15+00:00] INFO: Client key /etc/chef/client.pem is not present - registering
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com [2013-04-11T06:27:16+00:00] INFO: HTTP Request Returned 401 Unauthorized: Failed to authenticate. Ensure that your client key is valid.
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com 
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com ================================================================================
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com 
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com Chef encountered an error attempting to create the client "TestOverAll"
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com 
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com ================================================================================
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com 
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com 
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com Authentication Error:
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com 
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com ---------------------
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com 
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com Failed to authenticate to the chef server (http 401).
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com 
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com Server Response:
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com 
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com ----------------
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com 
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com Failed to authenticate. Ensure that your client key is valid.
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com 
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com 
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com Relevant Config Settings:
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com 
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com -------------------------
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com 
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com chef_server_url         "http://chef.megam.co.in:4000"
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com validation_client_name  "chef-validator"
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com validation_key          "/etc/chef/validation.pem"
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com 
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com If these settings are correct, your validation_key may be invalid.
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com 
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com [2013-04-11T06:27:16+00:00] FATAL: Stacktrace dumped to /var/chef/cache/chef-stacktrace.out
-ec2-46-137-228-142.ap-southeast-1.compute.amazonaws.com [2013-04-11T06:27:16+00:00] FATAL: Net::HTTPServerException: 401 "Unauthorized"
-ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com Installing Chef 10.24.0
-ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com Selecting previously unselected package chef.
-ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com (Reading database ... 
-ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com (Reading database ... 5%
-ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com (Reading database ... 10%
-ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com (Reading database ... 15%
-ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com (Reading database ... 20%
-ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com (Reading database ... 25%
-ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com (Reading database ... 30%
-ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com (Reading database ... 35%
-ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com (Reading database ... 40%
-ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com (Reading database ... 45%
-ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com (Reading database ... 50%
-ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com (Reading database ... 55%
-ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com (Reading database ... 60%
-ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com (Reading database ... 65%
-ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com (Reading database ... 70%
-ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com (Reading database ... 75%
-ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com (Reading database ... 80%
-ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com (Reading database ... 85%
-ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com (Reading database ... 90%
-ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com (Reading database ... 95%
-ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com (Reading database ... 100%
-ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com (Reading database ... 
-ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com 47415 files and directories currently installed.)
-ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com Unpacking chef (from .../chef_10.24.0_amd64.deb) ...
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com Installing Chef 10.24.0
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com Selecting previously unselected package chef.
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com (Reading database ... 
-ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com Setting up chef (10.24.0-1.ubuntu.11.04) ...
-ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com Thank you for installing Chef!
-ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com Processing triggers for initramfs-tools ...
-ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com update-initramfs: Generating /boot/initrd.img-3.2.0-36-virtual
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com (Reading database ... 5%
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com (Reading database ... 10%
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com (Reading database ... 15%
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com (Reading database ... 20%
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com (Reading database ... 25%
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com (Reading database ... 30%
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com (Reading database ... 35%
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com (Reading database ... 40%
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com (Reading database ... 45%
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com (Reading database ... 50%
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com (Reading database ... 55%
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com (Reading database ... 60%
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com (Reading database ... 65%
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com (Reading database ... 70%
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com (Reading database ... 75%
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com (Reading database ... 80%
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com (Reading database ... 85%
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com (Reading database ... 90%
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com (Reading database ... 95%
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com (Reading database ... 100%
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com (Reading database ... 
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com 47415 files and directories currently installed.)
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com Unpacking chef (from .../chef_10.24.0_amd64.deb) ...
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com Setting up chef (10.24.0-1.ubuntu.11.04) ...
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com Thank you for installing Chef!
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com Processing triggers for initramfs-tools ...
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com update-initramfs: Generating /boot/initrd.img-3.2.0-36-virtual
-ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com [2013-04-11T06:27:59+00:00] INFO: *** Chef 10.24.0 ***
-ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com [2013-04-11T06:28:00+00:00] INFO: [inet6] no default interface, picking the first ipaddress
-ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com [2013-04-11T06:28:01+00:00] INFO: Client key /etc/chef/client.pem is not present - registering
-ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com [2013-04-11T06:28:03+00:00] INFO: HTTP Request Returned 401 Unauthorized: Failed to authenticate. Ensure that your client key is valid.
-ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com 
-ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com ================================================================================
-ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com 
-ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com Chef encountered an error attempting to create the client "TestOverAll"
-ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com 
-ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com ================================================================================
-ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com 
-ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com 
-ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com Authentication Error:
-ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com 
-ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com ---------------------
-ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com 
-ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com Failed to authenticate to the chef server (http 401).
-ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com 
-ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com Server Response:
-ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com 
-ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com ----------------
-ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com 
-ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com Failed to authenticate. Ensure that your client key is valid.
-ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com 
-ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com 
-ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com Relevant Config Settings:
-ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com 
-ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com -------------------------
-ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com 
-ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com chef_server_url         "http://chef.megam.co.in:4000"
-ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com validation_client_name  "chef-validator"
-ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com validation_key          "/etc/chef/validation.pem"
-ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com 
-ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com If these settings are correct, your validation_key may be invalid.
-ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com 
-ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com [2013-04-11T06:28:03+00:00] FATAL: Stacktrace dumped to /var/chef/cache/chef-stacktrace.out
-ec2-54-251-202-71.ap-southeast-1.compute.amazonaws.com [2013-04-11T06:28:03+00:00] FATAL: Net::HTTPServerException: 401 "Unauthorized"
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com [2013-04-11T06:28:16+00:00] INFO: *** Chef 10.24.0 ***
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com [2013-04-11T06:28:17+00:00] INFO: [inet6] no default interface, picking the first ipaddress
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com [2013-04-11T06:28:18+00:00] INFO: Client key /etc/chef/client.pem is not present - registering
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com [2013-04-11T06:28:19+00:00] INFO: HTTP Request Returned 401 Unauthorized: Failed to authenticate. Ensure that your client key is valid.
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com 
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com ================================================================================
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com 
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com Chef encountered an error attempting to create the client "TestOverAll"
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com 
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com ================================================================================
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com 
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com 
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com Authentication Error:
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com 
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com ---------------------
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com 
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com Failed to authenticate to the chef server (http 401).
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com 
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com Server Response:
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com 
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com ----------------
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com 
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com Failed to authenticate. Ensure that your client key is valid.
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com 
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com 
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com Relevant Config Settings:
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com 
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com -------------------------
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com 
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com chef_server_url         "http://chef.megam.co.in:4000"
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com validation_client_name  "chef-validator"
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com validation_key          "/etc/chef/validation.pem"
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com 
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com If these settings are correct, your validation_key may be invalid.
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com 
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com [2013-04-11T06:28:19+00:00] FATAL: Stacktrace dumped to /var/chef/cache/chef-stacktrace.out
-ec2-54-251-215-22.ap-southeast-1.compute.amazonaws.com [2013-04-11T06:28:19+00:00] FATAL: Net::HTTPServerException: 401 "Unauthorized"
