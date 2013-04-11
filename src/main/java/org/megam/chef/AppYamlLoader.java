@@ -84,16 +84,19 @@ public class AppYamlLoader {
 	 */
 	public AppYaml currentYaml() {
 		AppYaml current = null;
-		yamlType = new AppYaml(loadedYaml.getMegamchef()).getConfig();
-
-		// check wheather the which source and return it
-		switch (yamlType) {
-		case "development":
-			current = new AppYaml(loadedYaml.getDevelopment());
-			break;
-		case "production":
-			current = new AppYaml(loadedYaml.getProduction());
-			break;
+		if ((new AppYaml(loadedYaml.getMegamchef()).getSource()).equals("none")) {
+			current = new AppYaml(loadedYaml.getMegamchef());
+		} else {
+			yamlType = new AppYaml(loadedYaml.getMegamchef()).getConfig();
+			// check wheather the which source and return it
+			switch (yamlType) {
+			case "development":
+				current = new AppYaml(loadedYaml.getDevelopment());
+				break;
+			case "production":
+				current = new AppYaml(loadedYaml.getProduction());
+				break;
+			}
 		}
 		return current;
 	}

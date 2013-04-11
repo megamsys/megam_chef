@@ -61,19 +61,19 @@
   <testcase name="testVersion" classname="org.megam.core.BootStrapChefTest" time="0">
     <failure message="Not yet implemented" type="java.lang.AssertionError">java.lang.AssertionError: Not yet implemented
 	at org.junit.Assert.fail(Assert.java:88)
-	at org.megam.core.BootStrapChefTest.testVersion(BootStrapChefTest.java:48)
+	at org.megam.core.BootStrapChefTest.testVersion(BootStrapChefTest.java:51)
 </failure>
   </testcase>
   <testcase name="testMegamChefRoot" classname="org.megam.core.BootStrapChefTest" time="0">
     <failure message="Not yet implemented" type="java.lang.AssertionError">java.lang.AssertionError: Not yet implemented
 	at org.junit.Assert.fail(Assert.java:88)
-	at org.megam.core.BootStrapChefTest.testMegamChefRoot(BootStrapChefTest.java:54)
+	at org.megam.core.BootStrapChefTest.testMegamChefRoot(BootStrapChefTest.java:57)
 </failure>
   </testcase>
   <testcase name="testMegamChefYaml" classname="org.megam.core.BootStrapChefTest" time="0">
     <failure message="Not yet implemented" type="java.lang.AssertionError">java.lang.AssertionError: Not yet implemented
 	at org.junit.Assert.fail(Assert.java:88)
-	at org.megam.core.BootStrapChefTest.testMegamChefYaml(BootStrapChefTest.java:60)
+	at org.megam.core.BootStrapChefTest.testMegamChefYaml(BootStrapChefTest.java:64)
 </failure>
   </testcase>
 </testsuite>

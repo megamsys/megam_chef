@@ -15,6 +15,8 @@
  */
 package org.megam.chef;
 
+import java.io.IOException;
+
 import org.megam.chef.ProvisionerFactory.TYPE;
 import org.megam.chef.exception.BootStrapChefException;
 import org.megam.chef.exception.ProvisionerException;
@@ -42,10 +44,10 @@ public class ChefServiceRunner {
 	 * @throws BootStrapChefException
 	 * @throws ProvisionerException
 	 * @throws SourceException
-	 *             booting the initialization classes load the source
+	 *             booting the initialization classes load the source	 * 
 	 */
 	public ChefServiceRunner with(TYPE type) throws BootStrapChefException,
-			ProvisionerException, SourceException {
+			ProvisionerException, SourceException, IOException {
 		logger.info("Booting Started");
 		app = BootStrapChef.boot().yaml();
 		source = new SourceLoader(app);

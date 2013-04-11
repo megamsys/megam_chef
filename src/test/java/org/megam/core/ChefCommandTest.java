@@ -17,6 +17,8 @@ package org.megam.core;
 
 import static org.junit.Assert.*;
 
+import java.io.IOException;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.megam.chef.AppYaml;
@@ -43,12 +45,17 @@ public class ChefCommandTest {
 	 * @param <T>
 	 * @throws ProvisionerException 	
 	 * @throws BootStrapChefException 
+	 * @throws IOException 
 	 */
 	@Before
-	public <T> void setUp() throws ProvisionerException, BootStrapChefException {			
+	public <T> void setUp() throws ProvisionerException, BootStrapChefException{	
+		try {
 		 //app = (new DefaultProvisioningServiceWithShell<T>()).currentSource();
 		BootStrapChef.boot();
 		ps = ProvisionerFactory.create(TYPE.CHEF_WITH_SHELL);
+	}catch(IOException ioe) {
+		throw new BootStrapChefException(ioe);
+	}
 	}
 	
 	/**
