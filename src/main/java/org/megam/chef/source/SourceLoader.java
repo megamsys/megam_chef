@@ -34,13 +34,14 @@ import org.slf4j.LoggerFactory;
 public class SourceLoader {
 
 	private Logger logger = LoggerFactory.getLogger(SourceLoader.class);
-	private static final String RIAK = "riak";	
+	private static final String RIAK = "riak";
 	private static final String NONE = "none";
 	private static String SOURCE;
 	private Source source;
+	private static String jsonString;
 	private AppYaml yaml;
 	AppYamlLoader app;
-	
+
 	/**
 	 * 
 	 * @param tempYaml
@@ -53,19 +54,19 @@ public class SourceLoader {
 	 * 
 	 * @throws SourceException
 	 */
-	public void load() throws SourceException  {	
-		
-		SOURCE=yaml.getSource();
+	public void load() throws SourceException {
+
+		SOURCE = yaml.getSource();
 		switch (SOURCE) {
 		case RIAK:
 			source = new RiakSource(yaml);
 			source.connection();
-			source.bucket("rajBucket");	
+			source.bucket("rajBucket");
 			logger.info("Source was loaded");
 			break;
 		case NONE:
 			break;
-		}	  		
+		}
 	}
 
 	/**
@@ -74,14 +75,21 @@ public class SourceLoader {
 	 * @return
 	 * @throws SourceException
 	 */
-    public String fetchRequestJSON(String id) throws SourceException {
-    return source().fetch(id);	
-    }
-    
-    private Source source() {
-    	return source;
-    }
-    	
+	public String fetchRequestJSON(String id) throws SourceException {
+		SOURCE = yaml.getSource();
+		switch (SOURCE) {
+		case RIAK:
+			jsonString = source().fetch(id);
+			break;
+		case NONE:
+			jsonString = id;
+			break;
+		}
+		return jsonString;
+	}
 
+	private Source source() {
+		return source;
+	}
 
 }

@@ -15,6 +15,10 @@
  */
 package org.megam.chef;
 
+import java.io.File;
+import java.io.IOException;
+
+import org.apache.commons.io.FileUtils;
 import org.megam.chef.exception.BootStrapChefException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,10 +37,12 @@ public class BootStrapChef {
 	/**
 	 * 
 	 * @throws BootStrapChefException
+	 * @throws IOException
 	 */
-	private BootStrapChef() throws BootStrapChefException {
+	private BootStrapChef() throws BootStrapChefException, IOException {
 		bootedUp();
 		configureRoot();
+		yamlSetup();
 		configure();
 
 	}
@@ -45,8 +51,10 @@ public class BootStrapChef {
 	 * 
 	 * @return
 	 * @throws BootStrapChefException
+	 * @throws IOException
 	 */
-	public static BootStrapChef boot() throws BootStrapChefException {
+	public static BootStrapChef boot() throws BootStrapChefException,
+			IOException {
 		if (bootSingleton == null) {
 			bootSingleton = new BootStrapChef();
 		}
@@ -100,4 +108,34 @@ public class BootStrapChef {
 
 	}
 
+	/**
+	 * 
+	 * @throws BootStrapChefException
+	 */
+	private void yamlSetup() throws BootStrapChefException {
+		try {
+			File file = new File(MEGAM_CHEF_APP_YAML);
+			boolean exists = file.exists();
+			System.out.println(MEGAM_USER_HOME);
+			if (!exists) {
+				// It returns false if File or directory does not exist
+				logger.info("The file you are searching does not exist, so we are copy the MEGAM default app.yaml file in your directory ");
+				String source = MEGAM_DEFAULT_CHEF_APP_YAML;
+				// directory where file will be copied
+				String target = MEGAM_USER_HOME + java.io.File.separator
+						+ ".megam" + java.io.File.separator;
+				File sourceFile = new File(source);
+				String name = sourceFile.getName();
+				File targetFile = new File(target + name);
+				System.out.println("Copying file : " + sourceFile.getName()
+						+ " from Java Program");
+				// copy file from one location to other
+				FileUtils.copyFile(sourceFile, targetFile);
+				System.out
+						.println("copying of file from Java program is completed");
+			}
+		} catch (IOException ioe) {
+			throw new BootStrapChefException(ioe);
+		}
+	}
 }

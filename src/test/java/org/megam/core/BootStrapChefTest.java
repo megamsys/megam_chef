@@ -17,6 +17,8 @@ package org.megam.core;
 
 import static org.junit.Assert.*;
 
+import java.io.IOException;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.megam.chef.BootStrapChef;
@@ -29,11 +31,12 @@ import org.megam.chef.exception.BootStrapChefException;
 public class BootStrapChefTest {
 
 	/**
+	 * @throws IOException 
 	 * @throws java.lang.Exception
 	 * @throws BootStrapChefException
 	 */
 	@Before
-	public void setUp() {
+	public void setUp() throws IOException {
 		// Call BootstrapChef
 		try {
 			BootStrapChef.boot();
@@ -57,6 +60,7 @@ public class BootStrapChefTest {
 	@Test
 	public void testMegamChefYaml() {
 		// test the Constants.MEGAM_CHEF_YAML
+		
 		fail("Not yet implemented");
 	}
 
