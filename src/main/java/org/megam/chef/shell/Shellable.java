@@ -23,8 +23,19 @@ import org.megam.chef.exception.ShellException;
  */
 public interface Shellable {
 	
+	/**
+	 * 
+	 * @param input
+	 * @return
+	 * @throws ShellException
+	 */
 	public Command jsonToCommand(String input) throws ShellException;
 	
+	/**
+	 * 
+	 * @param command
+	 * @throws ShellException
+	 */
 	public void execute(Command command) throws ShellException;
 
 }

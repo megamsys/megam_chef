@@ -20,12 +20,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 
+/**
+ * 
+ * @author rajthilak
+ * 
+ */
 public class Command {
 	private String inputCmd;
 	private File rdo;
 	private File rde;
 	private List<String> cmdList = new ArrayList<String>();
 
+	/**
+	 * 
+	 * @param s
+	 */
 	public Command(String s) {
 		this.inputCmd = s;
 		StringTokenizer st = new StringTokenizer(inputCmd);
@@ -34,26 +43,50 @@ public class Command {
 		}
 	}
 
+	/**
+	 * 
+	 * @param trdo
+	 */
 	public void setRedirectOutput(String trdo) {
 		this.rdo = new File(trdo);
 	}
 
+	/**
+	 * 
+	 * @return redirect output file
+	 */
 	public File getRedirectOutputFile() {
 		return rdo;
 	}
 
+	/**
+	 * 
+	 * @return raw command string
+	 */
 	public String getRawCommandString() {
 		return inputCmd;
 	}
 
+	/**
+	 * 
+	 * @return command list
+	 */
 	public List<String> getCommandList() {
 		return cmdList;
 	}
 
+	/**
+	 * 
+	 * @param trde
+	 */
 	public void setRedirectError(String trde) {
 		this.rde = new File(trde);
 	}
 
+	/**
+	 * 
+	 * @return redirect error file
+	 */
 	public File getRedirectErrorFile() {
 		return rde;
 	}

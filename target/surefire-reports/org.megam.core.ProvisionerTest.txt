@@ -1,0 +1,9 @@
+-------------------------------------------------------------------------------
+Test set: org.megam.core.ProvisionerTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.876 sec <<< FAILURE!
+testProvisionerService(org.megam.core.ProvisionerTest)  Time elapsed: 0.82 sec  <<< FAILURE!
+java.lang.AssertionError: Not yet implemented
+	at org.junit.Assert.fail(Assert.java:88)
+	at org.megam.core.ProvisionerTest.testProvisionerService(ProvisionerTest.java:62)
+

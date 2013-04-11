@@ -21,44 +21,50 @@ import org.junit.Before;
 import org.junit.Test;
 import org.megam.chef.AppYaml;
 import org.megam.chef.BootStrapChef;
+import org.megam.chef.ProvisionerFactory;
+import org.megam.chef.ProvisioningService;
+import org.megam.chef.ProvisionerFactory.TYPE;
+import org.megam.chef.core.DefaultProvisioningServiceWithShell;
 import org.megam.chef.exception.BootStrapChefException;
 import org.megam.chef.exception.ProvisionerException;
-import org.megam.chef.exception.ShellException;
 import org.megam.chef.exception.SourceException;
-import org.megam.chef.parser.JSONRequest;
 import org.megam.chef.source.riak.RiakSource;
 
+
 /**
- * @author ram
+ * @author rajthilak
  *
  */
-public class ProvisionerTest {
-
-	
-	private static BootStrapChef bootChef;
-	private static AppYaml sourceType;
-	private static String jsonString;
-	private static JSONRequest jsonRequest;
+public class ChefCommandTest {
+	private static String jsonString;	
+	private AppYaml app;	
+	private ProvisioningService ps;
 	/**
-	 * @throws java.lang.Exception
-	 * @throws BootStrapChefException	
+	 * @param <T>
+	 * @throws ProvisionerException 	
+	 * @throws BootStrapChefException 
 	 */
 	@Before
-	public void setUp() throws Exception, BootStrapChefException{
-		//use the Factory and fetch the appropriate ProvisoningService		
-		 bootChef.boot();
-		 sourceType = bootChef.yaml();		
-		
+	public <T> void setUp() throws ProvisionerException, BootStrapChefException {			
+		 //app = (new DefaultProvisioningServiceWithShell<T>()).currentSource();
+		BootStrapChef.boot();
+		ps = ProvisionerFactory.create(TYPE.CHEF_WITH_SHELL);
 	}
-
+	
+	/**
+	 * @param <T>
+	 * @throws SourceException
+	 * @throws ProvisionerException 	
+	 */
 	@Test
-	public void testProvisionerService() throws SourceException {
-		//assert to see the classname is what you need.
-		RiakSource rs =new RiakSource(sourceType);      	   
+	public <T> void test() throws SourceException, ProvisionerException {	
+		app = BootStrapChef.yaml();	
+		RiakSource rs =new RiakSource(app);      	   
   	    rs.connection();
   	    rs.bucket("rajBucket");
   	    jsonString = rs.fetch("sample");
-  	    System.out.println("JSON String : "+jsonString);    	   
+  	    System.out.println("JSON String : "+jsonString);  	  
+  	  (new DefaultProvisioningServiceWithShell<T>()).provision(jsonString);
 		fail("Not yet implemented");
 	}
 

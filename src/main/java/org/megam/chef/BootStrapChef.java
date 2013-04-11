@@ -16,6 +16,8 @@
 package org.megam.chef;
 
 import org.megam.chef.exception.BootStrapChefException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import static org.megam.chef.Constants.*;
 
 /**
@@ -25,51 +27,77 @@ import static org.megam.chef.Constants.*;
 public class BootStrapChef {
 
 	private static BootStrapChef bootSingleton;
-	private AppYaml bootedYaml; 
-	
+	private static AppYaml bootedYaml;
+	private Logger logger = LoggerFactory.getLogger(BootStrapChef.class);
+
+	/**
+	 * 
+	 * @throws BootStrapChefException
+	 */
 	private BootStrapChef() throws BootStrapChefException {
+		bootedUp();
 		configureRoot();
-		configure();	
-		bootedUp();		
+		configure();
+
 	}
-	
+
+	/**
+	 * 
+	 * @return
+	 * @throws BootStrapChefException
+	 */
 	public static BootStrapChef boot() throws BootStrapChefException {
-		if(bootSingleton ==null) {
+		if (bootSingleton == null) {
 			bootSingleton = new BootStrapChef();
-		}		
-		return bootSingleton;		
+		}
+		return bootSingleton;
 	}
-	
-	public AppYaml yaml() {
+
+	/**
+	 * 
+	 * @return
+	 */
+	public static AppYaml yaml() {
 		return bootedYaml;
 	}
-	
+
+	/**
+	 * configure the MEGAM_ROOT_DIRECTORY
+	 */
 	private void configureRoot() {
 		/** MEGAM_ROOT_DIR **/
-		System.out.println("Working Directory = " +
-	              System.getProperty("user.dir"));
-		//MEGAM_CHEF_ROOT =  System.getProperty("user.dir");
+		logger.info("MEGAM_ROOT_DIR");
+		logger.info(System.getProperty("user.dir"));
+		MEGAM_CHEF_ROOT = System.getProperty("user.dir");
 	}
-	
-	private void configure() throws BootStrapChefException {		
-		AppYamlLoader yaml = new AppYamlLoader(MEGAM_CHEF_APP_YAML);				
+
+	/**
+	 * 
+	 * @throws BootStrapChefException
+	 *             configure the yaml file
+	 */
+	private void configure() throws BootStrapChefException {
+		logger.info("Yaml loaded file entry");
+		AppYamlLoader yaml = new AppYamlLoader(MEGAM_CHEF_APP_YAML);
 		if (yaml.notReady()) {
 			throw new BootStrapChefException(new IllegalArgumentException(
-					"Something wrong in your yaml configuration file located in " + MEGAM_CHEF_APP_YAML));
+					"Something wrong in your yaml configuration file located in "
+							+ MEGAM_CHEF_APP_YAML));
 		}
-		bootedYaml = yaml.currentYaml();		
+		bootedYaml = yaml.currentYaml();
 	}
-	
+
 	private void bootedUp() {
 		/**
-		 * Use LoggerFactory, to instantiate a log at the top.
-		 * Put logging statements saying
-		 * ------------------------- MEGAM CHEF bootedup version : build date : ----------------------
-		 * dump the contents of AppYaml
+		 * Use LoggerFactory, to instantiate a log at the top. Put logging
+		 * statements saying ------------------------- MEGAM CHEF bootedup
+		 * version : build date : ---------------------- dump the contents of
+		 * AppYaml
 		 */
-		
+		logger.info("Booted up BootStrapChef");
+		logger.info("MEGAM CHEF bootedup version : " + VERSION);
+		logger.info("Build Date : " + BUILD_DATE);
+
 	}
-	
-	//toString method
 
 }

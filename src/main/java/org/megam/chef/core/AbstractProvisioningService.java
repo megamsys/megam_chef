@@ -26,15 +26,14 @@ import org.megam.chef.exception.ProvisionerException;
  * @param <T>
  * 
  */
-public abstract class AbstractProvisioningService<T> implements ProvisioningService<T> {
+public abstract class AbstractProvisioningService<T> implements
+		ProvisioningService<T> {
 
-	protected AppYaml app;
-
+	/**
+	 * 
+	 * @throws ProvisionerException
+	 */
 	public AbstractProvisioningService() throws ProvisionerException {
-		try {
-		app = BootStrapChef.boot().yaml();
-		} catch(BootStrapChefException bsce) {
-			throw new ProvisionerException(bsce);
-		}
+
 	}
 }

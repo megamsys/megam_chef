@@ -22,6 +22,8 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import org.megam.chef.exception.BootStrapChefException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.yaml.snakeyaml.constructor.Constructor;
 import org.yaml.snakeyaml.TypeDescription;
 import org.yaml.snakeyaml.Yaml;
@@ -35,21 +37,37 @@ public class AppYamlLoader {
 	AppYamlLoadedSetup loadedYaml;
 	private boolean notReady = false;
 	AppYaml appYaml;
+	private String yamlType;
+	private Logger logger = LoggerFactory.getLogger(AppYamlLoader.class);
 
+	/**
+	 * 
+	 * @param yamlFilePath
+	 * @throws BootStrapChefException
+	 */
 	AppYamlLoader(String yamlFilePath) throws BootStrapChefException {
 
 		load(yamlFilePath);
 	}
 
+	/**
+	 * 
+	 * @param yamlFilePath
+	 * @throws BootStrapChefException
+	 *             create the yaml object for specific constructor class Loaded
+	 *             yaml file on that class
+	 * 
+	 */
 	private void load(String yamlFilePath) throws BootStrapChefException {
 		try {
-			InputStream input = new FileInputStream(new File(yamlFilePath));			
+			InputStream input = new FileInputStream(new File(yamlFilePath));
 			Constructor constructor = new Constructor(AppYamlLoadedSetup.class);
 			TypeDescription appDescription = new TypeDescription(
 					AppYamlLoadedSetup.class);
 			constructor.addTypeDescription(appDescription);
-			Yaml yaml = new Yaml(constructor);			
-			loadedYaml = (AppYamlLoadedSetup) yaml.load(input);			
+			Yaml yaml = new Yaml(constructor);
+			loadedYaml = (AppYamlLoadedSetup) yaml.load(input);
+			logger.info("Yaml File Loaded");
 			notReady = (loadedYaml == null) ? true : false;
 		} catch (FileNotFoundException fnfe) {
 			fnfe.printStackTrace();
@@ -65,40 +83,36 @@ public class AppYamlLoader {
 	 * @return
 	 */
 	public AppYaml currentYaml() {
-		//AppYaml current = null;
-		//System.out.println("111" + appYaml.getConfig());
-		// switch () {
-		// case			
-		System.out.println(new AppYaml(loadedYaml.getMegamchef()));
-		return (new AppYaml(new AppYamlLoadedSetup().getDevelopment()));
+		AppYaml current = null;
+		yamlType = new AppYaml(loadedYaml.getMegamchef()).getConfig();
+
+		// check wheather the which source and return it
+		switch (yamlType) {
+		case "development":
+			current = new AppYaml(loadedYaml.getDevelopment());
+			break;
+		case "production":
+			current = new AppYaml(loadedYaml.getProduction());
+			break;
+		}
+		return current;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	boolean notReady() {
 		return notReady;
 	}
-}
-/*
- * public class AppYamlLoadedSetup {
- * 
- * //Map<String, String> development; // Map<String, String> production;
- * //Map<String, String> megam_chef;
- * 
- * public Map<String, String> getDevelopment() { return development; }
- * 
- * public void setDevelopment(Map<String, String> development) {
- * this.development = development; }
- * 
- * public Map<String, String> getProduction() { return production; }
- * 
- * public void setProduction(Map<String, String> production) { this.production =
- * production; }
- * 
- * //Map<String, String> getMegam_Chef() { // return megam_chef; //}
- * 
- * //void setMegam_Chef(Map<String, String> megam_chef) { // this.megam_chef =
- * megam_chef; //}
- */
-// }
-// }
-// write a toString method for debugging.
 
+	/**
+	 * @return
+	 */
+	public String toString() {
+
+		loadedYaml.toString();
+		System.out.println(currentYaml());
+		return null;
+	}
+}

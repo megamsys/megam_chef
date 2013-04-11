@@ -19,9 +19,12 @@ import java.io.IOException;
 
 import org.megam.chef.AppYaml;
 import org.megam.chef.AppYamlLoader;
+import org.megam.chef.BootStrapChef;
 import org.megam.chef.exception.SourceException;
 import org.megam.chef.source.riak.DropIn;
 import org.megam.chef.source.riak.RiakSource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author rajthilak
@@ -30,32 +33,49 @@ import org.megam.chef.source.riak.RiakSource;
 
 public class SourceLoader {
 
+	private Logger logger = LoggerFactory.getLogger(SourceLoader.class);
 	private static final String RIAK = "riak";	
+	private static final String NONE = "none";
+	private static String SOURCE;
 	private Source source;
 	private AppYaml yaml;
 	AppYamlLoader app;
-	private String jsonString;
-	SourceLoader(AppYaml tempYaml) {
+	
+	/**
+	 * 
+	 * @param tempYaml
+	 */
+	public SourceLoader(AppYaml tempYaml) {
 		this.yaml = tempYaml;
 	}
 
-	public void load() throws SourceException  {		
-		String SOURCE="riak";
-		/**
-		 * Use switch/case
-		 * Also write a NoneSource
-		 */
-		if (SOURCE.equals(RIAK)) {
-				source = new RiakSource(app.currentYaml());
-				source.connection();
-				source.bucket("rajBucket");
-				//jsonString = source.fetch("sample");
-		   }
+	/**
+	 * 
+	 * @throws SourceException
+	 */
+	public void load() throws SourceException  {	
 		
+		SOURCE=yaml.getSource();
+		switch (SOURCE) {
+		case RIAK:
+			source = new RiakSource(yaml);
+			source.connection();
+			source.bucket("rajBucket");	
+			logger.info("Source was loaded");
+			break;
+		case NONE:
+			break;
+		}	  		
 	}
 
-    public String fetchRequestJSON(DropIn in) throws SourceException {
-    return source().fetch(in.getId());	
+	/**
+	 * 
+	 * @param id
+	 * @return
+	 * @throws SourceException
+	 */
+    public String fetchRequestJSON(String id) throws SourceException {
+    return source().fetch(id);	
     }
     
     private Source source() {

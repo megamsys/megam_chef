@@ -13,37 +13,33 @@
 ** See the License for the specific language governing permissions and
 ** limitations under the License.
 */
-package org.megam.chef.source;
+package org.megam.core;
 
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+import org.megam.chef.ChefServiceRunner;
+import org.megam.chef.ProvisionerFactory.TYPE;
+import org.megam.chef.exception.BootStrapChefException;
+import org.megam.chef.exception.ProvisionerException;
 import org.megam.chef.exception.SourceException;
 
 /**
  * @author rajthilak
  *
  */
-public interface Source {
-	
+public class ChefServiceTest {
+
 	/**
 	 * 
 	 * @throws SourceException
+	 * @throws ProvisionerException
+	 * @throws BootStrapChefException
 	 */
-	public void connection() throws SourceException;
-	
-	/**
-	 * 
-	 * @param str
-	 * @return
-	 * @throws SourceException
-	 */
-	public String fetch(String str) throws SourceException ;
-	
-	/**
-	 * 
-	 * @param str
-	 * @throws SourceException
-	 */
-	public void bucket(String str) throws SourceException;
-	
-	public void mutate();
+	@Test
+	public void test() throws SourceException, ProvisionerException, BootStrapChefException {
+		(new ChefServiceRunner()).with(TYPE.CHEF_WITH_SHELL).input("sample").controller();
+		fail("Not yet implemented");
+	}
 
 }
