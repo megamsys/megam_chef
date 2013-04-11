@@ -26,7 +26,7 @@ public class AppYaml {
 	/**
 	 * create the Map object for current Yaml source
 	 */
-	private static Map<String, String> yamlSource;
+	private Map<String, String> yamlSource;
 	private static final String SOURCE = "source";
 	private static final String HOST = "host";
 	private static final String PORT = "port";
@@ -60,5 +60,7 @@ public class AppYaml {
 	public String getConfig() {
 		return yamlSource.get(CONFIG);
 	}
+	
+	
 
 }

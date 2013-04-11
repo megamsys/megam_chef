@@ -82,7 +82,7 @@ public class AppYamlLoader {
 	 * 
 	 * @return
 	 */
-	public AppYaml currentYaml() {
+	public AppYaml current() {
 		AppYaml current = null;
 		if ((new AppYaml(loadedYaml.getMegamchef()).getSource()).equals("none")) {
 			current = new AppYaml(loadedYaml.getMegamchef());
@@ -115,7 +115,7 @@ public class AppYamlLoader {
 	public String toString() {
 
 		loadedYaml.toString();
-		System.out.println(currentYaml());
+		System.out.println(current());
 		return null;
 	}
 }

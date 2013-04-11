@@ -22,14 +22,15 @@ public class ComputeInfo implements DataMap, ScriptFeeder, Condition {
 	private static final String SSHKEY = "ssh-key";
 	private static final String IDENTITYFILE = "identity-file";
 	private static final String SSHUSER = "ssh-user";
-	List<Boolean> list = new ArrayList<Boolean>();
-	List<String> inputavailablereason = new ArrayList<String>();
+	private List<Boolean> list = new ArrayList<Boolean>();
+	private List<String> inputavailablereason = new ArrayList<String>();
 
 	/**
 	 * create Map name as ec2 from config.json file
 	 */
 	private Map<String, String> ec2 = new HashMap<String, String>();
 	private Map<String, String> access = new HashMap<String, String>();
+	
 	private AccessData token;
 
 	public ComputeInfo() {

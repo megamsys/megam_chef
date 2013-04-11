@@ -20,8 +20,18 @@ package org.megam.chef.source.riak;
  *
  */
 public class DropIn {
+	
+	private String idString;
+	
+	public DropIn(String tempIdString) {
+		this.idString = tempIdString;
+	}
 
 	public String getId() {
-		return "sample";
+		return idString;
+	}
+	
+	public String toString() {
+		return "ID =>" + getId();
 	}
 }

@@ -65,7 +65,7 @@ public class BootStrapChef {
 	 * 
 	 * @return
 	 */
-	public static AppYaml yaml() {
+	public AppYaml yaml() {
 		return bootedYaml;
 	}
 
@@ -74,7 +74,6 @@ public class BootStrapChef {
 	 */
 	private void configureRoot() {
 		/** MEGAM_ROOT_DIR **/
-		logger.info("MEGAM_ROOT_DIR");
 		logger.info(System.getProperty("user.dir"));
 		MEGAM_CHEF_ROOT = System.getProperty("user.dir");
 	}
@@ -85,30 +84,30 @@ public class BootStrapChef {
 	 *             configure the yaml file
 	 */
 	private void configure() throws BootStrapChefException {
-		logger.info("Yaml loaded file entry");
+		logger.debug("Yaml loaded file entry");
 		AppYamlLoader yaml = new AppYamlLoader(MEGAM_CHEF_APP_YAML);
 		if (yaml.notReady()) {
 			throw new BootStrapChefException(new IllegalArgumentException(
 					"Something wrong in your yaml configuration file located in "
 							+ MEGAM_CHEF_APP_YAML));
 		}
-		bootedYaml = yaml.currentYaml();
+		bootedYaml = yaml.current();
 	}
 
+	/*
+	 * Use LoggerFactory, to instantiate a log at the top. Put logging
+	 * statements saying ------------------------- MEGAM CHEF bootedup version :
+	 * build date : ----------------------
+	 */
 	private void bootedUp() {
-		/**
-		 * Use LoggerFactory, to instantiate a log at the top. Put logging
-		 * statements saying ------------------------- MEGAM CHEF bootedup
-		 * version : build date : ---------------------- dump the contents of
-		 * AppYaml
-		 */
-		logger.info("Booted up BootStrapChef");
-		logger.info("MEGAM CHEF bootedup version : " + VERSION);
-		logger.info("Build Date : " + BUILD_DATE);
+		logger.info("------------------------- MEGAM CHEF version : " + VERSION
+				+ "Build Date : " + BUILD_DATE + "----------------------");
 
 	}
 
 	/**
+	 * Copy the default chefapp.yaml to .megam/chefappyaml if one doesn't exist.
+	 * If one exists then, use it load it.
 	 * 
 	 * @throws BootStrapChefException
 	 */
@@ -116,23 +115,22 @@ public class BootStrapChef {
 		try {
 			File file = new File(MEGAM_CHEF_APP_YAML);
 			boolean exists = file.exists();
-			System.out.println(MEGAM_USER_HOME);
+			logger.info(MEGAM_USER_HOME);
 			if (!exists) {
-				// It returns false if File or directory does not exist
-				logger.info("The file you are searching does not exist, so we are copy the MEGAM default app.yaml file in your directory ");
 				String source = MEGAM_DEFAULT_CHEF_APP_YAML;
-				// directory where file will be copied
 				String target = MEGAM_USER_HOME + java.io.File.separator
 						+ ".megam" + java.io.File.separator;
+				logger.warn(file.getAbsolutePath()
+						+ " not found. copying default " + MEGAM_CHEF_APP_YAML
+						+ "to" + target);
 				File sourceFile = new File(source);
 				String name = sourceFile.getName();
 				File targetFile = new File(target + name);
-				System.out.println("Copying file : " + sourceFile.getName()
-						+ " from Java Program");
-				// copy file from one location to other
+				logger.info("copying file : " + sourceFile.getName() + " to "
+						+ target);
 				FileUtils.copyFile(sourceFile, targetFile);
-				System.out
-						.println("copying of file from Java program is completed");
+				logger.info("copy of file :" + sourceFile.getName() + " to "
+						+ target + " successful.");
 			}
 		} catch (IOException ioe) {
 			throw new BootStrapChefException(ioe);

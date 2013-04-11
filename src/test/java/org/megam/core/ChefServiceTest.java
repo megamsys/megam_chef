@@ -41,7 +41,7 @@ public class ChefServiceTest {
 	@Test
 	public void test() throws SourceException, ProvisionerException, BootStrapChefException {
 		try {
-		(new ChefServiceRunner()).with(TYPE.CHEF_WITH_SHELL).input("sample").controller();
+		(new ChefServiceRunner()).with(TYPE.CHEF_WITH_SHELL).input("sample").control();
 		fail("Not yet implemented");
 		}catch(IOException ioe) {
 			throw new BootStrapChefException(ioe);

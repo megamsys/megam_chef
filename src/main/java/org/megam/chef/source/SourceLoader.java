@@ -15,13 +15,9 @@
  */
 package org.megam.chef.source;
 
-import java.io.IOException;
-
 import org.megam.chef.AppYaml;
 import org.megam.chef.AppYamlLoader;
-import org.megam.chef.BootStrapChef;
 import org.megam.chef.exception.SourceException;
-import org.megam.chef.source.riak.DropIn;
 import org.megam.chef.source.riak.RiakSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,13 +30,19 @@ import org.slf4j.LoggerFactory;
 public class SourceLoader {
 
 	private Logger logger = LoggerFactory.getLogger(SourceLoader.class);
+	/**
+	 * Static variables which represent if its riak or none source
+	 */
 	private static final String RIAK = "riak";
 	private static final String NONE = "none";
-	private static String SOURCE;
-	private Source source;
-	private static String jsonString;
+	/**
+	 * The loaded source object
+	 */
+	private Source source;	
+	/**
+	 * The passed in yaml, converted to java, fetched from .megam/chefapp.yaml
+	 */
 	private AppYaml yaml;
-	AppYamlLoader app;
 
 	/**
 	 * 
@@ -51,41 +53,38 @@ public class SourceLoader {
 	}
 
 	/**
-	 * 
+	 * Loads the appropriate source object.
+	 * The valid source are 
+	 * RiakSource, NoneSource
 	 * @throws SourceException
 	 */
 	public void load() throws SourceException {
-
-		SOURCE = yaml.getSource();
-		switch (SOURCE) {
+		switch (yaml.getSource()) {
 		case RIAK:
-			source = new RiakSource(yaml);
-			source.connection();
-			source.bucket("rajBucket");
-			logger.info("Source was loaded");
+			source = new RiakSource(yaml);	
 			break;
 		case NONE:
+			source = new NoneSource();
 			break;
 		}
+		source.connection();
+		source.bucket(yaml.getBucket());
+		logger.info("Source was loaded");
 	}
 
 	/**
-	 * 
+	 * Returns the json as fetched by using the id passed in from the source.
+	 * The source can be RiakSource, or NoneSource.
+	 * RiakSource => In case of riak source, a fetch on the bucket using an id is performed. This means
+	 * an id containing a JSON value should exist for that host/post/bucket in riak.
+	 * NoneSource => In this case it is assumed that the passed in input (as id) contains the JSON string
+	 * to process.
 	 * @param id
 	 * @return
 	 * @throws SourceException
 	 */
 	public String fetchRequestJSON(String id) throws SourceException {
-		SOURCE = yaml.getSource();
-		switch (SOURCE) {
-		case RIAK:
-			jsonString = source().fetch(id);
-			break;
-		case NONE:
-			jsonString = id;
-			break;
-		}
-		return jsonString;
+		return source().fetch(id);
 	}
 
 	private Source source() {

@@ -15,6 +15,7 @@
  */
 package org.megam.chef;
 
+import java.util.Formatter;
 import java.util.Map;
 
 /**
@@ -88,15 +89,19 @@ public class AppYamlLoadedSetup {
 	 * toString() is display the map key's and their values
 	 */
 	public String toString() {
-		for (Map.Entry entry : development.entrySet()) {
-			System.out.println(entry.getKey() + ", " + entry.getValue());
+		StringBuilder strbd = new StringBuilder();
+		final Formatter formatter = new Formatter(strbd);
+		formatter.format("%s%n", "*----------------------- chefapp.yaml -------------------*");
+		for (Map.Entry<String, String> entry : getMegamchef().entrySet()) {
+			formatter.format("%10s = %s%n", entry.getKey(), entry.getValue());
 		}
-		for (Map.Entry entry : production.entrySet()) {
-			System.out.println(entry.getKey() + ", " + entry.getValue());
+		for (Map.Entry<String, String> entry : getDevelopment().entrySet()) {
+			formatter.format("%10s = %s%n", entry.getKey(), entry.getValue());
 		}
-		for (Map.Entry entry : megamchef.entrySet()) {
-			System.out.println(entry.getKey() + ", " + entry.getValue());
-		}
-		return null;
+		for (Map.Entry<String, String> entry : getProduction().entrySet()) {
+			formatter.format("%10s = %s%n", entry.getKey(), entry.getValue());
+		}		
+		formatter.close();
+		return strbd.toString();
 	}
 }

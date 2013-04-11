@@ -38,6 +38,7 @@ import org.megam.chef.source.riak.RiakSource;
  *
  */
 public class ChefCommandTest {
+	
 	private static String jsonString;	
 	private AppYaml app;	
 	private ProvisioningService ps;
@@ -50,7 +51,6 @@ public class ChefCommandTest {
 	@Before
 	public <T> void setUp() throws ProvisionerException, BootStrapChefException{	
 		try {
-		 //app = (new DefaultProvisioningServiceWithShell<T>()).currentSource();
 		BootStrapChef.boot();
 		ps = ProvisionerFactory.create(TYPE.CHEF_WITH_SHELL);
 	}catch(IOException ioe) {

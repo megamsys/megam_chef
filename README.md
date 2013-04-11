@@ -5,11 +5,12 @@ Java based API which accepts a JSON request, builds a chef command line using (K
 
 ### Requirements
 
-> [Opensource Chef Server 10 +](http://docs.opscode.com/chef_overview_server_open_source.html)
-> [Chef workstation](http://docs.opscode.com/install_workstation.html)
-> [OpenJDK 7.0](http://openjdk.java.net/install/index.html)
-> [* optional - Riak - 1.3.1 +](http://docs.basho.com/riak/latest/tutorials/installation/Installing-on-Debian-and-Ubuntu/)  
-> [* optional - Erlang R15B01]
+> 
+[Opensource Chef Server 10 +](http://docs.opscode.com/chef_overview_server_open_source.html)
+[Chef workstation](http://docs.opscode.com/install_workstation.html)
+[OpenJDK 7.0](http://openjdk.java.net/install/index.html)
+[* optional - Riak - 1.3.1 +](http://docs.basho.com/riak/latest/tutorials/installation/Installing-on-Debian-and-Ubuntu/)  
+[* optional - Erlang R15B01]
 
 #### Tested on Ubuntu 12.10, 13.04, AWS - EC2
 
@@ -79,15 +80,82 @@ ChefServiceRunner csc = (new ChefServiceRunner().with(CHEF_WITH_SHELL).input(__)
 ### Input JSON
 
 ```json
+{
+	"systemprovider": {
+		"provider": {
+			"prov": "chef"
+		}
+	},
+	"compute": {
+		"ec2": {
+			"groups": "megam",
+			"image": "ami-56e6a404",
+			"flavor": "m1.small"
+		},
+		"access": {
+			"ssh-key": "megam_ec2",
+			"identity-file": "~/.ssh/megam_ec2.pem",
+			"ssh-user": "ubuntu"
+		}
+	},
+	"chefservice": {
+		"chef": {
+			"command": "knife",
+			"plugin": "ec2 server create",
+			"run-list": "'role[opendj]'",
+			"name": "-N TestOverAll"
+		}
+	}
+}
 
 ```
-
-`field 1:` <yes/no> : yes => means there is a datasource that megam_chef should use. The supported datasource is Riak.
+#### provider
+`prov:` <chef/none> : yes => means there is a datasource that megam_chef should use. The supported datasource is Riak.
 Postgresql support is a work under progress.
 
-`field 2:` <development, production, staging, test ..> : The value that is entered needs to have a matching section with the 
+#### ec2 
+`groups:` <development, production, staging, test ..> : The value that is entered needs to have a matching section with the 
 same name. For instance if the config is `development` then a section following it needs to have the values for it.
 
+`groups:` <development, production, staging, test ..> : The value that is entered needs to have a matching section with the 
+same name. For instance if the config is `development` then a section following it needs to have the values for it.
+
+`groups:` <development, production, staging, test ..> : The value that is entered needs to have a matching section with the 
+same name. For instance if the config is `development` then a section following it needs to have the values for it.
+
+#### access 
+`ssh-key:` <development, production, staging, test ..> : The value that is entered needs to have a matching section with the 
+same name. For instance if the config is `development` then a section following it needs to have the values for it.
+
+`identity-file:` <development, production, staging, test ..> : The value that is entered needs to have a matching section with the 
+same name. For instance if the config is `development` then a section following it needs to have the values for it.
+
+`ssh-user:` <development, production, staging, test ..> : The value that is entered needs to have a matching section with the 
+same name. For instance if the config is `development` then a section following it needs to have the values for it.
+
+#### chef
+`command:` <development, production, staging, test ..> : The value that is entered needs to have a matching section with the 
+same name. For instance if the config is `development` then a section following it needs to have the values for it.
+
+`plugin:` <development, production, staging, test ..> : The value that is entered needs to have a matching section with the 
+same name. For instance if the config is `development` then a section following it needs to have the values for it.
+
+`run-list:` <development, production, staging, test ..> : The value that is entered needs to have a matching section with the 
+same name. For instance if the config is `development` then a section following it needs to have the values for it.
+
+## Validation
+The following validations happen 
+
+* 
+*
+* The hooked up provider (Let us say DefaultProvisionerChefWithShell) is the selected default one. If that is the case
+then the command knife -version is run before the run list can be executed.  If the validation conditions fail,
+then the follow reason appears.
+
+```
+Dump the system error.
+
+``` 
 
 
 ### Use case : source = no
@@ -110,17 +178,18 @@ request using an `id` in a datastore. We choose `Riak`.
 
 Just the sample class SampleChefRunner as illustrated above.
  
-Refer the example java class for more information. 
+Refer the BasicExample.java to get started. 
 
-We are glad to help if you have questions.
+We are glad to help if you have questions, or request for new features..
 
-[twitter](http://twitter.com/indykish) [email](rajthilak@megam.co.in)
+[twitter](http://twitter.com/indykish) [email](<rajthilak@megam.co.in>)
 
 #### TO - DO
 
+* Stoppable actions
+* Interface to [megam_akka](https://github.com/indykish/megam_play) 
+* Pooled runners
 * Postgresql support
-* cancellable/Stoppable actions
-* interface to [megam_play](https://github.com/indykish/megam_play) 
 	
 # License
 

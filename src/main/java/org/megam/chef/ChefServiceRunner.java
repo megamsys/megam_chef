@@ -48,12 +48,12 @@ public class ChefServiceRunner {
 	 */
 	public ChefServiceRunner with(TYPE type) throws BootStrapChefException,
 			ProvisionerException, SourceException, IOException {
-		logger.info("Booting Started");
+		logger.info("Chef service runner - started.");
 		app = BootStrapChef.boot().yaml();
 		source = new SourceLoader(app);
 		source.load();
 		ps = ProvisionerFactory.create(type);
-		logger.info("Booting Successfully completed");
+		logger.info("Provisioner created successfully.");
 		return this;
 	}
 
@@ -75,7 +75,7 @@ public class ChefServiceRunner {
 		return this;
 	}
 
-	public ChefServiceRunner controller() {
+	public ChefServiceRunner control() {
 		return this;
 	}
 }
