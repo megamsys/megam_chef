@@ -5,8 +5,11 @@ Java based API which accepts a JSON request, builds a chef command line using (K
 
 ### Requirements
 
-1. chef
-2. Riak
+> [Opensource Chef Server 10 >](http://docs.opscode.com/chef_overview_server_open_source.html)
+> [Chef workstation](http://docs.opscode.com/install_workstation.html)
+> [Riak - 1.3.1 >](http://docs.basho.com/riak/latest/tutorials/installation/Installing-on-Debian-and-Ubuntu/)  
+> [OpenJDK 7.0](http://openjdk.java.net/install/index.html)
+
 
 ### Installing chef
 
