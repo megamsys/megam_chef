@@ -7,111 +7,120 @@ Java based API which accepts a JSON request, builds a chef command line using (K
 
 > [Opensource Chef Server 10 >](http://docs.opscode.com/chef_overview_server_open_source.html)
 > [Chef workstation](http://docs.opscode.com/install_workstation.html)
-> [Riak - 1.3.1 >](http://docs.basho.com/riak/latest/tutorials/installation/Installing-on-Debian-and-Ubuntu/)  
 > [OpenJDK 7.0](http://openjdk.java.net/install/index.html)
+> [* optional - Riak - 1.3.1 >](http://docs.basho.com/riak/latest/tutorials/installation/Installing-on-Debian-and-Ubuntu/)  
+> [* optional - Erlang R15B01]
+
+#### Tested on Ubuntu 12.10, 13.04, AWS - EC2
+
+## Usage
+
+Let us say your `ENV[HOME]` is `/home/ram`. When megam_chef is runs inside your java (or) scala (or) scala/akka/play .. program, 
+it verifies if a file named exists `~/.megam/chefapp.yaml`.
+
+If this is the initial run, then it creates the default file as shown below at `~/.megam/chefapp.yaml` 
+
+The default contents of `~/.megam/chefapp.yaml` is as follows:
+
+```
+megamchef: 
+        config: 'development'
+        source: no
+development: 
+      source: 'riak'
+      host: 'localhost'
+      port: '8098'
+      bucket: 'megam_prov'
+production: 
+      source: 'riak'
+      host: 'riak.megam.co'
+      port: '8098'
+      bucket: 'megam_prov'      
+```
+###
+
+`source:` <yes/no> : yes => means there is a datasource that megam_chef should use. The supported datasource is Riak.
+Postgresql support is a work under progress.
+
+`config:` <development, production, staging, test ..> : The value that is entered needs to have a matching section with the 
+same name. For instance if the config is `development` then a section following it needs to have the values for it.
+
+You have noticed above that by default source is `no`, and hence `no data source` is needed to work with this API. 
+
+### Prepare your program
+
+Before your run it,
+
+* Opensource Chef Server (or) Hosted Chef running
+* Required Cookbooks, Runlist uploaded to the Chef Server
+* A chef client created, and knife command works as intended.
+* optional - Riak running, and has the bucket named as configured in yaml file.
 
 
-### Installing chef
+> Add this maven dependency
 
-   You can install chef by running :
+```xml
+	<dependency>
+	<groupId>org.megam</groupId>
+	<artifactId>chef</artifactId>
+	<version>0.1</version>
+	</dependency>
+```
+
+> Invoking megam_chef
+
+```java
+
+import ?
+
+ChefServiceRunner csc = (new ChefServiceRunner().with(CHEF_WITH_SHELL).input(__);
+
+```
+### Input JSON
+
+```json
+
+```
+
+`field 1:` <yes/no> : yes => means there is a datasource that megam_chef should use. The supported datasource is Riak.
+Postgresql support is a work under progress.
+
+`field 2:` <development, production, staging, test ..> : The value that is entered needs to have a matching section with the 
+same name. For instance if the config is `development` then a section following it needs to have the values for it.
+
+
+
+### Use case : source = no
+
+This attaches a NoneSource, and expects the input to be a JSON.
+
+
+### Use case : source = yes
+
+This attaches the source as per the naming convention. If `riak` is present, then a RiakSource is attached.
+Basho's `riak-java-client` is used to interface with Riak.
+
+#### Purpose of a data source
+
+We have intermediatories which would intercept a request validate the shared HMAC of a requestor and stored the 
+request using an `id` in a datastore. We choose `Riak`. 
+
    
-		$ gem install chef 
-         
-   you can also denote the version using the `-v version`
-   
-   After installing chef we are verify the chef by running :
-   
-   		$ gem list | grep chef
-
-### Installing Riak
-
-    Installing From Apt-Get
-
-             If you wish to just install Riak and get on with your life, use apt-get.
-
-             First you must get the signing key.
-
-                     $ curl http://apt.basho.com/gpg/basho.apt.key | sudo apt-key add -
-
-             Then add the Basho repository to your apt sources list (and update them).
-
-                     $ sudo bash -c "echo deb http://apt.basho.com $(lsb_release -sc) main > /etc/apt/sources.list.d/basho.list"
-                     $ sudo apt-get update
-
-             Now install riak.
-
-                     $ sudo apt-get install riak
-
-             That should be all.
-             
-    Installing Riak From Source
-
-             First, install Riak dependencies using apt:
-
-                     $ sudo apt-get install build-essential libc6-dev-i386 git
-
-             Riak requires `Erlang R15B01`. Note: don't use `Erlang version R15B02 or R15B03`, for the moment, as it causes an error with riak-admin status commands. If Erlang is not already installed, install it before continuing (see: Installing Erlang for more information).
-
-             With Erlang installed, proceed to downloading and installing Riak:
-
-             If the build was successful, a fresh build of Riak will exist in the rel/riak directory.
-             
-For more detail about `riak` visit `http://docs.basho.com/index.html`
-     
 ### Running the application
 
-		> you could run this application then add some dependencies in your `pom.xml`
-		
-					<!-- Logging -->
-				<dependency>
-					<groupId>org.slf4j</groupId>
-					<artifactId>slf4j-api</artifactId>
-					<version>${org.slf4j-version}</version>
-				</dependency>
-				<dependency>
-					<groupId>org.slf4j</groupId>
-					<artifactId>jcl-over-slf4j</artifactId>
-					<version>${org.slf4j-version}</version>
-				</dependency>
-				<dependency>
-					<groupId>org.slf4j</groupId>
-					<artifactId>slf4j-log4j12</artifactId>
-					<version>${org.slf4j-version}</version>
-					<scope>runtime</scope>
-				</dependency>
-				
-		> These dependencies are using slf4j at logging the details
-		
-				<!--  Gson -->
-				<dependency>
-					<groupId>com.google.code.gson</groupId>
-					<artifactId>gson</artifactId>
-					<version>2.2.2</version>
-				</dependency>   
-				
-		> This dependency to load the `gson parser` for `json to object`
-		
-				<!--  Snake Yaml -->
-				<dependency>
-					<groupId>org.yaml</groupId>
-					<artifactId>snakeyaml</artifactId>
-					<version>1.12</version>
-				</dependency>  
-				
-		> `snakeyaml` is parser for yaml file's
-		
-				<!-- Riak -->
-				<dependency>
-					<groupId>com.basho.riak</groupId>
-					<artifactId>riak-client</artifactId>
-					<version>1.1.0</version>
-				</dependency>
-				
-		> `Riak` dependency is to create a api for riak java client
-		
-	###After the add the dependencies you need update the maven 
-	
-`Finally run the application using junit test classes or terminal via run` 
+Just the sample class SampleChefRunner as illustrated above.
+ 
+Refer the example java class for more information. 
+
+We are glad to help if you have questions.
+
+[twitter](http://twitter.com/indykish) [email](rajthilak@megam.co.in)
+
+#### TO - DO
+
+* Postgresql support
+* cancellable/Stoppable actions
+* interface to [megam_play](https://github.com/indykish/megam_play) 
 	
 # License
 
