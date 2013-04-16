@@ -93,14 +93,20 @@ public class AccessData {
 	}
 
 	/**
-	 * 
+	 * app =   BootStrapChef.boot().yaml();	
+		RiakSource rs =new RiakSource(app);      	   
+  	    rs.connection();
+  	    rs.bucket("rajBucket");
+  	    jsonString = rs.fetch("sample");
+  	    System.out.println("JSON String : "+jsonString);  	  
+  	  (new DefaultProvisioningServiceWithShell<T>()).provision(jsonString);
 	 * @param command
 	 */
 	public void setCommand(String command) {
 		this.command = command;
 	}
 
-	/**
+	/**AccessData
 	 * 
 	 * @return plugin
 	 */

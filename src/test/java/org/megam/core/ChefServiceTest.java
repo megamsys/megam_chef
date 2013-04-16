@@ -15,12 +15,13 @@
 */
 package org.megam.core;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.fail;
 
 import java.io.IOException;
 
 import org.junit.Test;
 import org.megam.chef.ChefServiceRunner;
+import org.megam.chef.DropIn;
 import org.megam.chef.ProvisionerFactory.TYPE;
 import org.megam.chef.exception.BootStrapChefException;
 import org.megam.chef.exception.ProvisionerException;
@@ -41,7 +42,7 @@ public class ChefServiceTest {
 	@Test
 	public void test() throws SourceException, ProvisionerException, BootStrapChefException {
 		try {
-		(new ChefServiceRunner()).with(TYPE.CHEF_WITH_SHELL).input("sample").control();
+		(new ChefServiceRunner()).with(TYPE.CHEF_WITH_SHELL).input(new DropIn("sample")).control();
 		fail("Not yet implemented");
 		}catch(IOException ioe) {
 			throw new BootStrapChefException(ioe);

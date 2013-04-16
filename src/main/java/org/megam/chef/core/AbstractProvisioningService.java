@@ -22,6 +22,9 @@ import org.megam.chef.exception.BootStrapChefException;
 import org.megam.chef.exception.ProvisionerException;
 
 /**
+ * This the supercalls of all provisioning service. This implements the interface provisioning service. 
+ * Any common methods that span across all the concrete service shall be included in here. 
+ * At the moment nothing is available.
  * @author ram
  * @param <T>
  * 

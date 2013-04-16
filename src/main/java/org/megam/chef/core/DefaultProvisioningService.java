@@ -3,7 +3,7 @@ package org.megam.chef.core;
 import org.megam.chef.exception.ProvisionerException;
 
 /**
- * 
+ * This class isn't implemented. Use DefaultProvisioningServiceWithShell
  * @author rajthilak
  * 
  */

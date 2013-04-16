@@ -58,7 +58,7 @@ public class NoneSource implements Source {
 	 */
 	@Override
 	public void mutate() {
-		throw new RuntimeException("You can't mutate a none source's bucket")
+		throw new RuntimeException("You can't mutate a none source's bucket");
 	}
 
 }

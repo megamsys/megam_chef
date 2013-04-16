@@ -13,9 +13,8 @@
  ** See the License for the specific language governing permissions and
  ** limitations under the License.
  */
-package org.megam.chef;
+package org.megam.chef.core;
 
-import org.megam.chef.core.AbstractProvisioningService;
 import org.megam.chef.exception.ProvisionerException;
 
 /**

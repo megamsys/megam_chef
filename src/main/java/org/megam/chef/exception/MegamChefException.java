@@ -16,6 +16,8 @@
 package org.megam.chef.exception;
 
 /**
+ * Superclass of all the exceptions. All the thrown exceptions in megam_chef gets grouped to 
+ * this class.
  * @author ram
  *
  */

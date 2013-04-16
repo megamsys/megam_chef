@@ -26,19 +26,21 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * Chef service runner takes an input id, in the input method. The input id can be an identifier stored in Riak
+ * which has the JSON content to run by Chef system.
+ * If the source=no is configured, then the input id is assumed to be JSON string
+ * To instantiate this class pass the TYPE enumerator. The supported types are CHEF_WITH_SHELL and NONE
  * @author rajthilak
  * 
  */
 public class ChefServiceRunner {
 
-	private static String jsonString;
-	protected AppYaml app;
 	private SourceLoader source;
 	private ProvisioningService<?> ps;
 	private Logger logger = LoggerFactory.getLogger(ChefServiceRunner.class);
 
 	/**
-	 * 
+	 * Takes an input enumerator TYPE 
 	 * @param type
 	 * @return
 	 * @throws BootStrapChefException
@@ -48,8 +50,8 @@ public class ChefServiceRunner {
 	 */
 	public ChefServiceRunner with(TYPE type) throws BootStrapChefException,
 			ProvisionerException, SourceException, IOException {
-		logger.info("Chef service runner - started.");
-		app = BootStrapChef.boot().yaml();
+		logger.info("Chef serProvisionerFactoryvice runner - started.");
+		AppYaml app = BootStrapChef.boot().yaml();
 		source = new SourceLoader(app);
 		source.load();
 		ps = ProvisionerFactory.create(type);
@@ -67,10 +69,9 @@ public class ChefServiceRunner {
 	 *             that json string
 	 * 
 	 */
-	public ChefServiceRunner input(String dropid) throws SourceException,
-			ProvisionerException {
-		jsonString = source.fetchRequestJSON(dropid);
-		ps.provision(jsonString);
+	public ChefServiceRunner input(DropIn dropid) throws SourceException,
+			ProvisionerException {		
+		ps.provision(source.fetchRequestJSON(dropid.getId()));
 		logger.info("An instance was created");
 		return this;
 	}

@@ -28,6 +28,7 @@ import org.megam.chef.ProvisioningService;
 import org.megam.chef.ProvisionerFactory.TYPE;
 import org.megam.chef.core.DefaultProvisioningServiceWithShell;
 import org.megam.chef.exception.BootStrapChefException;
+import org.megam.chef.exception.MegamChefException;
 import org.megam.chef.exception.ProvisionerException;
 import org.megam.chef.exception.SourceException;
 import org.megam.chef.source.riak.RiakSource;
@@ -58,14 +59,14 @@ public class ChefCommandTest {
 	}
 	}
 	
-	/**
+	/**ProvisioningService
 	 * @param <T>
 	 * @throws SourceException
 	 * @throws ProvisionerException 	
 	 */
 	@Test
-	public <T> void test() throws SourceException, ProvisionerException {	
-		app = BootStrapChef.yaml();	
+	public <T> void test() throws MegamChefException, IOException {	
+		app =   BootStrapChef.boot().yaml();	
 		RiakSource rs =new RiakSource(app);      	   
   	    rs.connection();
   	    rs.bucket("rajBucket");

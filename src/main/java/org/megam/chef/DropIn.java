@@ -13,7 +13,7 @@
 ** See the License for the specific language governing permissions and
 ** limitations under the License.
 */
-package org.megam.chef.source.riak;
+package org.megam.chef;
 
 /**
  * @author rajthilak

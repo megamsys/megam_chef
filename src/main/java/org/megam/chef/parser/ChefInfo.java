@@ -26,7 +26,6 @@ public class ChefInfo extends ProvisionerInfo {
 	
 	private static final String KNIFE = "knife";
 	
-	private List<Boolean> list = new ArrayList<Boolean>();
 	private List<String>  missingReasonToList = new ArrayList<String>();
 
 	// create Map name as chef from config.json file

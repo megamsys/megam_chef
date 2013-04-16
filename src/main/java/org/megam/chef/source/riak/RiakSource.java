@@ -36,23 +36,6 @@ public class RiakSource implements Source {
 	private IRiakClient riakClient;
 	private Bucket myBucket;
 
-	/*
-	 * public static void init(AppYaml app) throws RiakException {
-	 * 
-	 * IRiakClient riakClient =
-	 * RiakFactory.httpClient("http://"+app.getHost()+":"
-	 * +app.getPort()+"/"+app.getSource()); Bucket myBucket = (Bucket)
-	 * riakClient.fetchBucket("newBucket").execute(); IRiakObject myObject =
-	 * ((com.basho.riak.client.bucket.Bucket)
-	 * myBucket).fetch("sample").execute();
-	 * 
-	 * // note that getValueAsString() will return null here if there's no value
-	 * in Riak System.out.println(myObject.getValueAsString());
-	 * 
-	 * riakClient.shutdown();
-	 * 
-	 * }
-	 */
 	public RiakSource(AppYaml app) {
 		this.app = app;
 	}
@@ -89,7 +72,6 @@ public class RiakSource implements Source {
 	 * Riak
 	 */
 	public String fetch(String str) throws SourceException {
-		// TODO Auto-generated method stub
 		try {
 
 			IRiakObject myObject = ((com.basho.riak.client.bucket.Bucket) myBucket)

@@ -64,10 +64,9 @@ public class DefaultProvisioningServiceWithShell<T> extends
 	 * @throws ShellException
 	 */
 	public Command jsonToCommand(String jsonRequest) throws ShellException {
-		System.out.println(new org.megam.chef.shell.Command(
-				convertInput(jsonRequest)));
-
-		return new org.megam.chef.shell.Command(convertInput(jsonRequest));
+		Command com =  new org.megam.chef.shell.Command(convertInput(jsonRequest));
+		//logger.(com);
+		return com;
 	}
 
 	/*
@@ -93,7 +92,7 @@ public class DefaultProvisioningServiceWithShell<T> extends
 	private String convertInput(String jsonRequest) throws ShellException {
 		JSONRequest jrp = (new JSONRequestParser(jsonRequest)).data();
 
-		if (ParmsValidator.validate(jrp.conditionList())) {
+		if (new ParmsValidator().validate(jrp.conditionList())) {
 			System.out.println(ShellBuilder.buildString(jrp.scriptFeeder()));
 			return ShellBuilder.buildString(jrp.scriptFeeder());
 		} else {

@@ -22,7 +22,6 @@ public class ComputeInfo implements DataMap, ScriptFeeder, Condition {
 	private static final String SSHKEY = "ssh-key";
 	private static final String IDENTITYFILE = "identity-file";
 	private static final String SSHUSER = "ssh-user";
-	private List<Boolean> list = new ArrayList<Boolean>();
 	private List<String> inputavailablereason = new ArrayList<String>();
 
 	/**
@@ -30,7 +29,7 @@ public class ComputeInfo implements DataMap, ScriptFeeder, Condition {
 	 */
 	private Map<String, String> ec2 = new HashMap<String, String>();
 	private Map<String, String> access = new HashMap<String, String>();
-	
+
 	private AccessData token;
 
 	public ComputeInfo() {
@@ -98,7 +97,6 @@ public class ComputeInfo implements DataMap, ScriptFeeder, Condition {
 	}
 
 	public boolean canFeed() {
-		// TODO Auto-generated method stub
 		return true;
 	}
 
@@ -123,36 +121,29 @@ public class ComputeInfo implements DataMap, ScriptFeeder, Condition {
 	}
 
 	public List<String> getReason() {
-		// TODO Auto-generated method stub
-
 		return inputavailablereason;
 	}
 
 	public boolean ok() {
-		// TODO Auto-generated method stub
-		Boolean returnokvalue = true;
-		validate("groups", "megam");
-		validate("image", "ami-56e6a404");
-		validate("flavor", "m1.small");
-		for (Boolean check : list) {
-			if (check != true) {
-				returnokvalue = false;
-			}
-		}
-		return returnokvalue;
+		boolean isOk = true;
+		isOk = isOk && validate("groups", "megam");
+		isOk = isOk && validate("image", "ami-56e6a404");
+		isOk = isOk && validate("flavor", "m1.small");		
+		return isOk;
 	}
 
-	public void validate(String key, String value) {
+	public boolean validate(String key, String value) {
 		for (Map.Entry<String, String> entry : map().entrySet()) {
 			if (entry.getKey().equals(key)) {
 				if (entry.getValue().equals(value)) {
-					list.add(true);
+					return true;
 				} else {
 					inputavailablereason.add(key + " is not valid ");
-					list.add(false);
 				}
 			}
 		}
+		return false;
+
 	}
 
 	/*
@@ -161,27 +152,20 @@ public class ComputeInfo implements DataMap, ScriptFeeder, Condition {
 	 * @see org.megam.chef.core.Condition#inputAvailable()
 	 */
 	public boolean inputAvailable() {
-		// TODO Auto-generated method stub
-		Boolean returnvalue = true;
-		notNull("groups");
-		notNull("image");
-		notNull("flavor");
-		for (Boolean check : list) {
-			if (check != true) {
-				returnvalue = false;
-			}
-		}
-		return returnvalue;
+		boolean isAvailable = true;
+		isAvailable = isAvailable && notNull("groups");
+		isAvailable = isAvailable && notNull("image");
+		isAvailable = isAvailable && notNull("flavor");
+		return isAvailable;
 	}
 
-	public void notNull(String str) {
+	public boolean notNull(String str) {
 		if (map().containsKey(str)) {
-			list.add(true);
+			return true;
 		} else {
-
 			inputavailablereason.add(str + " is Missing");
-			list.add(false);
 		}
+		return false;
 	}
 
 	/*
@@ -190,9 +174,7 @@ public class ComputeInfo implements DataMap, ScriptFeeder, Condition {
 	 * @see org.megam.chef.core.Condition#name()
 	 */
 	public String name() {
-		// TODO Auto-generated method stub
-
-		return "EC2 :";
+		return "ComputeInfo";
 	}
 
 }

@@ -16,7 +16,6 @@
 package org.megam.chef.source;
 
 import org.megam.chef.AppYaml;
-import org.megam.chef.AppYamlLoader;
 import org.megam.chef.exception.SourceException;
 import org.megam.chef.source.riak.RiakSource;
 import org.slf4j.Logger;
@@ -38,7 +37,7 @@ public class SourceLoader {
 	/**
 	 * The loaded source object
 	 */
-	private Source source;	
+	private Source source;
 	/**
 	 * The passed in yaml, converted to java, fetched from .megam/chefapp.yaml
 	 */
@@ -53,15 +52,15 @@ public class SourceLoader {
 	}
 
 	/**
-	 * Loads the appropriate source object.
-	 * The valid source are 
-	 * RiakSource, NoneSource
+	 * Loads the appropriate source object. The valid source are RiakSource,
+	 * NoneSource
+	 * 
 	 * @throws SourceException
 	 */
 	public void load() throws SourceException {
 		switch (yaml.getSource()) {
 		case RIAK:
-			source = new RiakSource(yaml);	
+			source = new RiakSource(yaml);
 			break;
 		case NONE:
 			source = new NoneSource();
@@ -74,11 +73,12 @@ public class SourceLoader {
 
 	/**
 	 * Returns the json as fetched by using the id passed in from the source.
-	 * The source can be RiakSource, or NoneSource.
-	 * RiakSource => In case of riak source, a fetch on the bucket using an id is performed. This means
-	 * an id containing a JSON value should exist for that host/post/bucket in riak.
-	 * NoneSource => In this case it is assumed that the passed in input (as id) contains the JSON string
-	 * to process.
+	 * The source can be RiakSource, or NoneSource. RiakSource => In case of
+	 * riak source, a fetch on the bucket using an id is performed. This means
+	 * an id containing a JSON value should exist for that host/post/bucket in
+	 * riak. NoneSource => In this case it is assumed that the passed in input
+	 * (as id) contains the JSON string to process.
+	 * 
 	 * @param id
 	 * @return
 	 * @throws SourceException

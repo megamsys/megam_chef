@@ -17,9 +17,12 @@ package org.megam.chef;
 
 import org.megam.chef.core.DefaultProvisioningService;
 import org.megam.chef.core.DefaultProvisioningServiceWithShell;
+import org.megam.chef.core.NoneProvisioningService;
 import org.megam.chef.exception.ProvisionerException;
 
 /**
+ * The provisioner factor acts as a creator of provisioning service.
+ * The supported types ...
  * @author ram
  * 
  */
@@ -30,7 +33,7 @@ public class ProvisionerFactory {
 	}
 
 	/**
-	 * Creates the available Provisioning client.
+	 * Creates the available Provisioning client based on the enum TYPE.
 	 * 
 	 * @return ProvisioningService
 	 * @throws ProvisionerException

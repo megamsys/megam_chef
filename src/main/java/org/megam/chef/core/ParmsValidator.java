@@ -9,6 +9,12 @@ import java.util.List;
  * 
  */
 public class ParmsValidator {
+	
+	private List<String> reasonsNotSatisfied = new ArrayList<String>();
+	
+	ParmsValidator() {
+		
+	}
 
 	/**
 	 * 
@@ -17,7 +23,7 @@ public class ParmsValidator {
 	 * if any validate checking is failed then could not create the command
 	 * 
 	 */
-	public static boolean validate(List<Condition> conditionList) {
+	public  boolean validate(List<Condition> conditionList) {
 		Boolean returnokvalue = true;
 		List<Boolean> list = new ArrayList<Boolean>();
 		for (Condition cl : conditionList) {
@@ -28,6 +34,7 @@ public class ParmsValidator {
 					list.add(false);
 					for (String reason : cl.getReason())
 						System.out.println(reason);
+					//
 				}
 			} else {
 				list.add(false);
