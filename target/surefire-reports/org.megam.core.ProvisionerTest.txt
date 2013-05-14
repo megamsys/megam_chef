@@ -1,12 +1,12 @@
 -------------------------------------------------------------------------------
 Test set: org.megam.core.ProvisionerTest
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.605 sec <<< FAILURE!
-testProvisionerService(org.megam.core.ProvisionerTest)  Time elapsed: 0.547 sec  <<< ERROR!
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.749 sec <<< FAILURE!
+testProvisionerService(org.megam.core.ProvisionerTest)  Time elapsed: 0.695 sec  <<< ERROR!
 org.megam.chef.exception.SourceException: com.basho.riak.client.RiakRetryFailedException: com.basho.riak.client.http.response.RiakIORuntimeException: java.net.UnknownHostException: null
-	at java.net.InetAddress.getAllByName0(InetAddress.java:1215)
-	at java.net.InetAddress.getAllByName(InetAddress.java:1127)
-	at java.net.InetAddress.getAllByName(InetAddress.java:1063)
+	at java.net.InetAddress.getAllByName0(InetAddress.java:1243)
+	at java.net.InetAddress.getAllByName(InetAddress.java:1155)
+	at java.net.InetAddress.getAllByName(InetAddress.java:1091)
 	at org.apache.http.impl.conn.SystemDefaultDnsResolver.resolve(SystemDefaultDnsResolver.java:45)
 	at org.apache.http.impl.conn.DefaultClientConnectionOperator.resolveHostname(DefaultClientConnectionOperator.java:278)
 	at org.apache.http.impl.conn.DefaultClientConnectionOperator.openConnection(DefaultClientConnectionOperator.java:162)
