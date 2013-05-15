@@ -5,113 +5,207 @@ Java based API which accepts a JSON request, builds a chef command line using (K
 
 ### Requirements
 
-> [Opensource Chef Server 10 >](http://docs.opscode.com/chef_overview_server_open_source.html)
-> [Chef workstation](http://docs.opscode.com/install_workstation.html)
-> [Riak - 1.3.1 >](http://docs.basho.com/riak/latest/tutorials/installation/Installing-on-Debian-and-Ubuntu/)  
-> [OpenJDK 7.0](http://openjdk.java.net/install/index.html)
+> 
+[Opensource Chef Server 10 +](http://docs.opscode.com/chef_overview_server_open_source.html)
+[Chef workstation](http://docs.opscode.com/install_workstation.html)
+[OpenJDK 7.0](http://openjdk.java.net/install/index.html)
+[* optional - Riak - 1.3.1 +](http://docs.basho.com/riak/latest/tutorials/installation/Installing-on-Debian-and-Ubuntu/)  
+[* optional - Erlang R15B01]
+
+#### Tested on Ubuntu 12.10, 13.04, AWS - EC2
+
+## Usage
+
+Let us say your `ENV[HOME]` is `/home/ram`. When megam_chef is runs inside your java (or) scala (or) scala/akka/play .. program, 
+it verifies if a file named exists `~/.megam/chefapp.yaml`.
+
+If this is the initial run, then it creates the default file as shown below at `~/.megam/chefapp.yaml` 
+
+The default contents of `~/.megam/chefapp.yaml` is as follows:
+
+```
+megamchef: 
+        config: 'development'
+        source: no
+development: 
+      source: 'riak'
+      host: 'localhost'
+      port: '8098'
+      bucket: 'megam_prov'
+production: 
+      source: 'riak'
+      host: 'riak.megam.co'
+      port: '8098'
+      bucket: 'megam_prov'      
+```
+###
+
+`source:` <yes/no> : yes => means there is a datasource that megam_chef should use. The supported datasource is Riak.
+Postgresql support is a work under progress.
+
+`config:` <development, production, staging, test ..> : The value that is entered needs to have a matching section with the 
+same name. For instance if the config is `development` then a section following it needs to have the values for it.
+
+You have noticed above that by default source is `no`, and hence `no data source` is needed to work with this API. 
+
+### Prepare your program
+
+Before your run it,
+
+* Opensource Chef Server (or) Hosted Chef running
+* Required Cookbooks, Runlist uploaded to the Chef Server
+* A chef client created, and knife command works as intended.
+* optional - Riak running, and has the bucket named as configured in yaml file.
 
 
-### Installing chef
+> Add this maven dependency
 
-   You can install chef by running :
+```xml
+	<dependency>
+	<groupId>org.megam</groupId>
+	<artifactId>chef</artifactId>
+	<version>0.1</version>
+	</dependency>
+```
+
+> Invoking megam_chef
+
+```java
+
+import org.megam.chef.ChefServiceRunner;
+import org.megam.chef.DropIn;
+import org.megam.chef.ProvisionerFactory.TYPE;
+import org.megam.chef.exception.BootStrapChefException;
+import org.megam.chef.exception.ProvisionerException;
+import org.megam.chef.exception.SourceException;
+
+ChefServiceRunner csc = (new ChefServiceRunner()).with(TYPE.CHEF_WITH_SHELL).input(new DropIn("sample")).control();
+
+
+```
+The ChefServiceRunner is execute class for megam_chef api.
+
+### Input JSON
+
+```json
+{
+	"systemprovider": {
+		"provider": {
+			"prov": "chef"
+		}
+	},
+	"compute": {
+		"ec2": {
+			"groups": "megam",
+			"image": "ami-56e6a404",
+			"flavor": "m1.small"
+		},
+		"access": {
+			"ssh-key": "megam_ec2",
+			"identity-file": "~/.ssh/megam_ec2.pem",
+			"ssh-user": "ubuntu"
+		}
+	},
+	"chefservice": {
+		"chef": {
+			"command": "knife",
+			"plugin": "ec2 server create",
+			"run-list": "'role[opendj]'",
+			"name": "-N TestOverAll"
+		}
+	}
+}
+
+```
+#### provider
+`prov:` <chef/none> : chef => means systems and cloud infrastructure automation framework that makes it easy to deploy servers and applications to any physical, virtual, or cloud location, no matter the size of the infrastructure. 
+For more detail about `chef` visit `http://docs.opscode.com/#getting-started`
+
+#### ec2 
+`groups:` <development, production, staging, test ..> : A security group acts as a firewall that controls the traffic allowed to reach one or more instances. 
+
+`image:` The name of the image that identifies the operating system (and version) that will be used to create the virtual machine.
+
+`flavor:` The name of the flavor that identifies the hardware configuration of the server, including disk space, memory capacity, and CPU priority.
+
+#### access 
+`ssh-key:` The SSH key for the Amazon EC2 environment.
+
+`identity-file:` The SSH identity file used for authentication. Key-based authentication is recommended.
+
+`ssh-user:` The SSH user name for the Amazon EC2 environment.
+
+#### chef
+`command:` Knife is a command-line tool that provides an interface between a local Chef repository and the Chef Server.
+
+`plugin:` The ec2 subcommand is used to manage API-driven cloud servers that are hosted by Amazon EC2. The server create argument is used to create a new Amazon EC2 cloud instance.
+
+`run-list:` A comma-separated list of roles and/or recipes to be applied.
+
+## Validation
+The following validations happen 
+
+
+* The hooked up provider (Let us say DefaultProvisionerChefWithShell) is the selected default one. If that is the case
+then the command knife -version is run before the run list can be executed.  If the validation conditions fail,
+then the follow reason appears.
+
+```
+SLF4J: Class path contains multiple SLF4J bindings.
+SLF4J: Found binding in [jar:file:/home/rajthilak/code/megam/workspace/megam_chef/lib/slf4j-jdk14-1.7.5.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/home/rajthilak/.m2/repository/org/slf4j/slf4j-log4j12/1.7.5/slf4j-log4j12-1.7.5.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J: Actual binding is of type [org.slf4j.impl.JDK14LoggerFactory]
+May 15, 2013 11:13:40 AM org.megam.chef.ChefServiceRunner with
+INFO: Chef serProvisionerFactoryvice runner - started.
+May 15, 2013 11:13:40 AM org.megam.chef.BootStrapChef bootedUp
+INFO: ------------------------- MEGAM CHEF version : 0.1Build Date : 20130418----------------------
+May 15, 2013 11:13:40 AM org.megam.chef.BootStrapChef configureRoot
+INFO: /home/rajthilak/code/megam/workspace/megam_chef
+May 15, 2013 11:13:40 AM org.megam.chef.BootStrapChef yamlSetup
+INFO: /home/rajthilak
+May 15, 2013 11:13:40 AM org.megam.chef.AppYamlLoader load
+INFO: Yaml File Loaded
+
+ERROR: groups key is missing 
+ERROR: runlist key is not valid 
+
+``` 
+In this error means the runlist value in your input JSON is wrong. Runlist must contain following value `'role[--receipe name--]'`. The same checking executed at full of input JSON.  
+
+
+### Use case : source = no
+
+This attaches a NoneSource, and expects the input to be a JSON.
+
+
+### Use case : source = yes
+
+This attaches the source as per the naming convention. If `riak` is present, then a RiakSource is attached.
+Basho's `riak-java-client` is used to interface with Riak.
+
+#### Purpose of a data source
+
+We have intermediatories which would intercept a request validate the shared HMAC of a requestor and stored the 
+request using an `id` in a datastore. We choose `Riak`. 
+
    
-		$ gem install chef 
-         
-   you can also denote the version using the `-v version`
-   
-   After installing chef we are verify the chef by running :
-   
-   		$ gem list | grep chef
-
-### Installing Riak
-
-    Installing From Apt-Get
-
-             If you wish to just install Riak and get on with your life, use apt-get.
-
-             First you must get the signing key.
-
-                     $ curl http://apt.basho.com/gpg/basho.apt.key | sudo apt-key add -
-
-             Then add the Basho repository to your apt sources list (and update them).
-
-                     $ sudo bash -c "echo deb http://apt.basho.com $(lsb_release -sc) main > /etc/apt/sources.list.d/basho.list"
-                     $ sudo apt-get update
-
-             Now install riak.
-
-                     $ sudo apt-get install riak
-
-             That should be all.
-             
-    Installing Riak From Source
-
-             First, install Riak dependencies using apt:
-
-                     $ sudo apt-get install build-essential libc6-dev-i386 git
-
-             Riak requires `Erlang R15B01`. Note: don't use `Erlang version R15B02 or R15B03`, for the moment, as it causes an error with riak-admin status commands. If Erlang is not already installed, install it before continuing (see: Installing Erlang for more information).
-
-             With Erlang installed, proceed to downloading and installing Riak:
-
-             If the build was successful, a fresh build of Riak will exist in the rel/riak directory.
-             
-For more detail about `riak` visit `http://docs.basho.com/index.html`
-     
 ### Running the application
 
-		> you could run this application then add some dependencies in your `pom.xml`
-		
-					<!-- Logging -->
-				<dependency>
-					<groupId>org.slf4j</groupId>
-					<artifactId>slf4j-api</artifactId>
-					<version>${org.slf4j-version}</version>
-				</dependency>
-				<dependency>
-					<groupId>org.slf4j</groupId>
-					<artifactId>jcl-over-slf4j</artifactId>
-					<version>${org.slf4j-version}</version>
-				</dependency>
-				<dependency>
-					<groupId>org.slf4j</groupId>
-					<artifactId>slf4j-log4j12</artifactId>
-					<version>${org.slf4j-version}</version>
-					<scope>runtime</scope>
-				</dependency>
-				
-		> These dependencies are using slf4j at logging the details
-		
-				<!--  Gson -->
-				<dependency>
-					<groupId>com.google.code.gson</groupId>
-					<artifactId>gson</artifactId>
-					<version>2.2.2</version>
-				</dependency>   
-				
-		> This dependency to load the `gson parser` for `json to object`
-		
-				<!--  Snake Yaml -->
-				<dependency>
-					<groupId>org.yaml</groupId>
-					<artifactId>snakeyaml</artifactId>
-					<version>1.12</version>
-				</dependency>  
-				
-		> `snakeyaml` is parser for yaml file's
-		
-				<!-- Riak -->
-				<dependency>
-					<groupId>com.basho.riak</groupId>
-					<artifactId>riak-client</artifactId>
-					<version>1.1.0</version>
-				</dependency>
-				
-		> `Riak` dependency is to create a api for riak java client
-		
-	###After the add the dependencies you need update the maven 
-	
-`Finally run the application using junit test classes or terminal via run` 
+Just the sample class SampleChefRunner as illustrated above.
+ 
+Refer the BasicExample.java to get started. 
+
+We are glad to help if you have questions, or request for new features..
+
+[twitter](http://twitter.com/indykish) [email](<rajthilak@megam.co.in>)
+
+#### TO - DO
+
+* Stoppable actions
+* Interface to [megam_akka](https://github.com/indykish/megam_play) 
+* Pooled runners
+* Postgresql support
 	
 # License
 
