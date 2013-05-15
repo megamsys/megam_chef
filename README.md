@@ -42,6 +42,7 @@ production:
 
 `source:` <yes/no> : yes => means there is a datasource that megam_chef should use. The supported datasource is Riak.
 Postgresql support is a work under progress.
+				   : no => no datasource in use (or) none source	
 
 `config:` <development, production, staging, test ..> : The value that is entered needs to have a matching section with the 
 same name. For instance if the config is `development` then a section following it needs to have the values for it.
