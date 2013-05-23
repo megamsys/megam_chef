@@ -20,34 +20,23 @@ public class ParmsValidator {
 	 * 
 	 * @param conditionList
 	 * @return 
-	 * if any validate checking is failed then could not create the command
-	 * 
+	 * Verifies if the conditions contain an input, if they are then, the the conditions predicate needs to succeeed.
+	 *  
 	 */
 	public  boolean validate(List<Condition> conditionList) {
-		Boolean returnokvalue = true;
-		List<Boolean> list = new ArrayList<Boolean>();
-		for (Condition cl : conditionList) {
-			if (cl.inputAvailable()) {
-				if (cl.ok()) {
-					list.add(true);
-				} else {
-					list.add(false);
-					for (String reason : cl.getReason())
-						System.out.println(reason);
-					//
-				}
-			} else {
-				list.add(false);
-				for (String reason : cl.getReason())
-					System.out.println(reason);
+		Boolean isValid = true;
+		for (Condition conditions : conditionList) {
+			isValid = conditions.inputAvailable();
+			if (!isValid) {		
+					reasonsNotSatisfied.addAll(conditions.getReason());	
+			} else if (!(isValid = conditions.ok())) {
+				reasonsNotSatisfied.addAll(conditions.getReason());
 			}
-		}
-		for (Boolean check : list) {
-			if (check != true) {
-				returnokvalue = false;
-			}
-		}
-		return returnokvalue;
-
+		}		
+		return isValid;
+	}
+	
+	protected List<String> reasonsNotSatisfied() {
+		return reasonsNotSatisfied;
 	}
 }

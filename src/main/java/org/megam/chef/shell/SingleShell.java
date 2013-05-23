@@ -26,7 +26,6 @@ import java.util.concurrent.RecursiveAction;
 public class SingleShell extends RecursiveAction {
 
 	private Command cmd;
-	private String s;
 
 	/**
 	 * 

@@ -1,7 +1,11 @@
 megam_chef
 ==========
 
-Java based Opscode Chef connector. The API accepts a JSON request, builds a chef command line using (Knife).
+Scala/Java based Opscode Chef connector. This API accepts a request in JSON format, builds a chef command line using (Knife) and 
+executes them. There is an option to store the json in a data-source (Riak supported currently) and the 
+program retrieves it and executes them.
+
+*  Snapshots are available in mvn, sbt
 
 ### Requirements
 
@@ -21,7 +25,7 @@ Java based Opscode Chef connector. The API accepts a JSON request, builds a chef
 
 > Add this dependency in `build.sbt`
 
-```
+```xml
 resolvers  +=  "Sonatype OSS Snapshots"  at  "https://oss.sonatype.org/content/repositories/snapshots"
 
 libraryDependencies += "com.github.indykish" % "megam-chef" % "1.0.0-BUILD-SNAPSHOT"            
@@ -82,9 +86,10 @@ production:
 ```
 #### Configuration details:
 
-`config:` <development, production, staging, test ..> : The value that is entered needs to have a matching section with the 
+`config:` <development, production, staging, test> : The value that is entered needs to have a matching section with the 
 same name. For instance if the config is `development` then a section following it needs to have the values for it.
 
+`development, production, staging, test` are the only supported values.
 
 `source:` <yes/no> : yes => means there is a datasource that megam_chef should use. The supported datasource is Riak.
 Postgresql support is a work under progress.
@@ -98,12 +103,15 @@ Postgresql support is a work under progress.
 
 You have noticed above that by default source is `no`, and hence `no data source` is needed to work with this API. 
 
-#### Why a data source
+#### Why a data source ?
 
 We have intermediatories[megam_play](https://github.com/indykish/megam_play) which would intercept an RESTful request validate 
-the shared HMAC of a requestor and stored the JSON request using an `id` in a datastore. 
+the shared HMAC of a requestor and store the JSON request using an `id` in a datastore. 
 
-We choose `Riak`. 
+We also have a [megam_akka](https://github.com/indykish/megam_akka) connected to [RabbitMQ](http:\\rabbitmq.com) subscribed to all 
+the validated requests. Its job is to get those requests and run them. 
+
+Supported data-store is `Riak`. 
 
 
 ### Use case : source = yes
@@ -177,7 +185,7 @@ For more detail about `chef` visit `http://docs.opscode.com/#getting-started`
 
 
 
-> Setting up megam_chef with inteface to Riak
+### Setting up megam_chef with inteface to Riak
 
 `$ riak start		   //start riak`
 
@@ -207,7 +215,7 @@ import org.megam.chef.exception.SourceException;
 
 
 ```
-> Setting up megam_chef with `none`
+### Setting up megam_chef with `none`
 
 Tweak the `json` as per your need. Store it in a know path and execute the below code. In here
 we have illustrated executing  `conf\foo.json`
@@ -268,7 +276,7 @@ We are glad to help if you have questions, or request for new features..
 
 #### TO - DO
 
-* Unique process output files, right now this just dumps it to a file `kh`
+* Unique process output files, right now this just dumps it to a file named `kh`
 * Streams(scala) to move around the process out.
 * Stoppable actions
 * Interface to [megam_akka](https://github.com/indykish/megam_play) 

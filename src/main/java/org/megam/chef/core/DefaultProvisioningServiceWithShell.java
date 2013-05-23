@@ -16,6 +16,7 @@
 package org.megam.chef.core;
 
 import org.megam.chef.AppYaml;
+import org.megam.chef.BootStrapChef;
 import org.megam.chef.exception.ProvisionerException;
 import org.megam.chef.exception.ShellException;
 import org.megam.chef.parser.JSONRequest;
@@ -24,6 +25,8 @@ import org.megam.chef.shell.Command;
 import org.megam.chef.shell.ShellProvisioningPool;
 import org.megam.chef.shell.Shellable;
 import org.megam.chef.shell.Stoppable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author ram
@@ -33,6 +36,9 @@ import org.megam.chef.shell.Stoppable;
 
 public class DefaultProvisioningServiceWithShell<T> extends
 		DefaultProvisioningService<T> implements Shellable, Stoppable {
+
+	private Logger logger = LoggerFactory.getLogger(DefaultProvisioningServiceWithShell.class);
+
 
 	/**
 	 * 
@@ -50,11 +56,16 @@ public class DefaultProvisioningServiceWithShell<T> extends
 	 */
 	@Override
 	public T provision(String jsonString) throws ProvisionerException {
+		logger.debug("entry");
 		try {
 			execute(jsonToCommand(jsonString));
 		} catch (ShellException she) {
 			throw new ProvisionerException(she);
 		}
+		logger.debug("exit");
+		/**
+		 * TO-DO why do we return null here  ?
+		 */
 		return null;
 	}
 
@@ -63,9 +74,10 @@ public class DefaultProvisioningServiceWithShell<T> extends
 	 * @throws ShellException
 	 */
 	public Command jsonToCommand(String jsonRequest) throws ShellException {
+		logger.debug("entry");
 		Command com = new org.megam.chef.shell.Command(
 				convertInput(jsonRequest));
-		// logger.(com);
+		logger.debug("exit");
 		return com;
 	}
 
@@ -91,13 +103,14 @@ public class DefaultProvisioningServiceWithShell<T> extends
 	 */
 	private String convertInput(String jsonRequest) throws ShellException {
 		JSONRequest jrp = (new JSONRequestParser(jsonRequest)).data();
-
-		if (new ParmsValidator().validate(jrp.conditionList())) {
-			System.out.println(ShellBuilder.buildString(jrp.scriptFeeder()));
-			return ShellBuilder.buildString(jrp.scriptFeeder());
+		ParmsValidator pv = new ParmsValidator();
+		if (pv.validate(jrp.conditionList())) {
+			String shellStr = ShellBuilder.buildString(jrp.scriptFeeder());
+			logger.debug("shell string:"+ shellStr);
+			return shellStr;
 		} else {
 			throw new ShellException(new IllegalArgumentException(
-					"Add the reason here"));
+					pv.reasonsNotSatisfied().toString()));
 		}
 	}
 
