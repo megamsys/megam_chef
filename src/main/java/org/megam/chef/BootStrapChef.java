@@ -1,5 +1,5 @@
 /* 
- ** Copyright [2012] [Megam Systems]
+ ** Copyright [2012-2013] [Megam Systems]
  **
  ** Licensed under the Apache License, Version 2.0 (the "License");
  ** you may not use this file except in compliance with the License.
@@ -74,7 +74,7 @@ public class BootStrapChef {
 	 */
 	private void configureRoot() {
 		/** MEGAM_ROOT_DIR **/
-		logger.info(System.getProperty("user.dir"));
+		logger.debug("root="+System.getProperty("user.dir"));
 		MEGAM_CHEF_ROOT = System.getProperty("user.dir");
 	}
 
@@ -84,7 +84,7 @@ public class BootStrapChef {
 	 *             configure the yaml file
 	 */
 	private void configure() throws BootStrapChefException {
-		logger.debug("Yaml loaded file entry");
+		logger.debug("Yaml loading.." + MEGAM_CHEF_APP_YAML);
 		AppYamlLoader yaml = new AppYamlLoader(MEGAM_CHEF_APP_YAML);
 		if (yaml.notReady()) {
 			throw new BootStrapChefException(new IllegalArgumentException(
@@ -92,6 +92,7 @@ public class BootStrapChef {
 							+ MEGAM_CHEF_APP_YAML));
 		}
 		bootedYaml = yaml.current();
+		logger.debug(bootedYaml.toString());
 	}
 
 	/*
@@ -107,16 +108,15 @@ public class BootStrapChef {
 
 	/**
 	 * Copy the default chefapp.yaml to .megam/chefappyaml if one doesn't exist.
-	 * If one exists then, use it load it.
+	 * If one exists then, use it.
 	 * 
 	 * @throws BootStrapChefException
 	 */
 	private void yamlSetup() throws BootStrapChefException {
 		try {
 			File file = new File(MEGAM_CHEF_APP_YAML);
-			boolean exists = file.exists();
-			logger.info(MEGAM_USER_HOME);
-			if (!exists) {
+			logger.debug("user.home="+MEGAM_USER_HOME);
+			if (!file.exists()) {
 				String source = MEGAM_DEFAULT_CHEF_APP_YAML;
 				String target = MEGAM_USER_HOME + java.io.File.separator
 						+ ".megam" + java.io.File.separator;

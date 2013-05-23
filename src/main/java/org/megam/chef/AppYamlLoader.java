@@ -1,5 +1,5 @@
 /* 
- ** Copyright [2012] [Megam Systems]
+ ** Copyright [2012-2013] [Megam Systems]
  **
  ** Licensed under the Apache License, Version 2.0 (the "License");
  ** you may not use this file except in compliance with the License.
@@ -15,29 +15,39 @@
  */
 package org.megam.chef;
 
+import static org.megam.chef.AppYamlLoadedSetup.*;
+
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Map;
 
 import org.megam.chef.exception.BootStrapChefException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.yaml.snakeyaml.constructor.Constructor;
 import org.yaml.snakeyaml.TypeDescription;
 import org.yaml.snakeyaml.Yaml;
+import org.yaml.snakeyaml.constructor.Constructor;
 
 /**
  * @author rajthilak
  * 
  */
 public class AppYamlLoader {
-
-	AppYamlLoadedSetup loadedYaml;
+	/**
+	 * Existing loaded setup, loaded using gson.
+	 */
+	private AppYamlLoadedSetup loadedYaml;
+	
 	private boolean notReady = false;
-	AppYaml appYaml;
+	/**
+	 * A copy of the configuration, based on the property set in the chefapp.yaml (configuration: <development/production etc..>)
+	 */
+	private AppYaml appYaml;
+	
 	private String yamlType;
+	
 	private Logger logger = LoggerFactory.getLogger(AppYamlLoader.class);
 
 	/**
@@ -46,7 +56,6 @@ public class AppYamlLoader {
 	 * @throws BootStrapChefException
 	 */
 	AppYamlLoader(String yamlFilePath) throws BootStrapChefException {
-
 		load(yamlFilePath);
 	}
 
@@ -67,11 +76,8 @@ public class AppYamlLoader {
 			constructor.addTypeDescription(appDescription);
 			Yaml yaml = new Yaml(constructor);
 			loadedYaml = (AppYamlLoadedSetup) yaml.load(input);
-			logger.info("Yaml File Loaded" + loadedYaml.getMegamchef());
+			logger.debug("Yaml File Loaded:\n" + loadedYaml);
 			notReady = (loadedYaml == null) ? true : false;
-		} catch (FileNotFoundException fnfe) {
-			fnfe.printStackTrace();
-			throw new BootStrapChefException(fnfe);
 		} catch (IOException ioe) {
 			throw new BootStrapChefException(ioe);
 		}
@@ -83,18 +89,29 @@ public class AppYamlLoader {
 	 * @return
 	 */
 	public AppYaml current() {
-		AppYaml current = null;
-		yamlType = new AppYaml(loadedYaml.getMegamchef()).getConfig();
-		// check wheather the which source and return it
+		Map<String,String> currMap = null;
+		
+		yamlType = loadedYaml.getConfiguration();
+		/** check whether the configuration is development, production, staging or test.
+		 * Those are the 4 values supported currently. 
+		 */		
 		switch (yamlType) {
-		case "development":
-			current = new AppYaml(loadedYaml.getDevelopment());
+		case DEV:
+			currMap  = loadedYaml.getDevelopment();
 			break;
-		case "production":
-			current = new AppYaml(loadedYaml.getProduction());
+		case PROD:
+			currMap = loadedYaml.getProduction();
 			break;
+		case STAGING:
+			currMap = loadedYaml.getStaging();
+			break;
+		case TEST:
+			currMap = loadedYaml.getTest();
+			break;
+		default:
+			throw new IllegalArgumentException("configuration not found. Make sure your " + Constants.MEGAM_CHEF_APP_YAML + " contains config: <development/production/staging/test>\n"+Constants.HELP_GITHUB);
 		}
-		return current;
+		return new AppYaml(currMap);
 	}
 
 	/**

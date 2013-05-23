@@ -21,7 +21,11 @@ Java based Opscode Chef connector. The API accepts a JSON request, builds a chef
 
 > Add this dependency in `build.sbt`
 
-```libraryDependencies += "com.github.indykish" % "megam-chef" % "1.0.0-BUILD-SNAPSHOT"            
+```
+resolvers  +=  "Sonatype OSS Snapshots"  at  "https://oss.sonatype.org/content/repositories/snapshots"
+
+libraryDependencies += "com.github.indykish" % "megam-chef" % "1.0.0-BUILD-SNAPSHOT"            
+
 ```
 
 

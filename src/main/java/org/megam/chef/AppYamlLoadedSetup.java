@@ -1,5 +1,5 @@
 /* 
- ** Copyright [2012] [Megam Systems]
+ ** Copyright [2012-2013] [Megam Systems]
  **
  ** Licensed under the Apache License, Version 2.0 (the "License");
  ** you may not use this file except in compliance with the License.
@@ -31,7 +31,27 @@ public class AppYamlLoadedSetup {
 	private Map<String, String> megamchef;
 	private Map<String, String> development;
 	private Map<String, String> production;
+	private Map<String, String> staging;
+	private Map<String, String> test;
 
+	public static final String CONFIG = "config";
+	public static final String DEV = "development";
+	public static final String PROD = "production";
+	public static final String STAGING = "staging";
+	public static final String TEST = "test";
+
+	/**
+	 * Returns the value set in configuration: in chefapp.yaml file. 
+	 * This value decides what subset of values get loaded.
+	 * can hold values  <development, production, staging, test>
+	 * 
+	 * @param development
+	 * 
+	 */
+	public String getConfiguration() {
+		return getMegamchef().get(CONFIG);
+	}
+	
 	/**
 	 * set development map
 	 * 
@@ -71,6 +91,48 @@ public class AppYamlLoadedSetup {
 	public Map<String, String> getProduction() {
 		return production;
 	}
+	
+
+	/**
+	 * set production map
+	 * 
+	 * @param production
+	 * 
+	 */
+	public void setStaging(Map<String, String> staging) {
+		this.staging = staging;
+	}
+
+	/**
+	 * get staging map
+	 * 
+	 * @return staging map
+	 * 
+	 */
+	public Map<String, String> getStaging() {
+		return staging;
+	}
+	
+
+	/**
+	 * set test map
+	 * 
+	 * @param test
+	 * 
+	 */
+	public void setTest(Map<String, String> test) {
+		this.test = test;
+	}
+
+	/**
+	 * get test map
+	 * 
+	 * @return test map
+	 * 
+	 */
+	public Map<String, String> getTest() {
+		return test;
+	}
 
 	/**
 	 * get megamchef map
@@ -98,13 +160,26 @@ public class AppYamlLoadedSetup {
 		final Formatter formatter = new Formatter(strbd);
 		formatter.format("%s%n",
 				"*----------------------- chefapp.yaml -------------------*");
+		formatter.format("%14s = %s%n",CONFIG, getConfiguration());
 		for (Map.Entry<String, String> entry : getMegamchef().entrySet()) {
 			formatter.format("%10s = %s%n", entry.getKey(), entry.getValue());
 		}
+		formatter.format("--%14s = %s%n",CONFIG, "development");
 		for (Map.Entry<String, String> entry : getDevelopment().entrySet()) {
 			formatter.format("%10s = %s%n", entry.getKey(), entry.getValue());
 		}
+		formatter.format("--%14s = %s%n",CONFIG, "production");
+
 		for (Map.Entry<String, String> entry : getProduction().entrySet()) {
+			formatter.format("%10s = %s%n", entry.getKey(), entry.getValue());
+		}
+		formatter.format("--%14s = %s%n",CONFIG, "staging");
+
+		for (Map.Entry<String, String> entry : getStaging().entrySet()) {
+			formatter.format("%14s = %s%n", entry.getKey(), entry.getValue());
+		}
+		formatter.format("--%14s = %s%n",CONFIG, "test");
+		for (Map.Entry<String, String> entry : getTest().entrySet()) {
 			formatter.format("%10s = %s%n", entry.getKey(), entry.getValue());
 		}
 		formatter.close();

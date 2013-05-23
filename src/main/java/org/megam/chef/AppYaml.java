@@ -1,5 +1,5 @@
 /* 
- ** Copyright [2012] [Megam Systems]
+ ** Copyright [2012-2013] [Megam Systems]
  **
  ** Licensed under the Apache License, Version 2.0 (the "License");
  ** you may not use this file except in compliance with the License.
@@ -15,6 +15,7 @@
  */
 package org.megam.chef;
 
+import java.util.Formatter;
 import java.util.Map;
 
 /**
@@ -31,7 +32,6 @@ public class AppYaml {
 	private static final String HOST = "host";
 	private static final String PORT = "port";
 	private static final String BUCKET = "bucket";
-	private static final String CONFIG = "config";
 
 	AppYaml(Map<String, String> type) {
 		this.yamlSource = type;
@@ -56,9 +56,27 @@ public class AppYaml {
 	public String getBucket() {
 		return yamlSource.get(BUCKET);
 	}
-
-	public String getConfig() {
-		return yamlSource.get(CONFIG);
+	
+	/**
+	 * toString() is display the map key's and their values
+	 */
+	public String toString() {
+		StringBuilder strbd = new StringBuilder();
+		final Formatter formatter = new Formatter(strbd);
+		formatter.format("%s%n",
+				"*----------------------- current yaml -------------------*");
+		
+		formatter.format("--%14s = %s%n",SOURCE, getSource());
+		formatter.format("--%14s = %s%n",BUCKET, getBucket());
+		formatter.format("--%14s = %s%n",HOST, getHost());
+		formatter.format("--%14s = %s%n",PORT, getPort());
+		formatter.format("%s%n",
+				"*--------------------------------------------------------*");
+		
+		formatter.close();
+		return strbd.toString();
 	}
 
+
+	
 }
