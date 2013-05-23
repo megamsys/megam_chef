@@ -41,8 +41,8 @@ public class SingleShell extends RecursiveAction {
 	 */
 	public void compute() {
 		try {
-			cmd.setRedirectOutput("kh");
-			cmd.setRedirectError("kh1");
+			//cmd.setRedirectOutput("kh");
+			//cmd.setRedirectError("kh1");
 			ProcessBuilder p = new ProcessBuilder(cmd.getCommandList());
 			p.redirectOutput(Redirect.appendTo(cmd.getRedirectOutputFile()));
 			Process p1 = p.start();

@@ -161,26 +161,34 @@ public class AppYamlLoadedSetup {
 		formatter.format("%s%n",
 				"*----------------------- chefapp.yaml -------------------*");
 		formatter.format("%14s = %s%n",CONFIG, getConfiguration());
+		if(getMegamchef()!=null) {
 		for (Map.Entry<String, String> entry : getMegamchef().entrySet()) {
 			formatter.format("%10s = %s%n", entry.getKey(), entry.getValue());
+		}	
 		}
 		formatter.format("--%14s = %s%n",CONFIG, "development");
+		if(getDevelopment()!=null) {
 		for (Map.Entry<String, String> entry : getDevelopment().entrySet()) {
 			formatter.format("%10s = %s%n", entry.getKey(), entry.getValue());
 		}
+		}
 		formatter.format("--%14s = %s%n",CONFIG, "production");
-
+		if(getProduction()!=null) {
 		for (Map.Entry<String, String> entry : getProduction().entrySet()) {
 			formatter.format("%10s = %s%n", entry.getKey(), entry.getValue());
 		}
+		}
 		formatter.format("--%14s = %s%n",CONFIG, "staging");
-
+		if(getStaging()!=null) {
 		for (Map.Entry<String, String> entry : getStaging().entrySet()) {
 			formatter.format("%14s = %s%n", entry.getKey(), entry.getValue());
 		}
+		}
 		formatter.format("--%14s = %s%n",CONFIG, "test");
+		if(getTest()!=null) {
 		for (Map.Entry<String, String> entry : getTest().entrySet()) {
 			formatter.format("%10s = %s%n", entry.getKey(), entry.getValue());
+		}
 		}
 		formatter.close();
 		return strbd.toString();
