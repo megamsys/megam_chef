@@ -67,7 +67,7 @@ public class AppYamlLoader {
 			constructor.addTypeDescription(appDescription);
 			Yaml yaml = new Yaml(constructor);
 			loadedYaml = (AppYamlLoadedSetup) yaml.load(input);
-			logger.info("Yaml File Loaded");
+			logger.info("Yaml File Loaded" + loadedYaml.getMegamchef());
 			notReady = (loadedYaml == null) ? true : false;
 		} catch (FileNotFoundException fnfe) {
 			fnfe.printStackTrace();
@@ -84,19 +84,15 @@ public class AppYamlLoader {
 	 */
 	public AppYaml current() {
 		AppYaml current = null;
-		if ((new AppYaml(loadedYaml.getMegamchef()).getSource()).equals("none")) {
-			current = new AppYaml(loadedYaml.getMegamchef());
-		} else {
-			yamlType = new AppYaml(loadedYaml.getMegamchef()).getConfig();
-			// check wheather the which source and return it
-			switch (yamlType) {
-			case "development":
-				current = new AppYaml(loadedYaml.getDevelopment());
-				break;
-			case "production":
-				current = new AppYaml(loadedYaml.getProduction());
-				break;
-			}
+		yamlType = new AppYaml(loadedYaml.getMegamchef()).getConfig();
+		// check wheather the which source and return it
+		switch (yamlType) {
+		case "development":
+			current = new AppYaml(loadedYaml.getDevelopment());
+			break;
+		case "production":
+			current = new AppYaml(loadedYaml.getProduction());
+			break;
 		}
 		return current;
 	}

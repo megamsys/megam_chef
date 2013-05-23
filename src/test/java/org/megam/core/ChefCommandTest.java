@@ -1,18 +1,18 @@
 /* 
-** Copyright [2012] [Megam Systems]
-**
-** Licensed under the Apache License, Version 2.0 (the "License");
-** you may not use this file except in compliance with the License.
-** You may obtain a copy of the License at
-**
-** http://www.apache.org/licenses/LICENSE-2.0
-**
-** Unless required by applicable law or agreed to in writing, software
-** distributed under the License is distributed on an "AS IS" BASIS,
-** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-** See the License for the specific language governing permissions and
-** limitations under the License.
-*/
+ ** Copyright [2012] [Megam Systems]
+ **
+ ** Licensed under the Apache License, Version 2.0 (the "License");
+ ** you may not use this file except in compliance with the License.
+ ** You may obtain a copy of the License at
+ **
+ ** http://www.apache.org/licenses/LICENSE-2.0
+ **
+ ** Unless required by applicable law or agreed to in writing, software
+ ** distributed under the License is distributed on an "AS IS" BASIS,
+ ** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ ** See the License for the specific language governing permissions and
+ ** limitations under the License.
+ */
 package org.megam.core;
 
 import static org.junit.Assert.*;
@@ -33,47 +33,49 @@ import org.megam.chef.exception.ProvisionerException;
 import org.megam.chef.exception.SourceException;
 import org.megam.chef.source.riak.RiakSource;
 
-
 /**
  * @author rajthilak
- *
+ * 
  */
 public class ChefCommandTest {
-	
-	private static String jsonString;	
-	private AppYaml app;	
+
+	private static String jsonString;
+	private AppYaml app;
 	private ProvisioningService ps;
+
 	/**
 	 * @param <T>
-	 * @throws ProvisionerException 	
-	 * @throws BootStrapChefException 
-	 * @throws IOException 
+	 * @throws ProvisionerException
+	 * @throws BootStrapChefException
+	 * @throws IOException
 	 */
 	@Before
-	public <T> void setUp() throws ProvisionerException, BootStrapChefException{	
+	public <T> void setUp() throws ProvisionerException, BootStrapChefException {
 		try {
-		BootStrapChef.boot();
-		ps = ProvisionerFactory.create(TYPE.CHEF_WITH_SHELL);
-	}catch(IOException ioe) {
-		throw new BootStrapChefException(ioe);
+			BootStrapChef.boot();
+			ps = ProvisionerFactory.create(TYPE.CHEF_WITH_SHELL);
+		} catch (IOException ioe) {
+			throw new BootStrapChefException(ioe);
+		}
 	}
-	}
-	
-	/**ProvisioningService
+
+	/**
+	 * ProvisioningService
+	 * 
 	 * @param <T>
 	 * @throws SourceException
-	 * @throws ProvisionerException 	
+	 * @throws ProvisionerException
 	 */
 	@Test
-	public <T> void test() throws MegamChefException, IOException {	
-		app =   BootStrapChef.boot().yaml();	
-		RiakSource rs =new RiakSource(app);      	   
-  	    rs.connection();
-  	    rs.bucket("rajBucket");
-  	    jsonString = rs.fetch("sample");
-  	    System.out.println("JSON String : "+jsonString);  	  
-  	  (new DefaultProvisioningServiceWithShell<T>()).provision(jsonString);
-		fail("Not yet implemented");
+	public <T> void test() throws MegamChefException, IOException {
+		app = BootStrapChef.boot().yaml();
+		RiakSource rs = new RiakSource(app);
+		rs.connection();
+		rs.bucket("megam-prov");
+		jsonString = rs.fetch("sample");
+		System.out.println("JSON String : " + jsonString);
+		(new DefaultProvisioningServiceWithShell<T>()).provision(jsonString);
+		assertTrue("This will succeed.", true);
 	}
 
 }

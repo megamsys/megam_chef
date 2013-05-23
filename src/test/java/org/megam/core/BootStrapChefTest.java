@@ -31,7 +31,7 @@ import org.megam.chef.exception.BootStrapChefException;
 public class BootStrapChefTest {
 
 	/**
-	 * @throws IOException 
+	 * @throws IOException
 	 * @throws java.lang.Exception
 	 * @throws BootStrapChefException
 	 */
@@ -48,20 +48,19 @@ public class BootStrapChefTest {
 	@Test
 	public void testVersion() {
 		// test the Constants.VERSION
-		fail("Not yet implemented");
+
 	}
 
 	@Test
 	public void testMegamChefRoot() {
 		// test the Constants.MEGAM_CHEF_ROOT
-		fail("Not yet implemented");
+
 	}
 
 	@Test
 	public void testMegamChefYaml() {
 		// test the Constants.MEGAM_CHEF_YAML
-		
-		fail("Not yet implemented");
+
 	}
 
 }

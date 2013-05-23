@@ -25,8 +25,7 @@ The default contents of `~/.megam/chefapp.yaml` is as follows:
 
 ```
 megamchef: 
-        config: 'development'
-        source: no
+        config: 'development'        
 development: 
       source: 'riak'
       host: 'localhost'
@@ -63,9 +62,9 @@ Before your run it,
 
 ```xml
 	<dependency>
-	<groupId>org.megam</groupId>
-	<artifactId>chef</artifactId>
-	<version>0.1</version>
+	<groupId>com.github.indykish</groupId>
+	<artifactId>megam-chef</artifactId>
+	<version>1.0.0-BUILD-SNAPSHOT</version>
 	</dependency>
 ```
 

@@ -35,17 +35,20 @@ public class Constants {
 	 * The root directory from where the code runs
 	 */
 	public static String MEGAM_CHEF_ROOT = System.getProperty("user.dir");
-	
 	/**
 	 * The user home directory. in unix this is ~ or /home/<user>
 	 */
-    public static final String MEGAM_USER_HOME = System.getProperty( "user.home" );
+	public static final String MEGAM_USER_HOME = System
+			.getProperty("user.home");
+
 	/**
 	 * The location of the app yaml configuration file, relative to
 	 * MEGAM_CHEF_ROOT
 	 */
-	public static String MEGAM_CHEF_APP_YAML = MEGAM_USER_HOME+java.io.File.separator+".megam"+java.io.File.separator+ "chefapp.yaml";
-	
+	public static String MEGAM_CHEF_APP_YAML = MEGAM_USER_HOME
+			+ java.io.File.separator + ".megam" + java.io.File.separator
+			+ "chefapp.yaml";
+
 	public static final String MEGAM_DEFAULT_CHEF_APP_YAML = MEGAM_CHEF_ROOT
 			+ java.io.File.separator + "conf" + java.io.File.separator
 			+ "chefapp.yaml";
@@ -55,7 +58,6 @@ public class Constants {
 	 */
 	public static final String MEGAM_CHEF_LOG = MEGAM_CHEF_ROOT
 			+ java.io.File.separator + "logs" + java.io.File.separator
-		+ "megam_chef.log";
-
+			+ "megam_chef.log";
 
 }

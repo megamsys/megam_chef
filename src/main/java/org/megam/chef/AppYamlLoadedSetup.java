@@ -33,43 +33,48 @@ public class AppYamlLoadedSetup {
 	private Map<String, String> production;
 
 	/**
-	* set development map
-	* @param development
-	* 
-	*/
+	 * set development map
+	 * 
+	 * @param development
+	 * 
+	 */
 	public void setDevelopment(Map<String, String> development) {
 		this.development = development;
 	}
 
 	/**
-	* get development map
-	* @return development map
-	* 
-	*/
+	 * get development map
+	 * 
+	 * @return development map
+	 * 
+	 */
 	public Map<String, String> getDevelopment() {
 		return development;
 	}
 
 	/**
-	* set production map
-	* @param production
-	* 
-	*/
+	 * set production map
+	 * 
+	 * @param production
+	 * 
+	 */
 	public void setProduction(Map<String, String> production) {
 		this.production = production;
 	}
 
 	/**
-	* get production map
-	* @return production map
-	* 
-	*/
+	 * get production map
+	 * 
+	 * @return production map
+	 * 
+	 */
 	public Map<String, String> getProduction() {
 		return production;
 	}
 
 	/**
 	 * get megamchef map
+	 * 
 	 * @param megamchef
 	 * @return
 	 */
@@ -91,7 +96,8 @@ public class AppYamlLoadedSetup {
 	public String toString() {
 		StringBuilder strbd = new StringBuilder();
 		final Formatter formatter = new Formatter(strbd);
-		formatter.format("%s%n", "*----------------------- chefapp.yaml -------------------*");
+		formatter.format("%s%n",
+				"*----------------------- chefapp.yaml -------------------*");
 		for (Map.Entry<String, String> entry : getMegamchef().entrySet()) {
 			formatter.format("%10s = %s%n", entry.getKey(), entry.getValue());
 		}
@@ -100,7 +106,7 @@ public class AppYamlLoadedSetup {
 		}
 		for (Map.Entry<String, String> entry : getProduction().entrySet()) {
 			formatter.format("%10s = %s%n", entry.getKey(), entry.getValue());
-		}		
+		}
 		formatter.close();
 		return strbd.toString();
 	}

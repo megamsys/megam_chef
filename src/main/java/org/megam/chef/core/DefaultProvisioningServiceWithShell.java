@@ -34,7 +34,6 @@ import org.megam.chef.shell.Stoppable;
 public class DefaultProvisioningServiceWithShell<T> extends
 		DefaultProvisioningService<T> implements Shellable, Stoppable {
 
-
 	/**
 	 * 
 	 * @throws ProvisionerException
@@ -43,10 +42,10 @@ public class DefaultProvisioningServiceWithShell<T> extends
 		super();
 	}
 
-
-	/**  
-	 * TO-DO : What is the output we need to send ? 
-	 * We need a generic way to convert a Java output to JSON output
+	/**
+	 * TO-DO : What is the output we need to send ? We need a generic way to
+	 * convert a Java output to JSON output
+	 * 
 	 * @see org.megam.chef.ProvisioningService#provision()
 	 */
 	@Override
@@ -64,8 +63,9 @@ public class DefaultProvisioningServiceWithShell<T> extends
 	 * @throws ShellException
 	 */
 	public Command jsonToCommand(String jsonRequest) throws ShellException {
-		Command com =  new org.megam.chef.shell.Command(convertInput(jsonRequest));
-		//logger.(com);
+		Command com = new org.megam.chef.shell.Command(
+				convertInput(jsonRequest));
+		// logger.(com);
 		return com;
 	}
 
@@ -105,12 +105,14 @@ public class DefaultProvisioningServiceWithShell<T> extends
 		return "DefaultProvisioningWithShell";
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see org.megam.chef.shell.Shellable#execute(org.megam.chef.shell.Command)
 	 */
 	@Override
 	public void execute(Command command) throws ShellException {
-		(new ShellProvisioningPool()).run(command);		
+		(new ShellProvisioningPool()).run(command);
 	}
 
 }

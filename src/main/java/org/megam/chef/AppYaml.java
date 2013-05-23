@@ -60,7 +60,5 @@ public class AppYaml {
 	public String getConfig() {
 		return yamlSource.get(CONFIG);
 	}
-	
-	
 
 }
