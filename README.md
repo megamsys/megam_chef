@@ -16,10 +16,49 @@ Java based Opscode Chef connector. The API accepts a JSON request, builds a chef
 
 ## Usage
 
-Let us say your `ENV[HOME]` is `/home/ram`. When megam_chef is runs inside your java (or) scala (or) scala/akka/play .. program, 
-it verifies if a file named exists `~/.megam/chefapp.yaml`.
+### Scala
 
-If this is the initial run, then it creates the default file as shown below at `~/.megam/chefapp.yaml` 
+
+> Add this dependency in `build.sbt`
+
+```libraryDependencies += "com.github.indykish" % "megam-chef" % "1.0.0-BUILD-SNAPSHOT"            
+```
+
+
+### Java 
+
+
+> Add this maven dependency in the `pom.xml`
+
+```xml
+	<dependency>
+	<groupId>com.github.indykish</groupId>
+	<artifactId>megam-chef</artifactId>
+	<version>1.0.0-BUILD-SNAPSHOT</version>
+	</dependency>
+```
+
+### Preparing your program
+
+#### Pre-requisites
+
+Before your run it,
+
+* Opensource Chef Server (or) Hosted Chef running
+* Required Cookbooks, Runlist uploaded to the Chef Server
+* A chef client created, and knife command works as intended.
+* [optional] - Riak running, and has the bucket named as configured in chefapp.yaml file.
+
+### Configuring `chefapp.yaml`
+
+There exists a default configuration file `chefapp.yaml` file which can be configured as intended.
+
+Let us say your `ENV[HOME]` is `/home/ram` as is represented as ~ below. 
+
+When megam_chef is run inside your java (or) scala (or) akka/play .. program, it verifies if a file 
+exists `~/.megam/chefapp.yaml`.
+
+If this is the first, then it creates the default file as shown below at `~/.megam/chefapp.yaml` 
 
 The default contents of `~/.megam/chefapp.yaml` is as follows:
 
@@ -37,53 +76,43 @@ production:
       port: '8098'
       bucket: 'megam_prov'      
 ```
-###
+#### Configuration details:
+
+`config:` <development, production, staging, test ..> : The value that is entered needs to have a matching section with the 
+same name. For instance if the config is `development` then a section following it needs to have the values for it.
+
 
 `source:` <yes/no> : yes => means there is a datasource that megam_chef should use. The supported datasource is Riak.
 Postgresql support is a work under progress.
 				   : no => no datasource in use (or) none source	
 
-`config:` <development, production, staging, test ..> : The value that is entered needs to have a matching section with the 
-same name. For instance if the config is `development` then a section following it needs to have the values for it.
+`host:`            : hostname of riak datasource	
+				   
+`port:`            : port  of riak datasource	
+				   
+`bucket:`          : bucket to pull from riak datasource	
 
 You have noticed above that by default source is `no`, and hence `no data source` is needed to work with this API. 
 
-### Prepare your program
+#### Why a data source
 
-Before your run it,
+We have intermediatories[megam_play](https://github.com/indykish/megam_play) which would intercept an RESTful request validate 
+the shared HMAC of a requestor and stored the JSON request using an `id` in a datastore. 
 
-* Opensource Chef Server (or) Hosted Chef running
-* Required Cookbooks, Runlist uploaded to the Chef Server
-* A chef client created, and knife command works as intended.
-* optional - Riak running, and has the bucket named as configured in yaml file.
+We choose `Riak`. 
 
 
-> Add this maven dependency
+### Use case : source = yes
 
-```xml
-	<dependency>
-	<groupId>com.github.indykish</groupId>
-	<artifactId>megam-chef</artifactId>
-	<version>1.0.0-BUILD-SNAPSHOT</version>
-	</dependency>
-```
+This attaches the source as per the naming convention. If `riak` is present, then a RiakSource is attached.
+Basho's `riak-java-client` is used to interface with Riak.
 
-> Invoking megam_chef
+### Use case : source = no
 
-```java
+This attaches a NoneSource, and expects the input to be proived as a JSON.
 
-import org.megam.chef.ChefServiceRunner;
-import org.megam.chef.DropIn;
-import org.megam.chef.ProvisionerFactory.TYPE;
-import org.megam.chef.exception.BootStrapChefException;
-import org.megam.chef.exception.ProvisionerException;
-import org.megam.chef.exception.SourceException;
+The ChefServiceRunner is the executioner for megam_chef.
 
-ChefServiceRunner csc = (new ChefServiceRunner()).with(TYPE.CHEF_WITH_SHELL).input(new DropIn("sample")).control();
-
-
-```
-The ChefServiceRunner is executioner for megam_chef api.
 
 ### Input JSON
 
@@ -142,41 +171,43 @@ For more detail about `chef` visit `http://docs.opscode.com/#getting-started`
 
 `run-list:` A comma-separated list of roles and/or recipes to be applied.
 
-## Validation
-The following validations happen 
 
 
-* The hooked up provider (Let us say DefaultProvisionerChefWithShell) is the selected default one. If that is the case
-then the command knife -version is run before the run list can be executed.  If the validation conditions fail,
-then the follow reason appears.
+> Setting up megam_chef with inteface to Riak
+
+`$ riak start		   //start riak`
+
+`$ ps aux | grep riak* //verify riak is running`
+
+` riak-admin test      //test riak`
+
+` curl -v http://localhost:8098/riak/megam-prov //create a bucket megam-prov`
+
+` //Drop a json with id=sample into riak bucket megam-prov
+  curl -v -XPUT -d '{"systemprovider": {"provider": {"prov": "chef"}}, "compute": { "ec2": {"groups": "megam","image": "ami-56e6a404","flavor": "m1.small"},"access": {"ssh-key":"megam_ec2","identity-file": "~/.ssh/megam_ec2.pem","ssh-user": "ubuntu"}}, "chefservice": {"chef": {"command": "knife","plugin": "ec2 server create",
+  "run-list": "'role[opendj]'","name": "-N TestOverAll"}} }' -H "Content-Type: application/json" -H "X-Riak-Vclock: a85hYGBgzGDKBVIszMk55zKYEhnzWBlKIniO8mUBAA==" http://localhost:8098/riak/megam-prov/sample` 
+
+
+```java
+
+import org.megam.chef.ChefServiceRunner;
+import org.megam.chef.DropIn;
+import org.megam.chef.ProvisionerFactory.TYPE;
+import org.megam.chef.exception.BootStrapChefException;
+import org.megam.chef.exception.ProvisionerException;
+import org.megam.chef.exception.SourceException;
+
+		//the id "sample" will be used to lookup riak for the json that megam_chef can execute.
+		
+		(new ChefServiceRunner()).with(TYPE.CHEF_WITH_SHELL).input(new DropIn("sample")).control();
+
 
 ```
-SLF4J: Class path contains multiple SLF4J bindings.
-SLF4J: Found binding in [jar:file:/home/rajthilak/code/megam/workspace/megam_chef/lib/slf4j-jdk14-1.7.5.jar!/org/slf4j/impl/StaticLoggerBinder.class]
-SLF4J: Found binding in [jar:file:/home/rajthilak/.m2/repository/org/slf4j/slf4j-log4j12/1.7.5/slf4j-log4j12-1.7.5.jar!/org/slf4j/impl/StaticLoggerBinder.class]
-SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
-SLF4J: Actual binding is of type [org.slf4j.impl.JDK14LoggerFactory]
-May 15, 2013 11:13:40 AM org.megam.chef.ChefServiceRunner with
-INFO: Chef serProvisionerFactoryvice runner - started.
-May 15, 2013 11:13:40 AM org.megam.chef.BootStrapChef bootedUp
-INFO: ------------------------- MEGAM CHEF version : 0.1Build Date : 20130418----------------------
-May 15, 2013 11:13:40 AM org.megam.chef.BootStrapChef configureRoot
-INFO: /home/rajthilak/code/megam/workspace/megam_chef
-May 15, 2013 11:13:40 AM org.megam.chef.BootStrapChef yamlSetup
-INFO: /home/rajthilak
-May 15, 2013 11:13:40 AM org.megam.chef.AppYamlLoader load
-INFO: Yaml File Loaded
+> Setting up megam_chef with `none`
 
-ERROR: groups key is missing 
-ERROR: runlist key is not valid 
+Tweak the `json` as per your need. Store it in a know path and execute the below code. In here
+we have illustrated executing  `conf\foo.json`
 
-``` 
-In this error means the runlist value in your input JSON is wrong. Runlist must contain following value `'role[--receipe name--]'`. The same checking executed at full of input JSON.  
-
-
-### Use case : source = no
-
-This attaches a NoneSource, and expects the input to be a JSON.
 
 ```java
 
@@ -190,25 +221,33 @@ This attaches a NoneSource, and expects the input to be a JSON.
 
 ```
 
-### Use case : source = yes
 
-This attaches the source as per the naming convention. If `riak` is present, then a RiakSource is attached.
-Basho's `riak-java-client` is used to interface with Riak.
+### Validation
 
-```java
-		//the key "sample" will be used to lookup riak for the json that megam_chef can execute.
-		
-		(new ChefServiceRunner()).with(TYPE.CHEF_WITH_SHELL).input(new DropIn("sample")).control();
+When `ChefServiceRunner` executes, the following validation happens
+
+* The hooked up provider (Let us say DefaultProvisionerChefWithShell) is the default one. If that is the case
+then the command knife -version is run before the run list can be executed.  If the validation conditions fail,
+then the follow reason appears.
 
 ```
+May 15, 2013 11:13:40 AM org.megam.chef.BootStrapChef bootedUp
+INFO: ------------------------- MEGAM CHEF version : 0.1Build Date : 20130418----------------------
+May 15, 2013 11:13:40 AM org.megam.chef.BootStrapChef configureRoot
+INFO: /home/rajthilak/code/megam/workspace/megam_chef
+May 15, 2013 11:13:40 AM org.megam.chef.BootStrapChef yamlSetup
+INFO: /home/rajthilak
+May 15, 2013 11:13:40 AM org.megam.chef.AppYamlLoader load
+INFO: Yaml File Loaded
 
-#### Purpose of a data source
+ERROR: groups key is missing 
+ERROR: runlist key is not valid 
 
-We have intermediatories[megam_play](https://github.com/indykish/megam_play) which would intercept a request validate the shared HMAC of a requestor and stored the 
-request using an `id` in a datastore. We choose `Riak`. 
+``` 
+The above error means the runlist value in your input JSON is wrong. Runlist must contain following value `'role[--receipe name--]'`.  
 
    
-### Running the application
+### Testing your application
 
 Just see the sample class as illustrated in the `src/test/java` package.
 
@@ -225,6 +264,8 @@ We are glad to help if you have questions, or request for new features..
 
 #### TO - DO
 
+* Unique process output files, right now this just dumps it to a file `kh`
+* Streams(scala) to move around the process out.
 * Stoppable actions
 * Interface to [megam_akka](https://github.com/indykish/megam_play) 
 * Pooled runners

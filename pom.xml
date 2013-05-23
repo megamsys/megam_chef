@@ -4,7 +4,6 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.github.indykish</groupId>
 	<artifactId>megam-chef</artifactId>
-	<name>chef</name>
 	<packaging>jar</packaging>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
 	<properties>
@@ -86,7 +85,7 @@
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>
-			<version>2.2.2</version>
+			<version>2.2.3</version>
 		</dependency>
 		<!-- Snake Yaml -->
 		<dependency>
@@ -156,7 +155,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.14</version>
+				<version>2.14.1</version>
 				<configuration>
 					<configuration>
 						<forkMode>never</forkMode>
@@ -180,4 +179,11 @@
 			</plugin>
 		</plugins>
 	</build>
+	<description>Java based Opscode Chef connector. The API accepts a JSON request, builds a chef command line using (Knife).</description>
+	<url>https://www.megam.co</url>
+	<name>Private PaaS/Cloud management/Cloud Integration with Identity</name>
+	<organization>
+		<name>Megam Systems LLP</name>
+		<url>http://www.megam.co</url>
+	</organization>
 </project>
