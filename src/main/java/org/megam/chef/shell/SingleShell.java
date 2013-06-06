@@ -15,6 +15,7 @@
  */
 package org.megam.chef.shell;
 
+import java.io.File;
 import java.lang.ProcessBuilder.Redirect;
 import java.util.concurrent.RecursiveAction;
 
@@ -41,9 +42,10 @@ public class SingleShell extends RecursiveAction {
 	 */
 	public void compute() {
 		try {
-			//cmd.setRedirectOutput("kh");
+			cmd.setRedirectOutput("kh");
 			//cmd.setRedirectError("kh1");
 			ProcessBuilder p = new ProcessBuilder(cmd.getCommandList());
+			//p.directory(new File("/home/rajthilak/chef-repo/"));
 			p.redirectOutput(Redirect.appendTo(cmd.getRedirectOutputFile()));
 			Process p1 = p.start();
 		} catch (Exception e) {

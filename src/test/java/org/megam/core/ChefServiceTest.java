@@ -43,7 +43,7 @@ public class ChefServiceTest {
 	public void test() throws SourceException, ProvisionerException,
 			BootStrapChefException {
 		try {
-			(new ChefServiceRunner()).with(TYPE.CHEF_WITH_SHELL)
+			(new ChefServiceRunner()).withType(TYPE.CHEF_WITH_SHELL)
 					.input(new DropIn("sample")).control();
 			assertTrue("This will succeed.", true);
 		} catch (IOException ioe) {

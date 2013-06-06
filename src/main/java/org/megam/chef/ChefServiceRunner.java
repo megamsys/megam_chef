@@ -51,7 +51,7 @@ public class ChefServiceRunner {
 	 * @throws SourceException
 	 *             booting the initialization classes load the source *
 	 */
-	public ChefServiceRunner with(TYPE type) throws BootStrapChefException,
+	public ChefServiceRunner withType(TYPE type) throws BootStrapChefException,
 			ProvisionerException, SourceException, IOException {
 		logger.info("Chef serProvisionerFactoryvice runner - started.");
 		AppYaml app = BootStrapChef.boot().yaml();
