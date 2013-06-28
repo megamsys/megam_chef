@@ -33,21 +33,28 @@ public class SingleShell extends RecursiveAction {
 	 * @param tempcmd
 	 */
 	public SingleShell(Command tempcmd) {
+		System.out.println("----------singleshell called------");
 		this.cmd = tempcmd;
-	}
+		}
 
 	/**
 	 * Processed the command using ProcessBuilder class Print the output's are
 	 * wrote in the some file
 	 */
+
 	public void compute() {
 		try {
-			cmd.setRedirectOutput("kh");
-			//cmd.setRedirectError("kh1");
-			ProcessBuilder p = new ProcessBuilder(cmd.getCommandList());
+			System.out.println("compute method of singleshell calling");
+			
+		    ProcessBuilder p = new ProcessBuilder(cmd.getCommandList());
 			//p.directory(new File("/home/rajthilak/chef-repo/"));
-			p.redirectOutput(Redirect.appendTo(cmd.getRedirectOutputFile()));
+            
+            p.redirectOutput(Redirect.appendTo(cmd.getRedirectOutputFile()));
+            p.redirectError (Redirect.to(cmd.getRedirectErrorFile()));
 			Process p1 = p.start();
+			
+			assert p.redirectOutput().file() == cmd.getRedirectOutputFile();
+				
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

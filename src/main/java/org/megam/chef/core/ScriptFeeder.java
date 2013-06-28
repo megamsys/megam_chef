@@ -1,5 +1,7 @@
 package org.megam.chef.core;
 
+import org.megam.chef.shell.FedInfo;
+
 /**
  * 
  * @author rajthilak
@@ -8,5 +10,5 @@ package org.megam.chef.core;
 public interface ScriptFeeder {
 
 	public boolean canFeed();
-	public String feed();
+	public FedInfo feed();
 }

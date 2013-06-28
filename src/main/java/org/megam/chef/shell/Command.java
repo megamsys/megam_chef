@@ -26,21 +26,29 @@ import java.util.StringTokenizer;
  * 
  */
 public class Command {
-	private String inputCmd;
+
 	private File rdo;
 	private File rde;
 	private List<String> cmdList = new ArrayList<String>();
+	private String name;
+	private String inputCmd;
 
 	/**
 	 * 
 	 * @param s
 	 */
-	public Command(String s) {
-		this.inputCmd = s;
+	public Command(String[] shellArray) {
+		this.name = shellArray[0].toLowerCase();
+		this.inputCmd = shellArray[1];
 		StringTokenizer st = new StringTokenizer(inputCmd);
 		while (st.hasMoreTokens()) {
 			cmdList.add(st.nextToken());
 		}
+		
+	   
+	    
+		setRedirectOutput(name+ "out");
+		setRedirectError(name+ "err");
 	}
 
 	/**
@@ -72,6 +80,9 @@ public class Command {
 	 * @return command list
 	 */
 	public List<String> getCommandList() {
+		System.out.println("");
+		System.out.println("get command list:" + cmdList);
+		System.out.println("");
 		return cmdList;
 	}
 

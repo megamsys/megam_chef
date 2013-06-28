@@ -10,7 +10,7 @@
 		<java-version>1.7</java-version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<org.slf4j-version>1.7.5</org.slf4j-version>
-		<skipTests>true</skipTests>
+		<skipTests>false</skipTests>
 	</properties>
 	<parent>
 		<groupId>org.sonatype.oss</groupId>
@@ -29,6 +29,12 @@
 			<artifactId>slf4j-api</artifactId>
 			<version>${org.slf4j-version}</version>
 		</dependency>	
+		<dependency>
+        	<groupId>org.slf4j</groupId>
+        	<artifactId>slf4j-log4j12</artifactId>
+        	<version>${org.slf4j-version}</version>
+        </dependency>
+        
 		<!-- @Inject -->
 		<dependency>
 			<groupId>javax.inject</groupId>

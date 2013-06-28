@@ -17,16 +17,20 @@ public class ShellBuilder {
 	 * 
 	 * @param args
 	 */
-	public static String buildString(LinkedList<ScriptFeeder> scriptFeeder) {
+	public static String[] buildString(LinkedList<ScriptFeeder> scriptFeeder) {
 
-		StringBuilder s = new StringBuilder();
+		StringBuilder nameB = new StringBuilder();
+		StringBuilder shellB = new StringBuilder();
 
 		for (ScriptFeeder sf : scriptFeeder) {
 			if (sf.canFeed()) {
-				s.append(sf.feed());
+				nameB.append(sf.feed().getName()+"_");
+				shellB.append(sf.feed().getShellString());
+
 			}
 		}
-		return s.toString();
+		return new String[] { nameB.toString(), shellB.toString() };
+
 	}
 
 }

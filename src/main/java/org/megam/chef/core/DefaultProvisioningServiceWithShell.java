@@ -37,8 +37,8 @@ import org.slf4j.LoggerFactory;
 public class DefaultProvisioningServiceWithShell<T> extends
 		DefaultProvisioningService<T> implements Shellable, Stoppable {
 
-	private Logger logger = LoggerFactory.getLogger(DefaultProvisioningServiceWithShell.class);
-
+	private Logger logger = LoggerFactory
+			.getLogger(DefaultProvisioningServiceWithShell.class);
 
 	/**
 	 * 
@@ -58,13 +58,16 @@ public class DefaultProvisioningServiceWithShell<T> extends
 	public T provision(String jsonString) throws ProvisionerException {
 		logger.debug("entry");
 		try {
+			
 			execute(jsonToCommand(jsonString));
+
+			
 		} catch (ShellException she) {
 			throw new ProvisionerException(she);
 		}
 		logger.debug("exit");
 		/**
-		 * TO-DO why do we return null here  ?
+		 * TO-DO why do we return null here ?
 		 */
 		return null;
 	}
@@ -101,16 +104,18 @@ public class DefaultProvisioningServiceWithShell<T> extends
 	 * @param myJSONString
 	 * @return
 	 */
-	private String convertInput(String jsonRequest) throws ShellException {
+	private String[] convertInput(String jsonRequest) throws ShellException {
 		JSONRequest jrp = (new JSONRequestParser(jsonRequest)).data();
+
 		ParmsValidator pv = new ParmsValidator();
+
 		if (pv.validate(jrp.conditionList())) {
-			String shellStr = ShellBuilder.buildString(jrp.scriptFeeder());
-			logger.debug("shell string:"+ shellStr);
-			return shellStr;
+
+			return ShellBuilder.buildString(jrp.scriptFeeder());
+
 		} else {
-			throw new ShellException(new IllegalArgumentException(
-					pv.reasonsNotSatisfied().toString()));
+			throw new ShellException(new IllegalArgumentException(pv
+					.reasonsNotSatisfied().toString()));
 		}
 	}
 
@@ -125,6 +130,7 @@ public class DefaultProvisioningServiceWithShell<T> extends
 	 */
 	@Override
 	public void execute(Command command) throws ShellException {
+	
 		(new ShellProvisioningPool()).run(command);
 	}
 

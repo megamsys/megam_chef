@@ -8,6 +8,7 @@ import java.util.Map;
 
 import org.megam.chef.core.Condition;
 import org.megam.chef.core.ScriptFeeder;
+import org.megam.chef.shell.FedInfo;
 
 /**
  * 
@@ -31,6 +32,7 @@ public class ComputeInfo implements DataMap, ScriptFeeder, Condition {
 	private Map<String, String> access = new HashMap<String, String>();
 
 	private AccessData token;
+	private FedInfo fed;
 
 	public ComputeInfo() {
 		token = new AccessData();
@@ -96,16 +98,33 @@ public class ComputeInfo implements DataMap, ScriptFeeder, Condition {
 		return strbd.toString();
 	}
 
+	/*
+	 * public String toString() {
+	 * 
+	 * return ( getGroups() + " " + getImage() + " " + getFlavor() + " " + "--"
+	 * + SSHKEY + " " + getSshKey() + " " + "--" + IDENTITYFILE + " " +
+	 * getIdentityFile() + " " + "--" + SSHUSER + " " + getSshUser());
+	 * 
+	 * }
+	 */
+	public String getName() {
+		return "cloud";
+
+	}
+
 	public boolean canFeed() {
 		return true;
 	}
 
-	public String feed() {
-		// TODO Auto-generated method stub
-		return " " + getGroups() + " " + getImage() + " " + getFlavor() + " "
-				+ "--" + SSHKEY + " " + getSshKey() + " " + "--" + IDENTITYFILE
-				+ " " + getIdentityFile() + " " + "--" + SSHUSER + " "
-				+ getSshUser();
+	public FedInfo feed() {
+		
+
+		fed = new FedInfo(getName(), " " + getGroups() + " " + getImage() + " "
+				+ getFlavor() + " " + "--" + SSHKEY + " " + getSshKey() + " "
+				+ "--" + IDENTITYFILE + " " + getIdentityFile() + " " + "--"
+				+ SSHUSER + " " + getSshUser());
+
+		return fed;
 	}
 
 	public String getGroups() {
@@ -128,7 +147,7 @@ public class ComputeInfo implements DataMap, ScriptFeeder, Condition {
 		boolean isOk = true;
 		isOk = isOk && validate("groups", "megam");
 		isOk = isOk && validate("image", "ami-56e6a404");
-		isOk = isOk && validate("flavor", "m1.small");		
+		isOk = isOk && validate("flavor", "m1.small");
 		return isOk;
 	}
 

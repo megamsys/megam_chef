@@ -8,6 +8,7 @@ import java.util.Map;
 
 import org.megam.chef.core.Condition;
 import org.megam.chef.shell.Command;
+import org.megam.chef.shell.FedInfo;
 
 /**
  * 
@@ -31,8 +32,7 @@ public class ChefInfo extends ProvisionerInfo {
 	// create Map name as chef from config.json file
 	private Map<String, String> chef = new HashMap<String, String>();
 	private AccessData token;
-
-	public ChefInfo() {
+    public ChefInfo() {
 		super("CHEF");
 		token = new AccessData();
 		token();
@@ -130,9 +130,13 @@ public class ChefInfo extends ProvisionerInfo {
 		return true;
 	}
 
-	public String feed() {
-		return getCommand() + " " + getPlugin() + " " + getRunList() + " "
-				+ getName();
+	
+	
+	public FedInfo feed() {
+		
+		FedInfo fed =new FedInfo(getName().split(" ")[1], getCommand() + " " + getPlugin() + " " + getRunList());
+		
+		return fed; 
 	}
 
 	/*
