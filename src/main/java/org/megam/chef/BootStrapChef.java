@@ -74,7 +74,7 @@ public class BootStrapChef {
 	 */
 	private void configureRoot() {
 		/** MEGAM_ROOT_DIR **/
-		logger.debug("root="+System.getProperty("user.dir"));
+		logger.debug("user.dir="+System.getProperty("user.dir"));
 		MEGAM_CHEF_ROOT = System.getProperty("user.dir");
 	}
 
@@ -116,6 +116,8 @@ public class BootStrapChef {
 		try {
 			File file = new File(MEGAM_CHEF_APP_YAML);
 			logger.debug("user.home="+MEGAM_USER_HOME);
+			logger.debug("user.dir="+MEGAM_CHEF_ROOT);
+
 			if (!file.exists()) {
 				String source = MEGAM_DEFAULT_CHEF_APP_YAML;
 				String target = MEGAM_USER_HOME + java.io.File.separator

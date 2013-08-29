@@ -15,31 +15,39 @@
  */
 package org.megam.chef;
 
+import java.io.File;
+
 /**
  * @author ram
  * 
  */
 public class Constants {
+	
 
 	/**
 	 * The version that gets printed in the log after booting.
 	 */
-	public static final String VERSION = "1.0.0-BUILD-SNAPSHOT";
+	public static final String VERSION = "0.1.0-BUILD-SNAPSHOT";
 	/**
 	 * The build date of the the jar. This might get tweaked by pulling the date
 	 * when maven jars the file.
 	 */
-	public static final String BUILD_DATE = "20130523";
+	public static final String BUILD_DATE = "20130829";
 
 	/**
-	 * The root directory from where the code runs
+	 * The current directory from where the code runs
+	 * if this called from akka (/usr/local/share/megamakka, then that would 
+	 * be the user.dir.
 	 */
 	public static String MEGAM_CHEF_ROOT = System.getProperty("user.dir");
+	
 	/**
 	 * The user home directory. in unix this is ~ or /home/<user>
+	 * Fix in AWS which doesn't allow /root/.megam to be stored. Hence
+	 * in cases where we don't have access to user.home, we use user.dir.
 	 */
-	public static final String MEGAM_USER_HOME = System
-			.getProperty("user.home");
+	public static final String MEGAM_USER_HOME = (new File(System
+			.getProperty("user.home")).canWrite()) ? System.getProperty("user.home") : MEGAM_CHEF_ROOT;
 
 	/**
 	 * The location of the app yaml configuration file, relative to
