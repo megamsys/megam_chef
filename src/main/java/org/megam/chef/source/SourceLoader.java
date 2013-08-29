@@ -58,6 +58,7 @@ public class SourceLoader {
 	 * @throws SourceException
 	 */
 	public void load() throws SourceException {
+		logger.info("-------> yaml source =>" + yaml.getSource());
 		switch (yaml.getSource()) {
 		case RIAK:
 			source = new RiakSource(yaml);
@@ -68,7 +69,7 @@ public class SourceLoader {
 		}
 		source.connection();
 		source.bucket(yaml.getBucket());
-		logger.info("Source was loaded");
+		logger.info("-------> source connected =>");
 	}
 
 	/**
@@ -84,6 +85,7 @@ public class SourceLoader {
 	 * @throws SourceException
 	 */
 	public String fetchRequestJSON(String id) throws SourceException {
+		logger.info("-------> id =>"+ id);
 		return source().fetch(id);
 	}
 

@@ -74,7 +74,7 @@ public class BootStrapChef {
 	 */
 	private void configureRoot() {
 		/** MEGAM_ROOT_DIR **/
-		logger.debug("user.dir="+System.getProperty("user.dir"));
+		logger.info("user.dir="+System.getProperty("user.dir"));
 		MEGAM_CHEF_ROOT = System.getProperty("user.dir");
 	}
 
@@ -84,7 +84,7 @@ public class BootStrapChef {
 	 *             configure the yaml file
 	 */
 	private void configure() throws BootStrapChefException {
-		logger.debug("Yaml loading.." + MEGAM_CHEF_APP_YAML);
+		logger.info("Yaml loading.." + MEGAM_CHEF_APP_YAML);
 		AppYamlLoader yaml = new AppYamlLoader(MEGAM_CHEF_APP_YAML);
 		if (yaml.notReady()) {
 			throw new BootStrapChefException(new IllegalArgumentException(
@@ -92,7 +92,7 @@ public class BootStrapChef {
 							+ MEGAM_CHEF_APP_YAML));
 		}
 		bootedYaml = yaml.current();
-		logger.debug(bootedYaml.toString());
+		logger.info(bootedYaml.toString());
 	}
 
 	/*
@@ -115,8 +115,8 @@ public class BootStrapChef {
 	private void yamlSetup() throws BootStrapChefException {
 		try {
 			File file = new File(MEGAM_CHEF_APP_YAML);
-			logger.debug("user.home="+MEGAM_USER_HOME);
-			logger.debug("user.dir="+MEGAM_CHEF_ROOT);
+			logger.info("user.home="+MEGAM_USER_HOME);
+			logger.info("user.dir="+MEGAM_CHEF_ROOT);
 
 			if (!file.exists()) {
 				String source = MEGAM_DEFAULT_CHEF_APP_YAML;
@@ -135,6 +135,7 @@ public class BootStrapChef {
 						+ target + " successful.");
 			}
 		} catch (IOException ioe) {
+			ioe.printStackTrace();
 			throw new BootStrapChefException(ioe);
 		}
 	}

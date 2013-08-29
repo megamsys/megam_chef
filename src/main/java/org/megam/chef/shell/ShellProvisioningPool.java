@@ -19,6 +19,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ForkJoinPool;
 
+import org.megam.chef.core.DefaultProvisioningServiceWithShell;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 /**
  * @author ram
@@ -33,6 +37,8 @@ public class ShellProvisioningPool {
 	
 	private static ShellProvisioningPool spPool; 
 	private ForkJoinPool ourForky;
+	private Logger logger = LoggerFactory
+			.getLogger(ShellProvisioningPool.class);
 	
 	public ShellProvisioningPool() {
 	     ourForky = new ForkJoinPool();
@@ -63,7 +69,11 @@ public class ShellProvisioningPool {
 	}
 	
 	public void run(Command that) {	
+		logger.info("-------> that command =>" + that);
+
 		SingleShell oneRun = new SingleShell(that);
+		logger.info("-------> WHEW! FORK FINALLY. " + that);
+
 		//register the oneRun stoppable in the list.
 		ourForky.invoke(oneRun);		
 	}

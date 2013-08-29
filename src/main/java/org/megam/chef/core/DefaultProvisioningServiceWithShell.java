@@ -56,16 +56,13 @@ public class DefaultProvisioningServiceWithShell<T> extends
 	 */
 	@Override
 	public T provision(String jsonString) throws ProvisionerException {
-		logger.debug("entry");
+		logger.info("-------> jsonString =>" + jsonString);
 		try {
-			
 			execute(jsonToCommand(jsonString));
-
-			
 		} catch (ShellException she) {
 			throw new ProvisionerException(she);
 		}
-		logger.debug("exit");
+		logger.info("-------> exit");
 		/**
 		 * TO-DO why do we return null here ?
 		 */
@@ -77,10 +74,11 @@ public class DefaultProvisioningServiceWithShell<T> extends
 	 * @throws ShellException
 	 */
 	public Command jsonToCommand(String jsonRequest) throws ShellException {
-		logger.debug("entry");
+		logger.info("-------> jsonRequest =>" + jsonRequest);
+
 		Command com = new org.megam.chef.shell.Command(
 				convertInput(jsonRequest));
-		logger.debug("exit");
+		logger.info("exit");
 		return com;
 	}
 
@@ -105,14 +103,13 @@ public class DefaultProvisioningServiceWithShell<T> extends
 	 * @return
 	 */
 	private String[] convertInput(String jsonRequest) throws ShellException {
+		logger.info("-------> jsonRequest =>" + jsonRequest);
 		JSONRequest jrp = (new JSONRequestParser(jsonRequest)).data();
-
+		logger.info("-------> jrp =>" + jrp);
 		ParmsValidator pv = new ParmsValidator();
-
 		if (pv.validate(jrp.conditionList())) {
-
+			logger.info("-------> Shellbuilder =>");
 			return ShellBuilder.buildString(jrp.scriptFeeder());
-
 		} else {
 			throw new ShellException(new IllegalArgumentException(pv
 					.reasonsNotSatisfied().toString()));
@@ -130,7 +127,6 @@ public class DefaultProvisioningServiceWithShell<T> extends
 	 */
 	@Override
 	public void execute(Command command) throws ShellException {
-	
 		(new ShellProvisioningPool()).run(command);
 	}
 

@@ -9,6 +9,8 @@ import java.util.Map;
 import org.megam.chef.core.Condition;
 import org.megam.chef.shell.Command;
 import org.megam.chef.shell.FedInfo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * 
@@ -24,15 +26,18 @@ public class ChefInfo extends ProvisionerInfo {
 	private static final String PLUGIN = "plugin";
 	private static final String RUNLIST = "run-list";
 	private static final String NAME = "name";
-	
+
 	private static final String KNIFE = "knife";
-	
-	private List<String>  missingReasonToList = new ArrayList<String>();
+
+	private List<String> missingReasonToList = new ArrayList<String>();
 
 	// create Map name as chef from config.json file
 	private Map<String, String> chef = new HashMap<String, String>();
 	private AccessData token;
-    public ChefInfo() {
+	private Logger logger = LoggerFactory.getLogger(ChefInfo.class);
+
+
+	public ChefInfo() {
 		super("CHEF");
 		token = new AccessData();
 		token();
@@ -58,8 +63,6 @@ public class ChefInfo extends ProvisionerInfo {
 		token.setName(chef.get(NAME));
 		return token;
 	}
-
-	
 
 	public String getCommand() {
 		return chef.get(COMMAND);
@@ -113,7 +116,7 @@ public class ChefInfo extends ProvisionerInfo {
 		isAvailable = isAvailable && notNull(COMMAND);
 		isAvailable = isAvailable && notNull(PLUGIN);
 		isAvailable = isAvailable && notNull(RUNLIST);
-		isAvailable = isAvailable && notNull(NAME);		
+		isAvailable = isAvailable && notNull(NAME);
 		return isAvailable;
 	}
 
@@ -125,18 +128,17 @@ public class ChefInfo extends ProvisionerInfo {
 			return false;
 		}
 	}
-	
+
 	public boolean canFeed() {
 		return true;
 	}
 
-	
-	
 	public FedInfo feed() {
-		
-		FedInfo fed =new FedInfo(getName().split(" ")[1], getCommand() + " " + getPlugin() + " " + getRunList());
-		
-		return fed; 
+
+		FedInfo fed = new FedInfo(getName().split(" ")[1], getCommand() + " "
+				+ getPlugin() + " " + getRunList());
+
+		return fed;
 	}
 
 	/*
@@ -154,20 +156,23 @@ public class ChefInfo extends ProvisionerInfo {
 	public Condition initCondition() {
 		return new InitChefCondition();
 	}
-	
+
 	/**
 	 * tostring method for chef map
 	 */
 	public String toString() {
 		StringBuilder strbd = new StringBuilder();
 		final Formatter formatter = new Formatter(strbd);
+		logger.info("-------> ChefInfo =>");
+
 		for (Map.Entry<String, String> entry : map().entrySet()) {
 			formatter.format("%10s = %s%n", entry.getKey(), entry.getValue());
 		}
 		formatter.close();
+		logger.info("-------> ChefInfo =>");
+
 		return strbd.toString();
 	}
-
 
 	private class InitChefCondition implements Condition {
 

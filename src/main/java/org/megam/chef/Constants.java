@@ -44,10 +44,9 @@ public class Constants {
 	/**
 	 * The user home directory. in unix this is ~ or /home/<user>
 	 * Fix in AWS which doesn't allow /root/.megam to be stored. Hence
-	 * in cases where we don't have access to user.home, we use user.dir.
+	 * we use user.dir.
 	 */
-	public static final String MEGAM_USER_HOME = (new File(System
-			.getProperty("user.home")).canWrite()) ? System.getProperty("user.home") : MEGAM_CHEF_ROOT;
+	public static final String MEGAM_USER_HOME = MEGAM_CHEF_ROOT;
 
 	/**
 	 * The location of the app yaml configuration file, relative to

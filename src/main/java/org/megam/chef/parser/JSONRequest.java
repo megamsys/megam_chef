@@ -73,9 +73,9 @@ public class JSONRequest {
 	public String toString() {
 		StringBuilder strbd = new StringBuilder();
 		final Formatter formatter = new Formatter(strbd);
-		formatter.format("%s%n", getAccess().toString());
-		formatter.format("%s%n", getProv().toString());
-		formatter.format("%s%n", getChef().toString());
+		formatter.format("%s%n", (getAccess()!=null ? getAccess().toString() : "Access[None]"));
+		formatter.format("%s%n", (getProv()!=null ?  getProv().toString() : "Prov[None]"));
+		formatter.format("%s%n", (getChef()!=null ? getChef().toString() : "Chef[None"));
 		// formatter.format("%s%n", getService().toString());
 		formatter.close();
 		return strbd.toString();

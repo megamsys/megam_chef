@@ -19,6 +19,9 @@ import java.io.File;
 import java.lang.ProcessBuilder.Redirect;
 import java.util.concurrent.RecursiveAction;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * 
  * @author rajthilak
@@ -27,15 +30,16 @@ import java.util.concurrent.RecursiveAction;
 public class SingleShell extends RecursiveAction {
 
 	private Command cmd;
+	private Logger logger = LoggerFactory.getLogger(SingleShell.class);
 
 	/**
 	 * 
 	 * @param tempcmd
 	 */
 	public SingleShell(Command tempcmd) {
-		System.out.println("----------singleshell called------");
+		logger.info("-------> tempcmd =>" + tempcmd);
 		this.cmd = tempcmd;
-		}
+	}
 
 	/**
 	 * Processed the command using ProcessBuilder class Print the output's are
@@ -44,17 +48,14 @@ public class SingleShell extends RecursiveAction {
 
 	public void compute() {
 		try {
-			System.out.println("compute method of singleshell calling");
-			
-		    ProcessBuilder p = new ProcessBuilder(cmd.getCommandList());
-			//p.directory(new File("/home/rajthilak/chef-repo/"));
-            
-            p.redirectOutput(Redirect.appendTo(cmd.getRedirectOutputFile()));
-            p.redirectError (Redirect.to(cmd.getRedirectErrorFile()));
-			Process p1 = p.start();
-			
-			assert p.redirectOutput().file() == cmd.getRedirectOutputFile();
-				
+			logger.info("-------> cmd =>" + cmd);
+			ProcessBuilder p = new ProcessBuilder(cmd.getCommandList());
+			p.redirectOutput(Redirect.appendTo(cmd.getRedirectOutputFile()));
+			p.redirectError(Redirect.to(cmd.getRedirectErrorFile()));
+			logger.info("-------> Before Process Start =>");
+			p.start();
+			logger.info("-------> After Process Start =>");
+		//	assert p.redirectOutput().file() == cmd.getRedirectOutputFile();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

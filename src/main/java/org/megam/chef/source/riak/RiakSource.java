@@ -16,8 +16,11 @@
 package org.megam.chef.source.riak;
 
 import org.megam.chef.AppYaml;
+import org.megam.chef.BootStrapChef;
 import org.megam.chef.exception.SourceException;
 import org.megam.chef.source.Source;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.basho.riak.client.IRiakClient;
 import com.basho.riak.client.IRiakObject;
@@ -35,6 +38,9 @@ public class RiakSource implements Source {
 	private AppYaml app;
 	private IRiakClient riakClient;
 	private Bucket myBucket;
+	private Logger logger = LoggerFactory.getLogger(RiakSource.class);
+
+	
 
 	public RiakSource(AppYaml app) {
 		this.app = app;
@@ -47,6 +53,8 @@ public class RiakSource implements Source {
 	 */
 	public void connection() throws SourceException {
 		// TODO Auto-generated method stub
+		logger.info("riaksource connection : => entry");
+
 		try {
 			// create Riak Factory Connection Established
 			riakClient = RiakFactory.httpClient("http://" + app.getHost() + ":"
@@ -73,9 +81,12 @@ public class RiakSource implements Source {
 	 */
 	public String fetch(String str) throws SourceException {
 		try {
+			logger.info("riaksource fetch str: => entry =>"+str);
 
 			IRiakObject myObject = ((com.basho.riak.client.bucket.Bucket) myBucket)
 					.fetch(str).execute();
+			logger.info("riaksource fetch obj: => " + myObject.toString());
+
 			return myObject.getValueAsString();
 		} catch (UnresolvedConflictException uce) {
 			throw new SourceException(uce);
