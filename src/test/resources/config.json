@@ -5,18 +5,19 @@
 		}
 	},
 	"compute": {
-		"ec2": {
+		"cctype": "ec2",
+		"cc": {
 			"groups": "megam",
 			"image": "ami-56e6a404",
 			"flavor": "m1.small"
 		},
 		"access": {
-			"ssh-key": "megam_ec2",
-			"identity-file": "~/.ssh/megam_ec2.pem",
-			"ssh-user": "ubuntu"
+			"ssh_key": "megam_ec2",
+			"identity_file": "~/.ssh/megam_ec2.pem",
+			"ssh_user": "ubuntu"
 		}
 	},
-	"chefservice": {
+	"cloudtool": {
 		"chef": {
 			"command": "knife",
 			"plugin": "ec2 server create",

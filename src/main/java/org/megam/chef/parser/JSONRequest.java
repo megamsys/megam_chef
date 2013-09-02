@@ -17,7 +17,7 @@ public class JSONRequest {
 	
 	private ComputeInfo compute;
 	private SystemProvider systemprovider;
-	private ChefInfo chefservice;
+	private ChefInfo cloudtool;
 
 	public JSONRequest() {
 	}
@@ -42,8 +42,8 @@ public class JSONRequest {
 	 * 
 	 * @return chef service object
 	 */
-	public ProvisionerInfo getChef() {
-		return chefservice;
+	public ProvisionerInfo getCloudTool() {
+		return cloudtool;
 	}
 
 	/**
@@ -52,7 +52,7 @@ public class JSONRequest {
 	 */
 	public LinkedList<ScriptFeeder> scriptFeeder() {
 		LinkedList<ScriptFeeder> list = new LinkedList<ScriptFeeder>();
-		list.add(chefservice);
+		list.add(cloudtool);
 		list.add(compute);
 		return list;
 	}
@@ -63,10 +63,10 @@ public class JSONRequest {
 	 */
 	public List<Condition> conditionList() {
 		List<Condition> list = new ArrayList<Condition>();
-		list.add(chefservice);
+		list.add(cloudtool);
 		list.add(compute);
 		list.add(systemprovider);
-		list.add(getChef().initCondition());
+		list.add(getCloudTool().initCondition());
 		return list;
 	}
 
@@ -75,7 +75,7 @@ public class JSONRequest {
 		final Formatter formatter = new Formatter(strbd);
 		formatter.format("%s%n", (getAccess()!=null ? getAccess().toString() : "Access[None]"));
 		formatter.format("%s%n", (getProv()!=null ?  getProv().toString() : "Prov[None]"));
-		formatter.format("%s%n", (getChef()!=null ? getChef().toString() : "Chef[None"));
+		formatter.format("%s%n", (getCloudTool()!=null ? getCloudTool().toString() : "Chef[None"));
 		// formatter.format("%s%n", getService().toString());
 		formatter.close();
 		return strbd.toString();

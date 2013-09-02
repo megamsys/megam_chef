@@ -29,9 +29,10 @@ public class ComputeInfo implements DataMap, ScriptFeeder, Condition {
 	private List<String> inputavailablereason = new ArrayList<String>();
 
 	/**
-	 * create Map name as ec2 from config.json file
+	 * create Map name as cc (cross cloud) from config.json file
 	 */
-	private Map<String, String> ec2 = new HashMap<String, String>();
+	private String cctype;
+	private Map<String, String> cc = new HashMap<String, String>();
 	private Map<String, String> access = new HashMap<String, String>();
 
 	private AccessData token;
@@ -42,14 +43,18 @@ public class ComputeInfo implements DataMap, ScriptFeeder, Condition {
 		token();
 	}
 
+	public String getCCType() {
+		return cctype;
+	}
+
 	/**
 	 * @return ec2 map
 	 */
 	public Map<String, String> map() {
-		if (!ec2.keySet().containsAll(access.keySet())) {
-			ec2.putAll(access);
+		if (!cc.keySet().containsAll(access.keySet())) {
+			cc.putAll(access);
 		}
-		return ec2;
+		return cc;
 	}
 
 	/**
@@ -58,9 +63,9 @@ public class ComputeInfo implements DataMap, ScriptFeeder, Condition {
 	 *         config.json file
 	 */
 	public AccessData token() {
-		token.setGroups(ec2.get(GROUPS));
-		token.setImage(ec2.get(IMAGE));
-		token.setFlavor(ec2.get(FLAVOR));
+		token.setGroups(cc.get(GROUPS));
+		token.setImage(cc.get(IMAGE));
+		token.setFlavor(cc.get(FLAVOR));
 		return token;
 	}
 
@@ -120,26 +125,23 @@ public class ComputeInfo implements DataMap, ScriptFeeder, Condition {
 	}
 
 	public FedInfo feed() {
-		
-
 		fed = new FedInfo(getName(), " " + getGroups() + " " + getImage() + " "
 				+ getFlavor() + " " + "--" + SSHKEY + " " + getSshKey() + " "
 				+ "--" + IDENTITYFILE + " " + getIdentityFile() + " " + "--"
 				+ SSHUSER + " " + getSshUser());
-
 		return fed;
 	}
 
 	public String getGroups() {
-		return "--" + GROUPS + " " + ec2.get(GROUPS);
+		return "--" + GROUPS + " " + cc.get(GROUPS);
 	}
 
 	public String getImage() {
-		return "--" + IMAGE + " " + ec2.get(IMAGE);
+		return "--" + IMAGE + " " + cc.get(IMAGE);
 	}
 
 	public String getFlavor() {
-		return "--" + FLAVOR + " " + ec2.get(FLAVOR);
+		return "--" + FLAVOR + " " + cc.get(FLAVOR);
 	}
 
 	public List<String> getReason() {

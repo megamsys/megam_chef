@@ -71,8 +71,8 @@ public class ChefCommandTest {
 		app = BootStrapChef.boot().yaml();
 		RiakSource rs = new RiakSource(app);
 		rs.connection();
-		rs.bucket("megam-prov");
-		jsonString = rs.fetch("sample");
+		rs.bucket("requests");
+		jsonString = rs.fetch("RIP374477792399589376");
 		System.out.println("JSON String : " + jsonString);
 		(new DefaultProvisioningServiceWithShell<T>()).provision(jsonString);
 		assertTrue("This will succeed.", true);

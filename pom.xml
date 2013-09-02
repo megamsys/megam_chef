@@ -143,9 +143,9 @@
 			</plugin>
 		</plugins>
 	</build>
-	<description>Java based Opscode Chef connector. The API accepts a JSON request, builds a chef command line using (Knife).</description>
+	<description>Java based Cloud Tool management. The currently spported cloud tool is Opscode Chef connector. The API accepts a JSON request, builds a chef command line using (Knife). This interface with Riak and has option with No Riak as well.</description>
 	<url>https://www.megam.co</url>
-	<name>Private PaaS/Cloud management/Cloud Integration with Identity</name>
+	<name>Cloud Tool Management for Mega</name>
 	<organization>
 		<name>Megam Systems LLP</name>
 		<url>http://www.megam.co</url>
