@@ -14,7 +14,7 @@ import org.megam.chef.core.ScriptFeeder;
  * 
  */
 public class JSONRequest {
-
+	
 	private ComputeInfo compute;
 	private SystemProvider systemprovider;
 	private ChefInfo chefservice;

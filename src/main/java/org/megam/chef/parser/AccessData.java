@@ -19,7 +19,7 @@ public class AccessData {
 	private String sshkey;
 	private String identityfile;
 	private String sshuser;
-
+  
 	/**
 	 * 
 	 * @return groups

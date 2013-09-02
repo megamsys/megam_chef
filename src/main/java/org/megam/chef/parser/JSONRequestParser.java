@@ -16,6 +16,7 @@ import com.google.gson.Gson;
 public class JSONRequestParser {
 
 	private JSONRequest reqData;
+	private CommandJson reqCommand;
 	private Logger logger = LoggerFactory.getLogger(JSONRequestParser.class);
 
 	/**
@@ -37,7 +38,9 @@ public class JSONRequestParser {
 		try {
 			logger.info("-------> Before Gson parse =>" + jsonString);
 			Gson gson = new Gson();
-			reqData = gson.fromJson(jsonString, JSONRequest.class);
+			reqCommand = gson.fromJson(jsonString, CommandJson.class);
+			logger.info("------>command" + reqCommand);
+			reqData = reqCommand.getReqCommand();
 			logger.info("-------> After Gson parse =>" + reqData);
 		} catch (Exception ex) {
 			logger.error(ex.getMessage());

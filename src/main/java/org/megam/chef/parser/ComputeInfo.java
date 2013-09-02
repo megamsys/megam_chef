@@ -21,8 +21,11 @@ public class ComputeInfo implements DataMap, ScriptFeeder, Condition {
 	private static final String IMAGE = "image";
 	private static final String FLAVOR = "flavor";
 	private static final String SSHKEY = "ssh-key";
+	private static final String DSSHKEY = "ssh_key";
 	private static final String IDENTITYFILE = "identity-file";
+	private static final String DIDENTITYFILE = "identity_file";
 	private static final String SSHUSER = "ssh-user";
+	private static final String DSSHUSER = "ssh_user";
 	private List<String> inputavailablereason = new ArrayList<String>();
 
 	/**
@@ -66,7 +69,7 @@ public class ComputeInfo implements DataMap, ScriptFeeder, Condition {
 	 * @return sshkey
 	 */
 	public String getSshKey() {
-		return map().get(SSHKEY);
+		return map().get(DSSHKEY);
 	}
 
 	/**
@@ -74,7 +77,7 @@ public class ComputeInfo implements DataMap, ScriptFeeder, Condition {
 	 * @return identity file
 	 */
 	public String getIdentityFile() {
-		return map().get(IDENTITYFILE);
+		return map().get(DIDENTITYFILE);
 	}
 
 	/**
@@ -82,7 +85,7 @@ public class ComputeInfo implements DataMap, ScriptFeeder, Condition {
 	 * @return ssh user
 	 */
 	public String getSshUser() {
-		return map().get(SSHUSER);
+		return map().get(DSSHUSER);
 	}
 
 	/**

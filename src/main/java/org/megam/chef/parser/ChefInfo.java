@@ -25,6 +25,7 @@ public class ChefInfo extends ProvisionerInfo {
 	private static final String COMMAND = "command";
 	private static final String PLUGIN = "plugin";
 	private static final String RUNLIST = "run-list";
+	private static final String DRUNLIST = "run_list";
 	private static final String NAME = "name";
 
 	private static final String KNIFE = "knife";
@@ -59,7 +60,7 @@ public class ChefInfo extends ProvisionerInfo {
 	public AccessData token() {
 		token.setCommand(chef.get(COMMAND));
 		token.setPlugin(chef.get(PLUGIN));
-		token.setRunList(chef.get(RUNLIST));
+		token.setRunList(chef.get(DRUNLIST));
 		token.setName(chef.get(NAME));
 		return token;
 	}
@@ -73,7 +74,7 @@ public class ChefInfo extends ProvisionerInfo {
 	}
 
 	public String getRunList() {
-		return "--" + RUNLIST + " " + chef.get(RUNLIST);
+		return "--" + RUNLIST + " " + chef.get(DRUNLIST);
 	}
 
 	public String getName() {
