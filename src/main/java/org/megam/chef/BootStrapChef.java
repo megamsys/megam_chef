@@ -15,14 +15,24 @@
  */
 package org.megam.chef;
 
+import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
+import static org.megam.chef.Constants.BUILD_DATE;
+import static org.megam.chef.Constants.MEGAM_CHEF_APP_YAML;
+import static org.megam.chef.Constants.MEGAM_CHEF_ROOT;
+import static org.megam.chef.Constants.MEGAM_DEFAULT_CHEF_APP_YAML;
+import static org.megam.chef.Constants.MEGAM_USER_HOME;
+import static org.megam.chef.Constants.VERSION;
+
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
-import org.apache.commons.io.FileUtils;
 import org.megam.chef.exception.BootStrapChefException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import static org.megam.chef.Constants.*;
 
 /**
  * @author ram
@@ -39,8 +49,8 @@ public class BootStrapChef {
 	 * @throws BootStrapChefException
 	 * @throws IOException
 	 */
-	private BootStrapChef() throws BootStrapChefException, IOException {
-		bootedUp();
+	private BootStrapChef() throws BootStrapChefException {
+		startBoot();
 		configureRoot();
 		yamlSetup();
 		configure();
@@ -53,8 +63,7 @@ public class BootStrapChef {
 	 * @throws BootStrapChefException
 	 * @throws IOException
 	 */
-	public static BootStrapChef boot() throws BootStrapChefException,
-			IOException {
+	public static BootStrapChef boot() throws BootStrapChefException {
 		if (bootSingleton == null) {
 			bootSingleton = new BootStrapChef();
 		}
@@ -73,8 +82,7 @@ public class BootStrapChef {
 	 * configure the MEGAM_ROOT_DIRECTORY
 	 */
 	private void configureRoot() {
-		/** MEGAM_ROOT_DIR **/
-		logger.info("user.dir="+System.getProperty("user.dir"));
+		logger.info("user.dir=" + System.getProperty("user.dir"));
 		MEGAM_CHEF_ROOT = System.getProperty("user.dir");
 	}
 
@@ -100,7 +108,7 @@ public class BootStrapChef {
 	 * statements saying ------------------------- MEGAM CHEF bootedup version :
 	 * build date : ----------------------
 	 */
-	private void bootedUp() {
+	private void startBoot() {
 		logger.info("------------------------- MEGAM CHEF version : " + VERSION
 				+ "Build Date : " + BUILD_DATE + "----------------------");
 
@@ -115,27 +123,24 @@ public class BootStrapChef {
 	private void yamlSetup() throws BootStrapChefException {
 		try {
 			File file = new File(MEGAM_CHEF_APP_YAML);
-			logger.info("user.home="+MEGAM_USER_HOME);
-			logger.info("user.dir="+MEGAM_CHEF_ROOT);
+			logger.info("user.home=" + MEGAM_USER_HOME);
+			logger.info("user.dir=" + MEGAM_CHEF_ROOT);
 
 			if (!file.exists()) {
 				String source = MEGAM_DEFAULT_CHEF_APP_YAML;
 				String target = MEGAM_USER_HOME + java.io.File.separator
 						+ ".megam" + java.io.File.separator;
+				Path targetPath =  Paths.get(target);
 				logger.warn(file.getAbsolutePath()
-						+ " not found. copying default " + MEGAM_CHEF_APP_YAML
+						+ " not found. copying default " + source
 						+ "to" + target);
-				File sourceFile = new File(source);
-				String name = sourceFile.getName();
-				File targetFile = new File(target + name);
-				logger.info("copying file : " + sourceFile.getName() + " to "
-						+ target);
-				FileUtils.copyFile(sourceFile, targetFile);
-				logger.info("copy of file :" + sourceFile.getName() + " to "
+				
+				InputStream in  = this.getClass().getResourceAsStream(source);
+				Files.copy(in, targetPath, REPLACE_EXISTING);
+				logger.info("copy of file :" + source + " to "
 						+ target + " successful.");
 			}
 		} catch (IOException ioe) {
-			ioe.printStackTrace();
 			throw new BootStrapChefException(ioe);
 		}
 	}

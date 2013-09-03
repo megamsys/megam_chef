@@ -54,7 +54,7 @@ public class ChefCommandTest {
 		try {
 			BootStrapChef.boot();
 			ps = ProvisionerFactory.create(TYPE.CHEF_WITH_SHELL);
-		} catch (IOException ioe) {
+		} catch (Exception ioe) {
 			throw new BootStrapChefException(ioe);
 		}
 	}

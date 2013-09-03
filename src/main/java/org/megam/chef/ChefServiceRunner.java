@@ -74,15 +74,10 @@ public class ChefServiceRunner {
 	 */
 	public ChefServiceRunner input(DropIn dropid) throws SourceException,
 			ProvisionerException {
-		try {
 			logger.info("-------> dropid =>" + dropid.getId());
 			ps.provision(source.fetchRequestJSON(dropid.getId()));
 			logger.info("-------> An instance was created");
 			return this;
-		} catch (Exception ex) {
-			ex.printStackTrace();
-			throw new SourceException(ex);
-		}
 	}
 
 	public ChefServiceRunner control() {

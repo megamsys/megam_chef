@@ -27,12 +27,12 @@ public class Constants {
 	/**
 	 * The version that gets printed in the log after booting.
 	 */
-	public static final String VERSION = "0.1.0-BUILD-SNAPSHOT";
+	public static final String VERSION = "0.1.0-SNAPSHOT";
 	/**
 	 * The build date of the the jar. This might get tweaked by pulling the date
 	 * when maven jars the file.
 	 */
-	public static final String BUILD_DATE = "20130829";
+	public static final String BUILD_DATE = "20130903";
 
 	/**
 	 * The current directory from where the code runs
@@ -42,11 +42,12 @@ public class Constants {
 	public static String MEGAM_CHEF_ROOT = System.getProperty("user.dir");
 	
 	/**
-	 * The user home directory. in unix this is ~ or /home/<user>
+	 * The user home directory in unix this is ~ or /home/<user>
 	 * Fix in AWS which doesn't allow /root/.megam to be stored. Hence
-	 * we use user.dir.
+	 * we use ENV[MEGAM_HOME] (or) user.dir.
 	 */
-	public static final String MEGAM_USER_HOME = MEGAM_CHEF_ROOT;
+	public static final String MEGAM_USER_HOME = (System.getenv("MEGAM_HOME")!=null && System.getenv("MEGAM_HOME").trim().length() > 0) ? 
+			System.getenv("MEGAM_HOME") : MEGAM_CHEF_ROOT;
 
 	/**
 	 * The location of the app yaml configuration file, relative to
@@ -56,9 +57,7 @@ public class Constants {
 			+ java.io.File.separator + ".megam" + java.io.File.separator
 			+ "chefapp.yaml";
 
-	public static final String MEGAM_DEFAULT_CHEF_APP_YAML = MEGAM_CHEF_ROOT
-			+ java.io.File.separator + "conf" + java.io.File.separator
-			+ "chefapp.yaml";
+	public static final String MEGAM_DEFAULT_CHEF_APP_YAML = "chefapp.yaml";
 
 	/**
 	 * The location of the log file

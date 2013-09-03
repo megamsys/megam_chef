@@ -42,7 +42,7 @@ libraryDependencies += "com.github.indykish" % "megam-chef" % "1.0.0-BUILD-SNAPS
 	<dependency>
 	<groupId>com.github.indykish</groupId>
 	<artifactId>megam-chef</artifactId>
-	<version>1.0.0-BUILD-SNAPSHOT</version>
+	<version>0.1.0-SNAPSHOT</version>
 	</dependency>
 ```
 
@@ -52,8 +52,9 @@ libraryDependencies += "com.github.indykish" % "megam-chef" % "1.0.0-BUILD-SNAPS
 
 Before your run it,
 
-* Opensource Chef Server (or) Hosted Chef running
+* Opensource Chef 11 (or) Hosted Chef running
 * Required Cookbooks, Runlist uploaded to the Chef Server
+* [optional][Cloud Bridge - megam_akka](https://github.com/indykish/megam_akka.git) running
 * A chef client created, and knife command works as intended.
 * [optional] - Riak running, and has the bucket named as configured in chefapp.yaml file.
 
@@ -66,7 +67,7 @@ Let us say your `ENV[HOME]` is `/home/ram` as is represented as ~ below.
 When megam_chef is run inside your java (or) scala (or) akka/play .. program, it verifies if a file 
 exists `~/.megam/chefapp.yaml`.
 
-If this is the first, then it creates the default file as shown below at `~/.megam/chefapp.yaml` 
+If this is the first run, then it creates the default file as shown below at `~/.megam/chefapp.yaml` 
 
 The default contents of `~/.megam/chefapp.yaml` is as follows:
 
@@ -77,12 +78,12 @@ development:
       source: 'riak'
       host: 'localhost'
       port: '8098'
-      bucket: 'megam_prov'
+      bucket: 'requests'
 production: 
       source: 'riak'
       host: 'riak.megam.co'
       port: '8098'
-      bucket: 'megam_prov'      
+      bucket: 'requests'      
 ```
 #### Configuration details:
 
@@ -136,18 +137,19 @@ The ChefServiceRunner is the executioner for megam_chef.
 		}
 	},
 	"compute": {
-		"ec2": {
+		"cctype": "ec2",
+		"cc": {
 			"groups": "megam",
 			"image": "ami-56e6a404",
 			"flavor": "m1.small"
 		},
 		"access": {
-			"ssh-key": "megam_ec2",
+			"ssh-key": "megam_ec2"
 			"identity-file": "~/.ssh/megam_ec2.pem",
 			"ssh-user": "ubuntu"
 		}
 	},
-	"chefservice": {
+	"cloudtool": {
 		"chef": {
 			"command": "knife",
 			"plugin": "ec2 server create",
@@ -162,7 +164,9 @@ The ChefServiceRunner is the executioner for megam_chef.
 `prov:` <chef/none> : chef => means systems and cloud infrastructure automation framework that makes it easy to deploy servers and applications to any physical, virtual, or cloud location, no matter the size of the infrastructure. 
 For more detail about `chef` visit `http://docs.opscode.com/#getting-started`
 
-#### ec2 
+#### cc 
+`cctype:` <ec2, rackspace, openstack, ..> : The cloud to go after.This field is primed by [megam_akka](https://github.com/indykish/megam_play)  
+
 `groups:` <development, production, staging, test ..> : A security group acts as a firewall that controls the traffic allowed to reach one or more instances. 
 
 `image:` The name of the image that identifies the operating system (and version) that will be used to create the virtual machine.
@@ -193,11 +197,11 @@ For more detail about `chef` visit `http://docs.opscode.com/#getting-started`
 
 ` riak-admin test      //test riak`
 
-` curl -v http://localhost:8098/riak/megam-prov //create a bucket megam-prov`
+` curl -v http://localhost:8098/riak/requests //create a bucket requests`
 
-` //Drop a json with id=sample into riak bucket megam-prov
-  curl -v -XPUT -d '{"systemprovider": {"provider": {"prov": "chef"}}, "compute": { "ec2": {"groups": "megam","image": "ami-56e6a404","flavor": "m1.small"},"access": {"ssh-key":"megam_ec2","identity-file": "~/.ssh/megam_ec2.pem","ssh-user": "ubuntu"}}, "chefservice": {"chef": {"command": "knife","plugin": "ec2 server create",
-  "run-list": "'role[opendj]'","name": "-N TestOverAll"}} }' -H "Content-Type: application/json" -H "X-Riak-Vclock: a85hYGBgzGDKBVIszMk55zKYEhnzWBlKIniO8mUBAA==" http://localhost:8098/riak/megam-prov/sample` 
+` //Drop a json with id=RIP00902920202 into riak bucket requestes
+  curl -v -XPUT -d '{"systemprovider": {"provider": {"prov": "chef"}}, "compute": { "cctype":"ec2","cc": {"groups": "megam","image": "ami-56e6a404","flavor": "m1.small"},"access": {"ssh-key":"megam_ec2","identity-file": "~/.ssh/megam_ec2.pem","ssh-user": "ubuntu"}}, "chefservice": {"chef": {"command": "knife","plugin": "ec2 server create",
+  "run-list": "'role[opendj]'","name": "-N TestOverAll"}} }' -H "Content-Type: application/json" -H "X-Riak-Vclock: a85hYGBgzGDKBVIszMk55zKYEhnzWBlKIniO8mUBAA==" http://localhost:8098/riak/requests/RIP00902920202` 
 
 
 ```java

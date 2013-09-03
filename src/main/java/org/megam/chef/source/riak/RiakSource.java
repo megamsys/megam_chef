@@ -96,7 +96,6 @@ public class RiakSource implements Source {
 	}
 
 	public void bucket(String str) throws SourceException {
-		// TODO Auto-generated method stub
 		try {
 			myBucket = (Bucket) riakClient.fetchBucket(str).execute();
 		} catch (RiakRetryFailedException rrfe) {
