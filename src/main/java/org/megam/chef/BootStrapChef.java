@@ -24,6 +24,7 @@ import static org.megam.chef.Constants.MEGAM_USER_HOME;
 import static org.megam.chef.Constants.VERSION;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -82,7 +83,7 @@ public class BootStrapChef {
 	 * configure the MEGAM_ROOT_DIRECTORY
 	 */
 	private void configureRoot() {
-		logger.info("user.dir=" + System.getProperty("user.dir"));
+		logger.debug("user.dir=" + System.getProperty("user.dir"));
 		MEGAM_CHEF_ROOT = System.getProperty("user.dir");
 	}
 
@@ -92,7 +93,7 @@ public class BootStrapChef {
 	 *             configure the yaml file
 	 */
 	private void configure() throws BootStrapChefException {
-		logger.info("Yaml loading.." + MEGAM_CHEF_APP_YAML);
+		logger.debug("Yaml loading.." + MEGAM_CHEF_APP_YAML);
 		AppYamlLoader yaml = new AppYamlLoader(MEGAM_CHEF_APP_YAML);
 		if (yaml.notReady()) {
 			throw new BootStrapChefException(new IllegalArgumentException(
@@ -100,7 +101,7 @@ public class BootStrapChef {
 							+ MEGAM_CHEF_APP_YAML));
 		}
 		bootedYaml = yaml.current();
-		logger.info(bootedYaml.toString());
+		logger.debug(bootedYaml.toString());
 	}
 
 	/*
@@ -109,7 +110,7 @@ public class BootStrapChef {
 	 * build date : ----------------------
 	 */
 	private void startBoot() {
-		logger.info("------------------------- MEGAM CHEF version : " + VERSION
+		logger.debug("------------------------- MEGAM CHEF version : " + VERSION
 				+ "Build Date : " + BUILD_DATE + "----------------------");
 
 	}
@@ -123,25 +124,34 @@ public class BootStrapChef {
 	private void yamlSetup() throws BootStrapChefException {
 		try {
 			File file = new File(MEGAM_CHEF_APP_YAML);
-			logger.info("user.home=" + MEGAM_USER_HOME);
-			logger.info("user.dir=" + MEGAM_CHEF_ROOT);
+			logger.debug("user.home=" + MEGAM_USER_HOME);
+			logger.debug("user.dir=" + MEGAM_CHEF_ROOT);
 
 			if (!file.exists()) {
 				String source = MEGAM_DEFAULT_CHEF_APP_YAML;
 				String target = MEGAM_USER_HOME + java.io.File.separator
 						+ ".megam" + java.io.File.separator;
-				Path targetPath =  Paths.get(target);
+				Path targetDir = Paths.get(target);
+				targetDir.toFile().mkdirs();
+				Path targetPath = targetDir.resolve(source);
 				logger.warn(file.getAbsolutePath()
-						+ " not found. copying default " + source
-						+ "to" + target);
-				
-				InputStream in  = this.getClass().getResourceAsStream(source);
-				Files.copy(in, targetPath, REPLACE_EXISTING);
-				logger.info("copy of file :" + source + " to "
-						+ target + " successful.");
+						+ " not found. copying default :" + source + " to "
+						+ targetPath);
+
+				InputStream in = this.getClass().getResourceAsStream(java.io.File.separator + source);
+				if (in != null) {
+					Files.copy(in, targetPath, REPLACE_EXISTING);
+				} else {
+					throw new FileNotFoundException(source
+							+ "file not found. Copy failed.");
+				}
+				logger.debug("copy of file :" + source + " to " + target
+						+ " successful.");
 			}
 		} catch (IOException ioe) {
 			throw new BootStrapChefException(ioe);
+		} catch (IllegalArgumentException ire) {
+			throw new BootStrapChefException(ire);
 		}
 	}
 }
