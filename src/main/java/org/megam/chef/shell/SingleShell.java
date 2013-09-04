@@ -37,7 +37,7 @@ public class SingleShell extends RecursiveAction {
 	 * @param tempcmd
 	 */
 	public SingleShell(Command tempcmd) {
-		logger.info("-------> tempcmd =>" + tempcmd);
+		logger.debug("-------> tempcmd =>" + tempcmd);
 		this.cmd = tempcmd;
 	}
 
@@ -48,14 +48,17 @@ public class SingleShell extends RecursiveAction {
 
 	public void compute() {
 		try {
-			logger.info("-------> cmd =>" + cmd);
+			logger.debug("-------> cmd =>" + cmd);
 			ProcessBuilder p = new ProcessBuilder(cmd.getCommandList());
+			System.out.println("-------> redirecting to out =>"
+					+ cmd.getRedirectOutputFile());
+			System.out.println("-------> redirecting to err=>"
+					+ cmd.getRedirectErrorFile());
 			p.redirectOutput(Redirect.appendTo(cmd.getRedirectOutputFile()));
 			p.redirectError(Redirect.to(cmd.getRedirectErrorFile()));
-			logger.info("-------> Before Process Start =>");
+			logger.debug("-------> Before Process Start =>");
 			p.start();
-			logger.info("-------> After Process Start =>");
-		//	assert p.redirectOutput().file() == cmd.getRedirectOutputFile();
+			logger.debug("-------> After Process Start =>");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

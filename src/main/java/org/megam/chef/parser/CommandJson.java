@@ -53,7 +53,6 @@ public class CommandJson {
 		StringBuilder strbd = new StringBuilder();
 		final Formatter formatter = new Formatter(strbd);
 		formatter.format("%s%n", (getReqCommand()!=null ? getReqCommand().toString() : "RequestedCommand[None]"));		
-		// formatter.format("%s%n", getService().toString());
 		formatter.close();
 		return strbd.toString();
 	}

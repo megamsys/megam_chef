@@ -22,11 +22,8 @@ public class SystemProvider implements Condition {
 	List<String> inputavailablereason = new ArrayList<String>();
 	private static final String PROVISIONER = "prov";
 	private Map<String, String> provider = new HashMap<String, String>();
-	private AccessData token;
 
 	public SystemProvider() {
-		token = new AccessData();
-		token();
 	}
 
 	/**
@@ -37,16 +34,7 @@ public class SystemProvider implements Condition {
 		return provider;
 	}
 
-	/**
-	 * 
-	 * @return token
-	 */
-	public AccessData token() {
-		token.setProvisioner(provider.get(PROVISIONER));
-		return token;
-
-	}
-
+	
 	/**
 	 * toString method for provisioner
 	 */

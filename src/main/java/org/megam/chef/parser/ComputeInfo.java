@@ -34,13 +34,9 @@ public class ComputeInfo implements DataMap, ScriptFeeder, Condition {
 	private String cctype;
 	private Map<String, String> cc = new HashMap<String, String>();
 	private Map<String, String> access = new HashMap<String, String>();
-
-	private AccessData token;
 	private FedInfo fed;
 
 	public ComputeInfo() {
-		token = new AccessData();
-		token();
 	}
 
 	public String getCCType() {
@@ -57,17 +53,7 @@ public class ComputeInfo implements DataMap, ScriptFeeder, Condition {
 		return cc;
 	}
 
-	/**
-	 * 
-	 * @return token set values to ec2 Map it is to get the values from
-	 *         config.json file
-	 */
-	public AccessData token() {
-		token.setGroups(cc.get(GROUPS));
-		token.setImage(cc.get(IMAGE));
-		token.setFlavor(cc.get(FLAVOR));
-		return token;
-	}
+	
 
 	/**
 	 * 

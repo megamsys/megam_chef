@@ -53,7 +53,7 @@ public class RiakSource implements Source {
 	 */
 	public void connection() throws SourceException {
 		// TODO Auto-generated method stub
-		logger.info("riaksource connection : => entry");
+		logger.debug("riaksource connection : => entry");
 
 		try {
 			// create Riak Factory Connection Established
@@ -81,11 +81,11 @@ public class RiakSource implements Source {
 	 */
 	public String fetch(String str) throws SourceException {
 		try {
-			logger.info("riaksource fetch str: => entry =>"+str);
+			logger.debug("riaksource fetch str: => entry =>"+str);
 
 			IRiakObject myObject = ((com.basho.riak.client.bucket.Bucket) myBucket)
 					.fetch(str).execute();
-			logger.info("riaksource fetch obj: => " + myObject.toString());
+			logger.debug("riaksource fetch obj: => " + myObject.toString());
 
 			return myObject.getValueAsString();
 		} catch (UnresolvedConflictException uce) {
