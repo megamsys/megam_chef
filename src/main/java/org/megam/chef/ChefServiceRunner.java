@@ -53,12 +53,12 @@ public class ChefServiceRunner {
 	 */
 	public ChefServiceRunner withType(TYPE type) throws BootStrapChefException,
 			ProvisionerException, SourceException, IOException {
-		logger.info("-------> Chef service runner - started.");
+		logger.debug("-------> Chef service runner - started.");
 		AppYaml app = BootStrapChef.boot().yaml();
 		source = new SourceLoader(app);
 		source.load();
 		ps = ProvisionerFactory.create(type);
-		logger.info("-------> Provisioner created successfully.");
+		logger.debug("-------> Provisioner created successfully.");
 		return this;
 	}
 
@@ -74,9 +74,9 @@ public class ChefServiceRunner {
 	 */
 	public ChefServiceRunner input(DropIn dropid) throws SourceException,
 			ProvisionerException {
-			logger.info("-------> dropid =>" + dropid.getId());
+			logger.debug("-------> dropid =>" + dropid.getId());
 			ps.provision(source.fetchRequestJSON(dropid.getId()));
-			logger.info("-------> An instance was created");
+			logger.debug("-------> An instance was created");
 			return this;
 	}
 

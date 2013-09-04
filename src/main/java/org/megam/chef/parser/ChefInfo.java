@@ -34,14 +34,10 @@ public class ChefInfo extends ProvisionerInfo {
 
 	// create Map name as chef from config.json file
 	private Map<String, String> chef = new HashMap<String, String>();
-	private AccessData token;
 	private Logger logger = LoggerFactory.getLogger(ChefInfo.class);
-
 
 	public ChefInfo() {
 		super("CHEF");
-		token = new AccessData();
-		token();
 	}
 
 	/**
@@ -49,20 +45,6 @@ public class ChefInfo extends ProvisionerInfo {
 	 */
 	public Map<String, String> map() {
 		return chef;
-	}
-
-	/**
-	 * 
-	 * @return set values to chef Map it is to get the values from config.json
-	 *         file
-	 * 
-	 */
-	public AccessData token() {
-		token.setCommand(chef.get(COMMAND));
-		token.setPlugin(chef.get(PLUGIN));
-		token.setRunList(chef.get(DRUNLIST));
-		token.setName(chef.get(NAME));
-		return token;
 	}
 
 	public String getCommand() {
@@ -135,9 +117,8 @@ public class ChefInfo extends ProvisionerInfo {
 	}
 
 	public FedInfo feed() {
-
 		FedInfo fed = new FedInfo(getName().split(" ")[1], getCommand() + " "
-				+ getPlugin() + " " + getRunList());
+				+ getPlugin() + " " + getRunList() + " " + getName());
 
 		return fed;
 	}
@@ -164,13 +145,13 @@ public class ChefInfo extends ProvisionerInfo {
 	public String toString() {
 		StringBuilder strbd = new StringBuilder();
 		final Formatter formatter = new Formatter(strbd);
-		logger.info("-------> ChefInfo =>");
+		logger.debug("-------> ChefInfo =>");
 
 		for (Map.Entry<String, String> entry : map().entrySet()) {
 			formatter.format("%10s = %s%n", entry.getKey(), entry.getValue());
 		}
 		formatter.close();
-		logger.info("-------> ChefInfo =>");
+		logger.debug("-------> ChefInfo =>");
 
 		return strbd.toString();
 	}

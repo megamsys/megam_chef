@@ -45,8 +45,6 @@ public class Command {
 			cmdList.add(st.nextToken());
 		}
 		
-	   
-	    
 		setRedirectOutput(name+ "out");
 		setRedirectError(name+ "err");
 	}
