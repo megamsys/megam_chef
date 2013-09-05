@@ -56,13 +56,14 @@ public class DefaultProvisioningServiceWithShell<T> extends
 	 */
 	@Override
 	public T provision(String jsonString) throws ProvisionerException {
+		logger.debug("-------> Entry");
 		logger.debug("-------> jsonString =>" + jsonString);
 		try {
 			execute(jsonToCommand(jsonString));
 		} catch (ShellException she) {
 			throw new ProvisionerException(she);
 		}
-		logger.debug("-------> exit");
+		logger.debug("-------> Exit");
 		/**
 		 * TO-DO why do we return null here ?
 		 */
@@ -74,11 +75,11 @@ public class DefaultProvisioningServiceWithShell<T> extends
 	 * @throws ShellException
 	 */
 	public Command jsonToCommand(String jsonRequest) throws ShellException {
+		logger.debug("-------> Entry");
 		logger.debug("-------> jsonRequest =>" + jsonRequest);
-
 		Command com = new org.megam.chef.shell.Command(
 				convertInput(jsonRequest));
-		logger.debug("exit");
+		logger.debug("Exit");
 		return com;
 	}
 
@@ -99,10 +100,12 @@ public class DefaultProvisioningServiceWithShell<T> extends
 	 * builder builds a script. If not an error with the reasons of validation
 	 * failure is retured. command
 	 * 
-	 * @param myJSONString
+	 * @param myJSONString		logger.debug("-------> Entry");
+
 	 * @return
 	 */
 	private String[] convertInput(String jsonRequest) throws ShellException {
+		logger.debug("-------> Entry");
 		logger.debug("-------> jsonRequest =>" + jsonRequest);
 		JSONRequest jrp = (new JSONRequestParser(jsonRequest)).data();
 		logger.debug("-------> jrp =>" + jrp);
