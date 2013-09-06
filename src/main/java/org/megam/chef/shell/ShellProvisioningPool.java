@@ -69,12 +69,7 @@ public class ShellProvisioningPool {
 	}
 	
 	public void run(Command that) {	
-		logger.debug("-------> that command =>" + that);
-
 		SingleShell oneRun = new SingleShell(that);
-		logger.debug("-------> WHEW! FORK FINALLY. " + that);
-
-		//register the oneRun stoppable in the list.
 		ourForky.invoke(oneRun);		
 	}
 }

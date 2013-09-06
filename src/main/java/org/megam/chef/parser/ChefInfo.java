@@ -145,13 +145,14 @@ public class ChefInfo extends ProvisionerInfo {
 	public String toString() {
 		StringBuilder strbd = new StringBuilder();
 		final Formatter formatter = new Formatter(strbd);
-		logger.debug("-------> ChefInfo =>");
+		logger.debug("<-------> ChefInfo <------->");
 
 		for (Map.Entry<String, String> entry : map().entrySet()) {
 			formatter.format("%10s = %s%n", entry.getKey(), entry.getValue());
 		}
 		formatter.close();
-		logger.debug("-------> ChefInfo =>");
+		logger.debug(strbd.toString());
+		logger.debug("<----------------------->");
 
 		return strbd.toString();
 	}

@@ -81,12 +81,9 @@ public class RiakSource implements Source {
 	 */
 	public String fetch(String str) throws SourceException {
 		try {
-			logger.debug("riaksource fetch str: => entry =>"+str);
-
 			IRiakObject myObject = ((com.basho.riak.client.bucket.Bucket) myBucket)
 					.fetch(str).execute();
 			logger.debug("riaksource fetch obj: => " + myObject.toString());
-
 			return myObject.getValueAsString();
 		} catch (UnresolvedConflictException uce) {
 			throw new SourceException(uce);

@@ -24,7 +24,6 @@ public class JSONRequestParser {
 	 * @param jsonString
 	 */
 	public JSONRequestParser(String jsonString) {
-		logger.debug("-------> constructor =>" + jsonString);
 		parse(jsonString);
 
 	}
@@ -36,12 +35,9 @@ public class JSONRequestParser {
 	 */
 	private void parse(String jsonString) {
 		try {
-			logger.debug("-------> Before Gson parse =>" + jsonString);
 			Gson gson = new Gson();
 			reqCommand = gson.fromJson(jsonString, CommandJson.class);
-			logger.debug("------>command" + reqCommand);
 			reqData = reqCommand.getReqCommand();
-			logger.debug("-------> After Gson parse =>" + reqData);
 		} catch (Exception ex) {
 			logger.error(ex.getMessage());
 			ex.printStackTrace();
@@ -55,7 +51,6 @@ public class JSONRequestParser {
 	public String toString() {
 		StringBuilder strbd = new StringBuilder();
 		final Formatter formatter = new Formatter(strbd);
-		logger.debug("-------> toString =>" );
 		formatter.format("%s%n",
 				"*----------------------------------------------*");
 		formatter.format("%12s = %s%n", "reqdata", data());
