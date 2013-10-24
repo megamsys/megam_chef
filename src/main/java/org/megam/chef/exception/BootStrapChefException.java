@@ -22,7 +22,7 @@ package org.megam.chef.exception;
 public class BootStrapChefException extends MegamChefException {
 	
 	public BootStrapChefException(Throwable ex) {
-		super(ex);
+		super("", ex);
 	}
 
 }

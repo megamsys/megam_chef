@@ -22,7 +22,7 @@ package org.megam.chef.exception;
 public class ShellException extends MegamChefException {
 	
 	public ShellException(Throwable ex) {
-		super(ex);
+		super("", ex);
 	}
 
 }

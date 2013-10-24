@@ -60,7 +60,7 @@ public class RiakSource implements Source {
 			riakClient = RiakFactory.httpClient("http://" + app.getHost() + ":"
 					+ app.getPort() + "/" + app.getSource());
 		} catch (RiakException re) {
-			throw new SourceException(re);
+			throw new SourceException("", re);
 		}
 
 	}
@@ -86,9 +86,11 @@ public class RiakSource implements Source {
 			logger.debug("riaksource fetch obj: => " + myObject.toString());
 			return myObject.getValueAsString();
 		} catch (UnresolvedConflictException uce) {
-			throw new SourceException(uce);
+			throw new SourceException("", uce);
 		} catch (RiakRetryFailedException rre) {
-			throw new SourceException(rre);
+			throw new SourceException("", rre);
+		} catch (NullPointerException npe) {
+			throw new SourceException("ID not found in riak", npe);
 		}
 	}
 
@@ -96,7 +98,7 @@ public class RiakSource implements Source {
 		try {
 			myBucket = (Bucket) riakClient.fetchBucket(str).execute();
 		} catch (RiakRetryFailedException rrfe) {
-			throw new SourceException(rrfe);
+			throw new SourceException("", rrfe);
 		}
 	}
 }

@@ -23,8 +23,8 @@ package org.megam.chef.exception;
  */
 public class MegamChefException extends Throwable {
 	
-	public MegamChefException(Throwable that) {
-		super(that);
+	public MegamChefException(String str, Throwable that) {
+		super(str, that);
 	}
 
 }

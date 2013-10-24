@@ -24,7 +24,7 @@ public class ShellBuilder {
 
 		for (ScriptFeeder sf : scriptFeeder) {
 			if (sf.canFeed()) {
-				nameB.append(sf.feed().getName()+"_");
+				nameB.append(sf.feed().getName());
 				shellB.append(sf.feed().getShellString());
 
 			}

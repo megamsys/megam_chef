@@ -42,7 +42,7 @@ public class JSONRequest {
 	 * 
 	 * @return chef service object
 	 */
-	public ProvisionerInfo getCloudTool() {
+	public ProvisionerInfo getCloudTool() {		
 		return cloudtool;
 	}
 

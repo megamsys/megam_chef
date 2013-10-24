@@ -18,6 +18,10 @@ package org.megam.chef.parser;
 
 import java.util.Formatter;
 
+import org.megam.chef.source.riak.RiakSource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * @author rajthilak
  *
@@ -27,8 +31,10 @@ public class CommandJson {
 	private String id;
 	private String node_id;
 	private String node_name;
-	private JSONRequest command;	
-
+	private String req_type;
+	private JSONRequest command;		
+	private String created_at;
+	private Logger logger = LoggerFactory.getLogger(CommandJson.class);
 	/**
 	 * 
 	 * @return Requested Command object
@@ -41,7 +47,7 @@ public class CommandJson {
 		return id;
 	}
 	
-	public String getnodeId() {
+	public String getnodeId() {		
 		return node_id;
 	}
 	
@@ -49,6 +55,14 @@ public class CommandJson {
 		return node_name;
 	}
 
+	public String getReqType() {
+		return req_type;
+	}
+	
+	public String getCreatedAt() {
+		return created_at;
+	}
+	
 	public String toString() {
 		StringBuilder strbd = new StringBuilder();
 		final Formatter formatter = new Formatter(strbd);

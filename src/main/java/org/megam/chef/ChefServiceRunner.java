@@ -75,8 +75,7 @@ public class ChefServiceRunner {
 	public ChefServiceRunner input(DropIn dropid) throws SourceException,
 			ProvisionerException {
 			logger.debug("-------> dropid =>" + dropid.getId());
-			ps.provision(source.fetchRequestJSON(dropid.getId()));
-			logger.debug("-------> An instance was created");
+			ps.provision(source.fetchRequestJSON(dropid.getId()));			
 			return this;
 	}
 

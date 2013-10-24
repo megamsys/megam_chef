@@ -4,7 +4,7 @@ development:
       source: 'riak'
       host: 'localhost'
       port: '8098'
-      bucket: 'requests'
+      bucket: 'requests123'
 production: 
       source: 'riak'
       host: 'riak.megam.co'

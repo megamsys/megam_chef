@@ -22,7 +22,7 @@ package org.megam.chef.exception;
 public class ProvisionerException extends MegamChefException {
 	
 	public ProvisionerException(Throwable that) {
-		super(that);
+		super("", that);
 	}
 
 }

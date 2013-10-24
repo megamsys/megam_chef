@@ -16,11 +16,14 @@
 package org.megam.chef.shell;
 
 import java.io.File;
+import java.io.IOException;
 import java.lang.ProcessBuilder.Redirect;
 import java.util.concurrent.RecursiveAction;
 
+import org.megam.chef.exception.SourceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.megam.chef.exception.ShellException;
 
 /**
  * 
@@ -47,13 +50,19 @@ public class SingleShell extends RecursiveAction {
 
 	public void compute() {
 		try {
-			ProcessBuilder p = new ProcessBuilder(cmd.getCommandList());			
+			ProcessBuilder p = new ProcessBuilder(cmd.getCommandList());	
+			//p.directory(new File(cmd.getFileName()));
 			p.redirectOutput(Redirect.appendTo(cmd.getRedirectOutputFile()));
-			p.redirectError(Redirect.to(cmd.getRedirectErrorFile()));
+			p.redirectError(Redirect.appendTo(cmd.getRedirectErrorFile()));
 			p.start();
-			logger.debug("-------> After Process Start =>");
-		} catch (Exception e) {
-			e.printStackTrace();
+			logger.debug("-------> An instance was created");			
+		} catch (IOException npe) {
+			try {
+				throw new ShellException(npe);
+			} catch (ShellException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 

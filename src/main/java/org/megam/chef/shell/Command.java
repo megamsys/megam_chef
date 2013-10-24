@@ -19,7 +19,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
-
 /**
  * 
  * @author rajthilak
@@ -44,11 +43,18 @@ public class Command {
 		while (st.hasMoreTokens()) {
 			cmdList.add(st.nextToken());
 		}
-		
-		setRedirectOutput(name+ "out");
-		setRedirectError(name+ "err");
+		File dir = new File(org.megam.chef.Constants.MEGAM_CHEF_LOG+name);
+		dir.mkdir();
+		setRedirectOutput(org.megam.chef.Constants.MEGAM_CHEF_LOG+name+"/"+name+ "_out");
+		setRedirectError(org.megam.chef.Constants.MEGAM_CHEF_LOG+name+"/"+name+ "_err");
+		//setRedirectOutput(name+ "_out");
+		//setRedirectError(name+ "_err");
 	}
 
+	public String getFileName() {
+		return name;
+	}
+	
 	/**
 	 * 
 	 * @param trdo
@@ -61,7 +67,7 @@ public class Command {
 	 * 
 	 * @return redirect output file
 	 */
-	public File getRedirectOutputFile() {
+	public File getRedirectOutputFile() {		
 		return rdo;
 	}
 

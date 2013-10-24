@@ -21,7 +21,7 @@ package org.megam.chef.exception;
  */
 public class SourceException extends MegamChefException {
 
-	public SourceException(Throwable throwable) {
-        super(throwable);
+	public SourceException(String str, Throwable throwable) {
+        super(str, throwable);
     }
 }

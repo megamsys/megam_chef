@@ -38,6 +38,7 @@ public class JSONRequestParser {
 			Gson gson = new Gson();
 			reqCommand = gson.fromJson(jsonString, CommandJson.class);
 			reqData = reqCommand.getReqCommand();
+			reqCommand.getnodeId();
 		} catch (Exception ex) {
 			logger.error(ex.getMessage());
 			ex.printStackTrace();
