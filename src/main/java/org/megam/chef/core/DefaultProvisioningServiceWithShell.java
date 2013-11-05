@@ -107,12 +107,13 @@ public class DefaultProvisioningServiceWithShell<T> extends
 	private String[] convertInput(String jsonRequest) throws ShellException {
 		logger.debug("-------> Entry");
 		logger.debug("-------> jsonRequest =>" + jsonRequest);
-		JSONRequest jrp = (new JSONRequestParser(jsonRequest)).data();
-		logger.debug("-------> jrp =>" + jrp);
+		JSONRequestParser jrp = new JSONRequestParser(jsonRequest);		
+		JSONRequest jr = jrp.data();
+		logger.debug("-------> jr =>" + jr);
 		ParmsValidator pv = new ParmsValidator();
-		if (pv.validate(jrp.conditionList())) {
+		if (pv.validate(jr.conditionList())) {
 			logger.debug("-------> Shellbuilder =>");
-			return ShellBuilder.buildString(jrp.scriptFeeder());
+			return ShellBuilder.buildString(jr.scriptFeeder(), jrp);
 		} else {
 			throw new ShellException(new IllegalArgumentException(pv
 					.reasonsNotSatisfied().toString()));

@@ -2,6 +2,8 @@ package org.megam.chef.core;
 
 import java.util.LinkedList;
 
+import org.megam.chef.parser.JSONRequestParser;
+
 /**
  * ShellBuilder builds a string that can be consumed by a Shell
  * 
@@ -17,11 +19,10 @@ public class ShellBuilder {
 	 * 
 	 * @param args
 	 */
-	public static String[] buildString(LinkedList<ScriptFeeder> scriptFeeder) {
+	public static String[] buildString(LinkedList<ScriptFeeder> scriptFeeder, JSONRequestParser jrp) {
 
 		StringBuilder nameB = new StringBuilder();
-		StringBuilder shellB = new StringBuilder();
-
+		StringBuilder shellB = new StringBuilder();		
 		for (ScriptFeeder sf : scriptFeeder) {
 			if (sf.canFeed()) {
 				nameB.append(sf.feed().getName());
@@ -29,7 +30,7 @@ public class ShellBuilder {
 
 			}
 		}
-		return new String[] { nameB.toString(), shellB.toString() };
+		return new String[] { nameB.toString(), shellB.toString(), jrp.getReqId(), jrp.getNodeName() };
 
 	}
 

@@ -28,7 +28,7 @@ public class FedInfo {
     	this.name=name;
     	this.shellString=ShellString;
     	System.out.println("name:"+name);
-    	System.out.println("name:"+shellString);
+    	System.out.println("command:"+shellString);
     }
 
       //return the name
