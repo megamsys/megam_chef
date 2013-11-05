@@ -31,6 +31,8 @@ public class Command {
 	private List<String> cmdList = new ArrayList<String>();
 	private String name;
 	private String inputCmd;
+	private String reqId;
+	private String node_name;
 
 	/**
 	 * 
@@ -39,14 +41,16 @@ public class Command {
 	public Command(String[] shellArray) {
 		this.name = shellArray[0].toLowerCase();
 		this.inputCmd = shellArray[1];
+		this.reqId = shellArray[2];
+		this.node_name = shellArray[3];
 		StringTokenizer st = new StringTokenizer(inputCmd);
 		while (st.hasMoreTokens()) {
 			cmdList.add(st.nextToken());
 		}
-		File dir = new File(org.megam.chef.Constants.MEGAM_CHEF_LOG+name);
+		File dir = new File(org.megam.chef.Constants.MEGAM_CHEF_LOG+node_name);
 		dir.mkdir();
-		setRedirectOutput(org.megam.chef.Constants.MEGAM_CHEF_LOG+name+"/"+name+ "_out");
-		setRedirectError(org.megam.chef.Constants.MEGAM_CHEF_LOG+name+"/"+name+ "_err");
+		setRedirectOutput(org.megam.chef.Constants.MEGAM_CHEF_LOG+node_name+"/"+node_name+"_"+reqId+"_out");
+		setRedirectError(org.megam.chef.Constants.MEGAM_CHEF_LOG+node_name+"/"+node_name+"_"+reqId+"_err");
 		//setRedirectOutput(name+ "_out");
 		//setRedirectError(name+ "_err");
 	}

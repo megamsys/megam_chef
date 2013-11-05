@@ -17,6 +17,8 @@ public class JSONRequestParser {
 
 	private JSONRequest reqData;
 	private CommandJson reqCommand;
+	private String reqid;
+	private String node_name;
 	private Logger logger = LoggerFactory.getLogger(JSONRequestParser.class);
 
 	/**
@@ -48,7 +50,15 @@ public class JSONRequestParser {
 	public JSONRequest data() {
 		return reqData;
 	}
-
+	
+	public String getReqId() {
+		return reqCommand.getId();
+	}
+	
+	public String getNodeName() {
+		return reqCommand.getNodeName();
+	}
+	
 	public String toString() {
 		StringBuilder strbd = new StringBuilder();
 		final Formatter formatter = new Formatter(strbd);
