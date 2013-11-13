@@ -55,6 +55,7 @@ public class BootStrapChef {
 		configureRoot();
 		yamlSetup();
 		configure();
+		//add a method stuff to verify the ENV[MEGAM_AWS_SECRET_KEY], ENV[MEGAM_AWS_ACCESS_KEY] exists
 
 	}
 
