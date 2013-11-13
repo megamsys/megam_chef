@@ -110,6 +110,13 @@ public class DefaultProvisioningServiceWithShell<T> extends
 		JSONRequestParser jrp = new JSONRequestParser(jsonRequest);		
 		JSONRequest jr = jrp.data();
 		logger.debug("-------> jr =>" + jr);
+		/**
+		 * Download the stuff from S3
+		 * The location to download can be got from parsing vault_location (in access)
+		 * S3.download()
+		 * If all is well proceed 
+		 * Wrap this method and trap for ProvisionerException
+		 */
 		ParmsValidator pv = new ParmsValidator();
 		if (pv.validate(jr.conditionList())) {
 			logger.debug("-------> Shellbuilder =>");
