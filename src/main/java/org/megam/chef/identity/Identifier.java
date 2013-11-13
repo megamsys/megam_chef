@@ -15,6 +15,7 @@
 */
 package org.megam.chef.identity;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.megam.chef.exception.IdentifierException;
@@ -29,12 +30,13 @@ public interface Identifier {
 	 * This returns a list of IIDentity objects
 	 * @return
 	 * @throws IdentifierException
+	 * @throws IOException 
 	 */
-	List<IIDentity> identity() throws IdentifierException;
+	public List<IIDentity> identity() throws IdentifierException, IOException;
 	
 	/**
 	 * Return the List[IIDentity] as a String
 	 */
-	String toI();
+	//String toI();
 
 }

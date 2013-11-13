@@ -1,5 +1,8 @@
 package org.megam.chef.core;
 
+import java.io.IOException;
+
+import org.megam.chef.exception.IdentifierException;
 import org.megam.chef.exception.ProvisionerException;
 
 /**
@@ -28,7 +31,7 @@ public class DefaultProvisioningService<T> extends
 	/**
 	 * @throws ProvisionerException
 	 */
-	public T provision(String jsonString) throws ProvisionerException {
+	public T provision(String jsonString) throws ProvisionerException, IOException, IdentifierException {
 		throw new RuntimeException(
 				"Not implemented yet. Use CHEF_WITH_SHELL in your factory instead.");
 	}

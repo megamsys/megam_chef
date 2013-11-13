@@ -19,6 +19,7 @@ public class JSONRequestParser {
 	private CommandJson reqCommand;
 	private String reqid;
 	private String node_name;
+	private String vault_location;
 	private Logger logger = LoggerFactory.getLogger(JSONRequestParser.class);
 
 	/**
@@ -57,6 +58,10 @@ public class JSONRequestParser {
 	
 	public String getNodeName() {
 		return reqCommand.getNodeName();
+	}
+	
+	public String getVaultLocation() {
+		return reqCommand.getVaultLocation();
 	}
 	
 	public String toString() {

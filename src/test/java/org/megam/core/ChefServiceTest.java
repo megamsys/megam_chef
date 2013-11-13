@@ -24,6 +24,7 @@ import org.megam.chef.ChefServiceRunner;
 import org.megam.chef.DropIn;
 import org.megam.chef.ProvisionerFactory.TYPE;
 import org.megam.chef.exception.BootStrapChefException;
+import org.megam.chef.exception.IdentifierException;
 import org.megam.chef.exception.ProvisionerException;
 import org.megam.chef.exception.SourceException;
 
@@ -41,7 +42,7 @@ public class ChefServiceTest {
 	 */
 	@Test
 	public void test() throws SourceException, ProvisionerException,
-			BootStrapChefException {
+			BootStrapChefException, IOException, IdentifierException  {
 		try {
 			(new ChefServiceRunner()).withType(TYPE.CHEF_WITH_SHELL)
 					.input(new DropIn("RIP388568201526509555")).control();

@@ -15,6 +15,10 @@
 */
 package org.megam.chef.shell;
 
+import java.io.IOException;
+
+import org.megam.chef.exception.IdentifierException;
+import org.megam.chef.exception.ProvisionerException;
 import org.megam.chef.exception.ShellException;
 
 /**
@@ -28,8 +32,11 @@ public interface Shellable {
 	 * @param input
 	 * @return
 	 * @throws ShellException
+	 * @throws IdentifierException 
+	 * @throws IOException 
+	 * @throws ProvisionerException 
 	 */
-	public Command jsonToCommand(String input) throws ShellException;
+	public Command jsonToCommand(String input) throws ShellException, IOException, IdentifierException, ProvisionerException;
 	
 	/**
 	 * 

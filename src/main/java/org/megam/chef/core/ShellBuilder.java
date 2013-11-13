@@ -1,7 +1,9 @@
 package org.megam.chef.core;
 
 import java.util.LinkedList;
+import java.util.List;
 
+import org.megam.chef.identity.IIDentity;
 import org.megam.chef.parser.JSONRequestParser;
 
 /**
@@ -19,7 +21,7 @@ public class ShellBuilder {
 	 * 
 	 * @param args
 	 */
-	public static String[] buildString(LinkedList<ScriptFeeder> scriptFeeder, JSONRequestParser jrp) {
+	public static String[] buildString(LinkedList<ScriptFeeder> scriptFeeder, JSONRequestParser jrp, List<IIDentity> fp) {
 
 		StringBuilder nameB = new StringBuilder();
 		StringBuilder shellB = new StringBuilder();		
@@ -29,6 +31,9 @@ public class ShellBuilder {
 				shellB.append(sf.feed().getShellString());
 
 			}
+		}
+		for (IIDentity ii : fp) {
+			shellB.append(ii.toString());
 		}
 		return new String[] { nameB.toString(), shellB.toString(), jrp.getReqId(), jrp.getNodeName() };
 

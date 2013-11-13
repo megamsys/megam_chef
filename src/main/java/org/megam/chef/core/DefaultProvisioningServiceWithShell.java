@@ -15,10 +15,17 @@
  */
 package org.megam.chef.core;
 
+import java.io.IOException;
+import java.util.List;
+
 import org.megam.chef.AppYaml;
 import org.megam.chef.BootStrapChef;
+import org.megam.chef.exception.IdentifierException;
 import org.megam.chef.exception.ProvisionerException;
 import org.megam.chef.exception.ShellException;
+import org.megam.chef.identity.IIDentity;
+import org.megam.chef.identity.IdentityParser;
+import org.megam.chef.identity.S3;
 import org.megam.chef.parser.JSONRequest;
 import org.megam.chef.parser.JSONRequestParser;
 import org.megam.chef.shell.Command;
@@ -52,10 +59,14 @@ public class DefaultProvisioningServiceWithShell<T> extends
 	 * TO-DO : What is the output we need to send ? We need a generic way to
 	 * convert a Java output to JSON output
 	 * 
+	 * @throws IdentifierException
+	 * @throws IOException
+	 * 
 	 * @see org.megam.chef.ProvisioningService#provision()
 	 */
 	@Override
-	public T provision(String jsonString) throws ProvisionerException {
+	public T provision(String jsonString) throws ProvisionerException,
+			IOException, IdentifierException {
 		logger.debug("-------> Entry");
 		logger.debug("-------> jsonString =>" + jsonString);
 		try {
@@ -73,8 +84,12 @@ public class DefaultProvisioningServiceWithShell<T> extends
 	/**
 	 * @param args
 	 * @throws ShellException
+	 * @throws IdentifierException
+	 * @throws IOException
+	 * @throws ProvisionerException
 	 */
-	public Command jsonToCommand(String jsonRequest) throws ShellException {
+	public Command jsonToCommand(String jsonRequest) throws ShellException,
+			IOException, IdentifierException, ProvisionerException {
 		logger.debug("-------> Entry");
 		logger.debug("-------> jsonRequest =>" + jsonRequest);
 		Command com = new org.megam.chef.shell.Command(
@@ -100,27 +115,33 @@ public class DefaultProvisioningServiceWithShell<T> extends
 	 * builder builds a script. If not an error with the reasons of validation
 	 * failure is retured. command
 	 * 
-	 * @param myJSONString		logger.debug("-------> Entry");
-
+	 * @param myJSONString
+	 *            logger.debug("-------> Entry");
+	 * 
 	 * @return
+	 * @throws IOException
+	 * @throws IdentifierException
+	 * @throws ProvisionerException
 	 */
-	private String[] convertInput(String jsonRequest) throws ShellException {
+	private String[] convertInput(String jsonRequest) throws ShellException,
+			IOException, IdentifierException, ProvisionerException {
 		logger.debug("-------> Entry");
 		logger.debug("-------> jsonRequest =>" + jsonRequest);
-		JSONRequestParser jrp = new JSONRequestParser(jsonRequest);		
+		JSONRequestParser jrp = new JSONRequestParser(jsonRequest);
 		JSONRequest jr = jrp.data();
 		logger.debug("-------> jr =>" + jr);
 		/**
-		 * Download the stuff from S3
-		 * The location to download can be got from parsing vault_location (in access)
-		 * S3.download()
-		 * If all is well proceed 
-		 * Wrap this method and trap for ProvisionerException
+		 * Download the stuff from S3 The location to download can be got from
+		 * parsing vault_location (in access) S3.download() If all is well
+		 * proceed Wrap this method and trap for ProvisionerException
 		 */
+		S3.download();
+		List<IIDentity> fp = new IdentityParser().identity();
+		System.out.println("========================^^^^^^^^^^+++++++" + fp);
 		ParmsValidator pv = new ParmsValidator();
 		if (pv.validate(jr.conditionList())) {
 			logger.debug("-------> Shellbuilder =>");
-			return ShellBuilder.buildString(jr.scriptFeeder(), jrp);
+			return ShellBuilder.buildString(jr.scriptFeeder(), jrp, fp);
 		} else {
 			throw new ShellException(new IllegalArgumentException(pv
 					.reasonsNotSatisfied().toString()));

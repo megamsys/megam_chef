@@ -49,7 +49,7 @@ public class SingleShell extends RecursiveAction {
 	 */
 
 	public void compute() {
-		try {
+		/*try {
 			ProcessBuilder p = new ProcessBuilder(cmd.getCommandList());	
 			//p.directory(new File(cmd.getFileName()));
 			p.redirectOutput(Redirect.appendTo(cmd.getRedirectOutputFile()));
@@ -63,7 +63,9 @@ public class SingleShell extends RecursiveAction {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}
+		}*/
+		System.out.println("======"+cmd.getCommandList());
+		logger.debug("-------> An instance was created");	
 	}
 
 }

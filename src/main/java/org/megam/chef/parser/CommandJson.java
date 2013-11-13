@@ -32,7 +32,8 @@ public class CommandJson {
 	private String node_id;
 	private String node_name;
 	private String req_type;
-	private JSONRequest command;		
+	private JSONRequest command;
+	private String vault_location;
 	private String created_at;
 	private Logger logger = LoggerFactory.getLogger(CommandJson.class);
 	/**
@@ -57,6 +58,10 @@ public class CommandJson {
 
 	public String getReqType() {
 		return req_type;
+	}
+	
+	public String getVaultLocation() {
+		return vault_location;
 	}
 	
 	public String getCreatedAt() {

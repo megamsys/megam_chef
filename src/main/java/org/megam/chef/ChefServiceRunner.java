@@ -19,6 +19,7 @@ import java.io.IOException;
 
 import org.megam.chef.ProvisionerFactory.TYPE;
 import org.megam.chef.exception.BootStrapChefException;
+import org.megam.chef.exception.IdentifierException;
 import org.megam.chef.exception.ProvisionerException;
 import org.megam.chef.exception.SourceException;
 import org.megam.chef.source.SourceLoader;
@@ -70,10 +71,12 @@ public class ChefServiceRunner {
 	 * @throws ProvisionerException
 	 *             fetch the json string execute the provisioning service using
 	 *             that json string
+	 * @throws IdentifierException 
+	 * @throws IOException 
 	 * 
 	 */
 	public ChefServiceRunner input(DropIn dropid) throws SourceException,
-			ProvisionerException {
+			ProvisionerException, IOException, IdentifierException {
 			logger.debug("-------> dropid =>" + dropid.getId());
 			ps.provision(source.fetchRequestJSON(dropid.getId()));			
 			return this;

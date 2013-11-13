@@ -15,6 +15,9 @@
  */
 package org.megam.chef;
 
+import java.io.IOException;
+
+import org.megam.chef.exception.IdentifierException;
 import org.megam.chef.exception.ProvisionerException;
 
 /**
@@ -28,7 +31,9 @@ public interface ProvisioningService<T extends Object> {
 	 * @param jsonString
 	 * @return
 	 * @throws ProvisionerException
+	 * @throws IdentifierException 
+	 * @throws IOException 
 	 */
-	public T provision(String jsonString) throws ProvisionerException;
+	public T provision(String jsonString) throws ProvisionerException, IOException, IdentifierException;
 
 }
