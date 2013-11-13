@@ -17,6 +17,7 @@ package org.megam.chef.identity;
 
 import java.io.File;
 
+import org.megam.chef.Constants;
 import org.megam.chef.core.DefaultProvisioningServiceWithShell;
 import org.megam.chef.exception.ProvisionerException;
 import org.slf4j.Logger;
@@ -37,40 +38,37 @@ public class S3 {
 
 	private static Logger logger = LoggerFactory.getLogger(S3.class);
 
-	public static void download() throws ProvisionerException {
-		
-		String accessKey = "AKIAJHENLMZT7TBPVMZQ";
-		String secretKey = "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";	
-		
-		
-		AWSCredentials credentials = new BasicAWSCredentials(accessKey, secretKey);		
+	public static void download(String fromRemote, String toLocationStr) throws ProvisionerException {
+		AWSCredentials credentials = new BasicAWSCredentials(Constants.MEGAM_AWS_ACCESS_KEY,
+				Constants.MEGAM_AWS_SECRET_ID);
 		AmazonS3 conn = new AmazonS3Client(credentials);
 		conn.setEndpoint("s3-ap-southeast-1.amazonaws.com");
 		logger.debug("-------> Amazon S3Client created");
-		logger.debug("-------> Download started.....");
+		logger.debug("-------> Download started .....");
 		logger.debug("--------------------------------------- ");
-		/*MultipleFileDownload download = amazonWebService.transferManager.downloadDirectory('cloudkeys', 'sandy@megamsandbox.com/default',  new File('/Users/ben/Downloads'))
-
-				while (!download.done) { 
-					println "Transfer: $download.description"; 
-					println " - State: $download.state"; 
-					println " - Progress: $download.progress.bytesTransfered" 
-					// Do work while we wait for our upload to complete… 
-					Thread.sleep(500) 
-					}
-			*/	
-		conn.getObject(
-		        new GetObjectRequest("cloudkeys", "sandy@megamsandbox.com/default/type"),
-		        new File("~/.megam/type")
-		);
-		/*conn.getObject(
-		        new GetObjectRequest("cloudkeys", "sandy@megamsandbox.com/default/megam_ecs2_pem"),
-		        new File("~/.megam/megam_ec2.pem")
-		);
-		conn.getObject(
-		        new GetObjectRequest("cloudkeys", "sandy@megamsandbox.com/default/ec2_keys"),
-		        new File("~/.megam/ec2_keys")
-		);*/
+		File toUserLocal = new File(toLocationStr);
+		toUserLocal.mkdirs();
+		/*
+		 * MultipleFileDownload download =
+		 * amazonWebService.transferManager.downloadDirectory('cloudkeys',
+		 * fromRemote, toUserLocal)
+		 * 
+		 * while (!download.done) { println "Transfer: $download.description";
+		 * println " - State: $download.state"; println
+		 * " - Progress: $download.progress.bytesTransfered" // Do work while we
+		 * wait for our upload to complete… Thread.sleep(500) }
+		 */
+		conn.getObject(new GetObjectRequest("cloudkeys",
+				"sandy@megamsandbox.com/default/type"), new File(
+				"~/.megam/type"));
+		/*
+		 * conn.getObject( new GetObjectRequest("cloudkeys",
+		 * "sandy@megamsandbox.com/default/megam_ecs2_pem"), new
+		 * File("~/.megam/megam_ec2.pem") ); conn.getObject( new
+		 * GetObjectRequest("cloudkeys",
+		 * "sandy@megamsandbox.com/default/ec2_keys"), new
+		 * File("~/.megam/ec2_keys") );
+		 */
 		logger.debug("-------> Files Download completed.....");
 	}
 }

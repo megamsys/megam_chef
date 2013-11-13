@@ -25,17 +25,22 @@ import java.util.List;
 import java.util.Scanner;
 
 import org.megam.chef.exception.IdentifierException;
+import org.megam.chef.shell.SingleShell;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class IdentityParser implements Identifier {
 
-	List<IIDentity> list = new ArrayList<IIDentity>();
+	private Logger logger = LoggerFactory.getLogger(SingleShell.class);
+
+	private List<IIDentity> list = new ArrayList<IIDentity>();
 	private String[] keyvaluepair;
 	private final static Charset ENCODING = StandardCharsets.UTF_8;
-	private String FILENAME = "/home/rajthilak/.megam/";
+	private final String FILENAME = "/home/rajthilak/.megam/";
 
 	@SuppressWarnings("resource")
 	public List<IIDentity> identity() throws IdentifierException, IOException {
-		System.out.println(FILENAME + typeChecker());
+		logger.debug("-------> FILENAME "+ typeChecker());			
 		Path path = Paths.get(FILENAME + typeChecker());
 		Scanner scanner = new Scanner(path, ENCODING.name());
 		// read CSV Files and parse it to object array
@@ -69,11 +74,4 @@ public class IdentityParser implements Identifier {
 		return new String[] { key, value };
 	}
 
-	/*
-	 * private static IIDentity parseCSVLine(String line) { Scanner scanner =
-	 * new Scanner(line); scanner.useDelimiter("\\s*=\\s*"); String key =
-	 * scanner.next(); String value = scanner.next();
-	 * 
-	 * return new IIDentity(key, value); }
-	 */
 }

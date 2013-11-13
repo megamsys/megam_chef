@@ -49,13 +49,12 @@ public class SingleShell extends RecursiveAction {
 	 */
 
 	public void compute() {
-		/*try {
-			ProcessBuilder p = new ProcessBuilder(cmd.getCommandList());	
-			//p.directory(new File(cmd.getFileName()));
+		try {
+			ProcessBuilder p = new ProcessBuilder(cmd.getCommandList());
 			p.redirectOutput(Redirect.appendTo(cmd.getRedirectOutputFile()));
 			p.redirectError(Redirect.appendTo(cmd.getRedirectErrorFile()));
 			p.start();
-			logger.debug("-------> An instance was created");			
+			logger.debug("-------> An instance was started");
 		} catch (IOException npe) {
 			try {
 				throw new ShellException(npe);
@@ -63,9 +62,8 @@ public class SingleShell extends RecursiveAction {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}*/
-		System.out.println("======"+cmd.getCommandList());
-		logger.debug("-------> An instance was created");	
+		}
+		logger.debug("-------> An instance was started, exited.");
 	}
 
 }

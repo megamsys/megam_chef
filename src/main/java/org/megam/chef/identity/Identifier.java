@@ -32,11 +32,7 @@ public interface Identifier {
 	 * @throws IdentifierException
 	 * @throws IOException 
 	 */
-	public List<IIDentity> identity() throws IdentifierException, IOException;
+	public List<IIDentity> identity() throws IdentifierException, IOException;	
 	
-	/**
-	 * Return the List[IIDentity] as a String
-	 */
-	//String toI();
 
 }

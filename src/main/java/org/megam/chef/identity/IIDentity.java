@@ -34,39 +34,5 @@ public class IIDentity {
     public String toString(){
         return " --" + this.key + " " + this.value;
     }
-	
-	/*
-	private String key;
-	private String value;
-	private String shellString;
-
-	public IIDentity(String key, String value) {
-		this.key = key;
-		this.value = value;
-		setShellString();
-	}
-
-	// return the key
-
-	public String getIdentityKey() {
-		return key;
-	}
-
-	// return the value
-
-	public String getIdentityValue() {
-		return value;
-	}
-
-	// return the shellString
-
-	public String getShellString() {
-		return shellString;
-	}
-
-	// set the shellString
-
-	public void setShellString() {
-		this.shellString = "--" + getIdentityKey() + " " + getIdentityValue();
-	}*/
+		
 }

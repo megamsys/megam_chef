@@ -22,7 +22,6 @@ import java.io.File;
  * 
  */
 public class Constants {
-	
 
 	/**
 	 * The version that gets printed in the log after booting.
@@ -35,20 +34,25 @@ public class Constants {
 	public static final String BUILD_DATE = "20130903";
 
 	/**
-	 * The current directory from where the code runs
-	 * if this called from akka (/usr/local/share/megamakka, then that would 
-	 * be the user.dir.
+	 * The current directory from where the code runs if this called from akka
+	 * (/usr/local/share/megamakka, then that would be the user.dir.
 	 */
 	public static String MEGAM_CHEF_ROOT = System.getProperty("user.dir");
-	
-	/**
-	 * The user home directory in unix this is ~ or /home/<user>
-	 * Fix in AWS which doesn't allow /root/.megam to be stored. Hence
-	 * we use ENV[MEGAM_HOME] (or) user.dir.
-	 */
-	public static final String MEGAM_USER_HOME = (System.getenv("MEGAM_HOME")!=null && System.getenv("MEGAM_HOME").trim().length() > 0) ? 
-			System.getenv("MEGAM_HOME") : MEGAM_CHEF_ROOT;
 
+	/**
+	 * The user home directory in unix this is ~ or /home/<user> Fix in AWS
+	 * which doesn't allow /root/.megam to be stored. Hence we use
+	 * ENV[MEGAM_HOME] (or) user.dir.
+	 */
+	public static final String MEGAM_USER_HOME = (System.getenv("MEGAM_HOME") != null && System
+			.getenv("MEGAM_HOME").trim().length() > 0) ? System
+			.getenv("MEGAM_HOME") : MEGAM_CHEF_ROOT;
+
+	public static final String MEGAM_AWS_ACCESS_KEY = System
+			.getenv("MEGAM_AWS_ACCESS_KEY");
+
+	public static final String MEGAM_AWS_SECRET_ID = System
+			.getenv("MEGAM_AWS_SECRET_ID");
 	/**
 	 * The location of the app yaml configuration file, relative to
 	 * MEGAM_CHEF_ROOT
@@ -64,7 +68,7 @@ public class Constants {
 	 */
 	public static final String MEGAM_CHEF_LOG = MEGAM_USER_HOME
 			+ java.io.File.separator + "logs" + java.io.File.separator;
-	
+
 	public static final String HELP_GITHUB = "Refer https://github.com/indykish/megam_chef.git for more info.";
 
 }
