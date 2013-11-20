@@ -47,6 +47,8 @@ public class DefaultProvisioningServiceWithShell<T> extends
 	private Logger logger = LoggerFactory
 			.getLogger(DefaultProvisioningServiceWithShell.class);
 
+	private String vaultLocation;
+	
 	/**
 	 * 
 	 * @throws ProvisionerException
@@ -134,12 +136,13 @@ public class DefaultProvisioningServiceWithShell<T> extends
 		 * Download the stuff from S3 The location to download can be got from
 		 * parsing vault_location (in access) S3.download() If all is well
 		 * proceed Wrap this method and trap for ProvisionerException
-		 */
-		S3.download();
-		List<IIDentity> fp = new IdentityParser().identity();
-		System.out.println("========================^^^^^^^^^^+++++++" + fp);
+		 */		
 		ParmsValidator pv = new ParmsValidator();
-		if (pv.validate(jr.conditionList())) {
+		if (pv.validate(jr.conditionList())) {	
+			vaultLocation = vaultLocationParser(jr.getAccess().getVaultLocation());
+			S3.download(vaultLocation);
+			List<IIDentity> fp = new IdentityParser(vaultLocation).identity();
+			System.out.println("========================^^^^^^^^^^+++++++" + fp);
 			logger.debug("-------> Shellbuilder =>");
 			return ShellBuilder.buildString(jr.scriptFeeder(), jrp, fp);
 		} else {
@@ -148,6 +151,15 @@ public class DefaultProvisioningServiceWithShell<T> extends
 		}
 	}
 
+	public String vaultLocationParser(String str) {		
+	 // str = "https://s3-ap-southeast-1.amazonaws.com/cloudkeys/a@b.com/default";
+		int lst=str.lastIndexOf("/");
+		String cc = str.substring(lst);
+		str=str.replace(str.substring(lst),"");				
+		String email = str.substring(str.lastIndexOf("/")+1);
+		return email+cc;
+	}
+	
 	public String toString() {
 		return "DefaultProvisioningWithShell";
 	}

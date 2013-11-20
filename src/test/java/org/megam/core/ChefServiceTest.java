@@ -45,7 +45,7 @@ public class ChefServiceTest {
 			BootStrapChefException, IOException, IdentifierException  {
 		try {
 			(new ChefServiceRunner()).withType(TYPE.CHEF_WITH_SHELL)
-					.input(new DropIn("RIP388568201526509555")).control();
+					.input(new DropIn("RIP392631536052076544")).control();
 			assertTrue("This will succeed.", true);
 		} catch (IOException ioe) {
 			throw new BootStrapChefException(ioe);

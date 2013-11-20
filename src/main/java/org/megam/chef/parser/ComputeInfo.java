@@ -26,6 +26,7 @@ public class ComputeInfo implements DataMap, ScriptFeeder, Condition {
 	private static final String DIDENTITYFILE = "identity_file";
 	private static final String SSHUSER = "ssh-user";
 	private static final String DSSHUSER = "ssh_user";
+	private static final String VAULTLOCATION = "vault_location";
 	private List<String> inputavailablereason = new ArrayList<String>();
 
 	/**
@@ -71,6 +72,14 @@ public class ComputeInfo implements DataMap, ScriptFeeder, Condition {
 		return map().get(DIDENTITYFILE);
 	}
 
+	/**
+	 * 
+	 * @return vault location
+	 */
+	public String getVaultLocation() {
+		return map().get(VAULTLOCATION);
+	}
+	
 	/**
 	 * 
 	 * @return ssh user

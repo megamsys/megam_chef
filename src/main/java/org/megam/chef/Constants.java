@@ -64,6 +64,11 @@ public class Constants {
 	public static final String MEGAM_DEFAULT_CHEF_APP_YAML = "chefapp.yaml";
 
 	/**
+	 * The location of the Credential files, relative to MEGAM_USER_HOME
+	 */
+	public static String MEGAM_VAULT = MEGAM_USER_HOME + java.io.File.separator + "vault";
+	
+	/**
 	 * The location of the log file
 	 */
 	public static final String MEGAM_CHEF_LOG = MEGAM_USER_HOME

@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import org.megam.chef.Constants;
 import org.megam.chef.exception.IdentifierException;
 import org.megam.chef.shell.SingleShell;
 import org.slf4j.Logger;
@@ -36,12 +37,16 @@ public class IdentityParser implements Identifier {
 	private List<IIDentity> list = new ArrayList<IIDentity>();
 	private String[] keyvaluepair;
 	private final static Charset ENCODING = StandardCharsets.UTF_8;
-	private final String FILENAME = "/home/rajthilak/.megam/";
+	
+	private String vaultLocation;
+
+	public IdentityParser(String vl) {
+		this.vaultLocation = vl;
+	}
 
 	@SuppressWarnings("resource")
 	public List<IIDentity> identity() throws IdentifierException, IOException {
-		logger.debug("-------> FILENAME "+ typeChecker());			
-		Path path = Paths.get(FILENAME + typeChecker());
+		Path path = Paths.get(Constants.MEGAM_VAULT + vaultLocation + "/" + typeChecker());
 		Scanner scanner = new Scanner(path, ENCODING.name());
 		// read CSV Files and parse it to object array
 		scanner.useDelimiter(System.getProperty("line.separator"));
@@ -55,7 +60,7 @@ public class IdentityParser implements Identifier {
 	}
 
 	public String typeChecker() throws IOException {
-		Path path = Paths.get(FILENAME + "type");
+		Path path = Paths.get(Constants.MEGAM_VAULT + vaultLocation + "/type");
 		Scanner scanner = new Scanner(path, ENCODING.name());
 		// read file line by line
 		scanner.useDelimiter(System.getProperty("line.separator"));
