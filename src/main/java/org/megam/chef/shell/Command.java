@@ -39,10 +39,10 @@ public class Command {
 	 * @param s
 	 */
 	public Command(String[] shellArray) {
-		this.name = shellArray[0].toLowerCase();
-		this.inputCmd = shellArray[1];
-		this.reqId = shellArray[2];
-		this.node_name = shellArray[3];
+		//this.name = shellArray[0].toLowerCase();
+		this.inputCmd = shellArray[0];
+		this.reqId = shellArray[1];
+		this.node_name = shellArray[2];
 		StringTokenizer st = new StringTokenizer(inputCmd);
 		while (st.hasMoreTokens()) {
 			cmdList.add(st.nextToken());

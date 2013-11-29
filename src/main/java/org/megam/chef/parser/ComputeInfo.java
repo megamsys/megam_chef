@@ -1,14 +1,23 @@
 package org.megam.chef.parser;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Formatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.megam.chef.Constants;
+import org.megam.chef.cloudformatters.AmazonCloudFormatter;
+import org.megam.chef.cloudformatters.GoogleCloudFormatter;
 import org.megam.chef.core.Condition;
+import org.megam.chef.core.DefaultProvisioningServiceWithShell;
 import org.megam.chef.core.ScriptFeeder;
 import org.megam.chef.shell.FedInfo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * 
@@ -17,16 +26,19 @@ import org.megam.chef.shell.FedInfo;
  */
 public class ComputeInfo implements DataMap, ScriptFeeder, Condition {
 
-	private static final String GROUPS = "groups";
-	private static final String IMAGE = "image";
-	private static final String FLAVOR = "flavor";
-	private static final String SSHKEY = "ssh-key";
-	private static final String DSSHKEY = "ssh_key";
-	private static final String IDENTITYFILE = "identity-file";
-	private static final String DIDENTITYFILE = "identity_file";
-	private static final String SSHUSER = "ssh-user";
-	private static final String DSSHUSER = "ssh_user";
-	private static final String VAULTLOCATION = "vault_location";
+	public static final String GROUPS = "groups";
+	public static final String IMAGE = "image";
+	public static final String FLAVOR = "flavor";
+	public static final String SSHKEY = "ssh-key";
+	public static final String DSSHKEY = "ssh_key";
+	public static final String IDENTITYFILE = "identity-file";
+	public static final String DIDENTITYFILE = "identity_file";
+	public static final String SSHUSER = "ssh-user";
+	public static final String DSSHUSER = "ssh_user";
+	public static final String VAULTLOCATION = "vault_location";
+	public static final String SSHPUBLOCATION = "sshpub_location";
+	public static final String CREDENTIALFILE = "credential_file";
+	public static final String ZONE = "zone";
 	private List<String> inputavailablereason = new ArrayList<String>();
 
 	/**
@@ -36,6 +48,9 @@ public class ComputeInfo implements DataMap, ScriptFeeder, Condition {
 	private Map<String, String> cc = new HashMap<String, String>();
 	private Map<String, String> access = new HashMap<String, String>();
 	private FedInfo fed;
+	private Map<String, String> mp = new HashMap<String, String>();
+	private StringBuilder sb = new StringBuilder();
+	private Logger logger = LoggerFactory.getLogger(ComputeInfo.class);
 
 	public ComputeInfo() {
 	}
@@ -53,8 +68,6 @@ public class ComputeInfo implements DataMap, ScriptFeeder, Condition {
 		}
 		return cc;
 	}
-
-	
 
 	/**
 	 * 
@@ -79,7 +92,7 @@ public class ComputeInfo implements DataMap, ScriptFeeder, Condition {
 	public String getVaultLocation() {
 		return map().get(VAULTLOCATION);
 	}
-	
+
 	/**
 	 * 
 	 * @return ssh user
@@ -101,15 +114,6 @@ public class ComputeInfo implements DataMap, ScriptFeeder, Condition {
 		return strbd.toString();
 	}
 
-	/*
-	 * public String toString() {
-	 * 
-	 * return ( getGroups() + " " + getImage() + " " + getFlavor() + " " + "--"
-	 * + SSHKEY + " " + getSshKey() + " " + "--" + IDENTITYFILE + " " +
-	 * getIdentityFile() + " " + "--" + SSHUSER + " " + getSshUser());
-	 * 
-	 * }
-	 */
 	public String getName() {
 		return "cloud";
 
@@ -120,23 +124,38 @@ public class ComputeInfo implements DataMap, ScriptFeeder, Condition {
 	}
 
 	public FedInfo feed() {
-		fed = new FedInfo(getName(), " " + getGroups() + " " + getImage() + " "
-				+ getFlavor() + " " + "--" + SSHKEY + " " + getSshKey() + " "
-				+ "--" + IDENTITYFILE + " " + getIdentityFile() + " " + "--"
-				+ SSHUSER + " " + getSshUser());
+		if (getCCType().equals("ec2")) {
+			mp = new AmazonCloudFormatter().format(map());
+		}
+		if (getCCType().equals("google")) {
+			mp = new GoogleCloudFormatter().format(map());
+		}
+		for (Map.Entry<String, String> entry : mp.entrySet()) {
+			String key = entry.getKey();
+			sb.append(" ");
+			sb.append(key);
+			sb.append(" ");
+			String value = entry.getValue();
+			sb.append(value);
+			sb.append(" ");
+		}
+		fed = new FedInfo(getName(), sb.toString());
+		for (Map.Entry<String, String> entry : mp.entrySet()) {
+			mp.values().remove(entry.getKey());
+		}
 		return fed;
 	}
 
 	public String getGroups() {
-		return "--" + GROUPS + " " + cc.get(GROUPS);
+		return cc.get(GROUPS);
 	}
 
 	public String getImage() {
-		return "--" + IMAGE + " " + cc.get(IMAGE);
+		return cc.get(IMAGE);
 	}
 
 	public String getFlavor() {
-		return "--" + FLAVOR + " " + cc.get(FLAVOR);
+		return cc.get(FLAVOR);
 	}
 
 	public List<String> getReason() {
