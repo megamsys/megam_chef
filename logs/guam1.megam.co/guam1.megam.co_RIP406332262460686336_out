@@ -1,0 +1,55 @@
+You must supply -I IMAGE!
+knife google server create NAME -m MACHINE_TYPE -I IMAGE -Z ZONE (options)
+        --bootstrap-version VERSION  The version of Chef to install
+    -N, --node-name NAME             The Chef node name for your new node
+    -s, --server-url URL             Chef Server URL
+        --chef-zero-port PORT        Port to start chef-zero on
+    -k, --key KEY                    API Client Key
+        --[no-]color                 Use colored output, defaults to false on Windows, true otherwise
+    -f CREDENTIAL_FILE,              Google Compute credential file (google setup can create this)
+        --compute-credential-file
+        --user-data USER_DATA_FILE   The Google Compute User Data file to provision the server with
+    -c, --config CONFIG              The configuration file to use
+        --defaults                   Accept default values for all questions
+        --disable-editing            Do not open EDITOR, just accept the data as is
+        --google-compute-disks DISK1,DISK2
+                                     Disks to be attached
+    -d, --distro DISTRO              Bootstrap a distro using a template; default is 'chef-full'
+    -e, --editor EDITOR              Set the editor to use for interactive commands
+    -E, --environment ENVIRONMENT    Set the Chef environment
+    -F, --format FORMAT              Which format to use for output
+        --hint HINT_NAME[=HINT_FILE] Specify Ohai Hint to be set on the bootstrap target. Use multiple --hint options to specify multiple hints.
+        --[no-]host-key-verify       Verify host key, enabled by default.
+    -i IDENTITY_FILE,                The SSH identity file used for authentication
+        --identity-file
+    -I, --google-compute-image IMAGE The Image for the server (required)
+    -J IMAGE_PROJECT_ID,             The project-id containing the Image (debian-cloud, centos-cloud, etc)
+        --google-compute-image-project-id
+    -a PUBLIC,                       Whether to use PUBLIC or PRIVATE address to connect; default is 'PUBLIC'
+        --google-compute-server-connect-ip
+    -j, --json-attributes JSON       A JSON string to be added to the first run of chef-client
+    -z, --local-mode                 Point knife commands at local repository instead of server
+    -m MACHINE_TYPE,                 The machine type of server (n1-highcpu-2, n1-highcpu-2-d, etc) (required)
+        --google-compute-machine
+    -M Key=Value[,Key=Value...],     The metadata for this server
+        --google-compute-metadata
+    -n NETWORK,                      The network for this server; default is 'default'
+        --google-compute-network
+    -u, --user USER                  API Client Username
+        --prerelease                 Install the pre-release chef gems
+        --print-after                Show the data after a destructive operation
+        --google-compute-public-ip IP_ADDRESS
+                                     EPHEMERAL or static IP address or NONE; default is 'EPHEMERAL'
+    -r, --run-list RUN_LIST          Comma separated list of roles/recipes to apply
+    -w, --ssh-gateway GATEWAY        The ssh gateway server
+    -P, --ssh-password PASSWORD      The ssh password
+    -p, --ssh-port PORT              The ssh port; default is '22'
+    -x, --ssh-user USERNAME          The ssh username; default is 'root'
+    -T TAG1,TAG2,TAG3,               Tags for this server
+        --google-compute-tags
+        --template-file TEMPLATE     Full path to location of template to use
+    -V, --verbose                    More verbose output. Use twice for max verbosity
+    -v, --version                    Show chef version
+    -y, --yes                        Say yes to all prompts for confirmation
+    -Z, --google-compute-zone ZONE   The Zone for this server
+    -h, --help                       Show this message

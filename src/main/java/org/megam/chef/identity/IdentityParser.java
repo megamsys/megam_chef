@@ -15,12 +15,14 @@
  */
 package org.megam.chef.identity;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
@@ -37,7 +39,7 @@ public class IdentityParser implements Identifier {
 	private List<IIDentity> list = new ArrayList<IIDentity>();
 	private String[] keyvaluepair;
 	private final static Charset ENCODING = StandardCharsets.UTF_8;
-	
+	String res;
 	private String vaultLocation;
 
 	public IdentityParser(String vl) {
@@ -46,29 +48,41 @@ public class IdentityParser implements Identifier {
 
 	@SuppressWarnings("resource")
 	public List<IIDentity> identity() throws IdentifierException, IOException {
-		Path path = Paths.get(Constants.MEGAM_VAULT + vaultLocation + "/" + typeChecker());
-		Scanner scanner = new Scanner(path, ENCODING.name());
-		// read CSV Files and parse it to object array
-		scanner.useDelimiter(System.getProperty("line.separator"));
-		while (scanner.hasNext()) {
-			// parse line to get Emp Object
-			keyvaluepair = parseCSVLine(scanner.next());
-			list.add(new IIDentity(keyvaluepair[0], keyvaluepair[1]));
+		res = "";
+		Path path = Paths.get(Constants.MEGAM_VAULT + vaultLocation + "/"+ typeChecker());
+		if (new File(Constants.MEGAM_VAULT + vaultLocation + "/"+ typeChecker()).exists()) {
+			Scanner scanner = new Scanner(path, ENCODING.name());
+			// read CSV Files and parse it to object array
+			scanner.useDelimiter(System.getProperty("line.separator"));
+			while (scanner.hasNext()) {
+				// parse line to get Emp Object
+				keyvaluepair = parseCSVLine(scanner.next());
+				list.add(new IIDentity(keyvaluepair[0], keyvaluepair[1]));
+			}
+			scanner.close();
+		} else {
+			list = Collections.emptyList();
 		}
-		scanner.close();
 		return list;
+
 	}
 
 	public String typeChecker() throws IOException {
 		Path path = Paths.get(Constants.MEGAM_VAULT + vaultLocation + "/type");
-		Scanner scanner = new Scanner(path, ENCODING.name());
-		// read file line by line
-		scanner.useDelimiter(System.getProperty("line.separator"));
-		while (scanner.hasNext()) {
-			keyvaluepair = parseCSVLine(scanner.next());
+		res = "";
+		if (new File(Constants.MEGAM_VAULT + vaultLocation + "/type").exists()) {
+			Scanner scanner = new Scanner(path, ENCODING.name());
+			// read file line by line
+			scanner.useDelimiter(System.getProperty("line.separator"));
+			while (scanner.hasNext()) {
+				keyvaluepair = parseCSVLine(scanner.next());
+			}
+			scanner.close();
+			res = keyvaluepair[1];
+		} else {
+			res = "";
 		}
-		scanner.close();
-		return keyvaluepair[1];
+		return res;
 	}
 
 	private static String[] parseCSVLine(String line) {
