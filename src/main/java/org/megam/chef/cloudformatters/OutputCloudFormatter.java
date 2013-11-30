@@ -14,5 +14,7 @@ public interface OutputCloudFormatter {
 	 */
 	Map<String, String> format(Map<String, String> mp_value);
 	
+	String neededArgs();
+	
 
 }

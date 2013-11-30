@@ -15,22 +15,26 @@
  */
 package org.megam.chef.cloudformatters;
 
+import java.util.Formatter;
 import java.util.HashMap;
 import java.util.Map;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import static org.megam.chef.parser.ComputeInfo.*;
+
+
 public class GoogleCloudFormatter implements OutputCloudFormatter {
 
-	private Map<String, String> gceMap_key = new HashMap<String, String>();
-	private Map<String, String> gceMap_result = new HashMap<String, String>();
-	
-	public GoogleCloudFormatter() {		
-		this.gceMap_key.put("image", "-I");
-		this.gceMap_key.put("flavor", "-m");
-		this.gceMap_key.put("zone", "-Z");
-		this.gceMap_key.put("ssh_user", "-x");
-		this.gceMap_key.put("identity_file", "-i");
+	private final Map<String, String> gceMap_key = new HashMap<String, String>();
+
+	public GoogleCloudFormatter() {
+		this.gceMap_key.put(IMAGE, "-I");
+		this.gceMap_key.put(FLAVOR, "-m");
+		this.gceMap_key.put(ZONE, "-Z");
+		this.gceMap_key.put(SSHUSER, "-x");
+		this.gceMap_key.put(IDENTITYFILE, "-i");
 	}
 
 	/*
@@ -40,13 +44,27 @@ public class GoogleCloudFormatter implements OutputCloudFormatter {
 	 */
 	@Override
 	public Map<String, String> format(Map<String, String> mp_value) {
-		// TODO Auto-generated method stub		
+		Map<String, String> gceMap_result = new HashMap<String, String>();
+
 		for (Map.Entry<String, String> entry : mp_value.entrySet()) {
-			if (gceMap_key.containsKey(entry.getKey())) {				
-				gceMap_result.put(gceMap_key.get(entry.getKey()), entry.getValue());
+			if (gceMap_key.containsKey(entry.getKey())) {
+				gceMap_result.put(gceMap_key.get(entry.getKey()),
+						entry.getValue());
 			}
 		}
 		return gceMap_result;
 	}
+	
+	public String neededArgs() {
+		StringBuilder strbd = new StringBuilder();
+		final Formatter formatter = new Formatter(strbd);
+		for (Map.Entry<String, String> entry : gceMap_key.entrySet()) {
+			formatter.format("%10s = %s%n", entry.getKey(), entry.getValue());
+		}
+		formatter.close();
+		return strbd.toString();
+
+	}
+
 
 }

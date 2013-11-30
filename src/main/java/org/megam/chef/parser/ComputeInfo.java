@@ -1,9 +1,6 @@
 package org.megam.chef.parser;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Formatter;
 import java.util.HashMap;
 import java.util.List;
@@ -12,8 +9,9 @@ import java.util.Map;
 import org.megam.chef.Constants;
 import org.megam.chef.cloudformatters.AmazonCloudFormatter;
 import org.megam.chef.cloudformatters.GoogleCloudFormatter;
+import org.megam.chef.cloudformatters.HPCloudFormatter;
+import org.megam.chef.cloudformatters.OutputCloudFormatter;
 import org.megam.chef.core.Condition;
-import org.megam.chef.core.DefaultProvisioningServiceWithShell;
 import org.megam.chef.core.ScriptFeeder;
 import org.megam.chef.shell.FedInfo;
 import org.slf4j.Logger;
@@ -39,7 +37,6 @@ public class ComputeInfo implements DataMap, ScriptFeeder, Condition {
 	public static final String SSHPUBLOCATION = "sshpub_location";
 	public static final String CREDENTIALFILE = "credential_file";
 	public static final String ZONE = "zone";
-	private List<String> inputavailablereason = new ArrayList<String>();
 
 	/**
 	 * create Map name as cc (cross cloud) from config.json file
@@ -47,9 +44,10 @@ public class ComputeInfo implements DataMap, ScriptFeeder, Condition {
 	private String cctype;
 	private Map<String, String> cc = new HashMap<String, String>();
 	private Map<String, String> access = new HashMap<String, String>();
+
 	private FedInfo fed;
-	private Map<String, String> mp = new HashMap<String, String>();
-	private StringBuilder sb = new StringBuilder();
+	private List<String> inputavailablereason = new ArrayList<String>();
+
 	private Logger logger = LoggerFactory.getLogger(ComputeInfo.class);
 
 	public ComputeInfo() {
@@ -59,14 +57,16 @@ public class ComputeInfo implements DataMap, ScriptFeeder, Condition {
 		return cctype;
 	}
 
-	/**
-	 * @return ec2 map
-	 */
-	public Map<String, String> map() {
-		if (!cc.keySet().containsAll(access.keySet())) {
-			cc.putAll(access);
-		}
-		return cc;
+	public String getGroups() {
+		return cc.get(GROUPS);
+	}
+
+	public String getImage() {
+		return cc.get(IMAGE);
+	}
+
+	public String getFlavor() {
+		return cc.get(FLAVOR);
 	}
 
 	/**
@@ -102,21 +102,13 @@ public class ComputeInfo implements DataMap, ScriptFeeder, Condition {
 	}
 
 	/**
-	 * toString method for ec2 map
+	 * @return ec2 map
 	 */
-	public String toString() {
-		StringBuilder strbd = new StringBuilder();
-		final Formatter formatter = new Formatter(strbd);
-		for (Map.Entry<String, String> entry : map().entrySet()) {
-			formatter.format("%10s = %s%n", entry.getKey(), entry.getValue());
+	public Map<String, String> map() {
+		if (!cc.keySet().containsAll(access.keySet())) {
+			cc.putAll(access);
 		}
-		formatter.close();
-		return strbd.toString();
-	}
-
-	public String getName() {
-		return "cloud";
-
+		return cc;
 	}
 
 	public boolean canFeed() {
@@ -124,38 +116,49 @@ public class ComputeInfo implements DataMap, ScriptFeeder, Condition {
 	}
 
 	public FedInfo feed() {
-		if (getCCType().equals("ec2")) {
-			mp = new AmazonCloudFormatter().format(map());
+		OutputCloudFormatter cf = null;
+		switch (getCCType()) {
+		case "ec2":
+			cf = new AmazonCloudFormatter();
+			break;
+		case "google":
+			cf = new GoogleCloudFormatter();
+			break;
+		case "hp":
+			cf = new HPCloudFormatter();
+			break;
+		default:
+			throw new IllegalArgumentException(
+					getCCType()
+							+ ": configuration not supported yet. We are working on it.\n"
+							+ Constants.HELP_GITHUB);
 		}
-		if (getCCType().equals("google")) {
-			mp = new GoogleCloudFormatter().format(map());
+
+		if (cf.format(map()) != null) {
+			StringBuilder sb = new StringBuilder();
+			for (Map.Entry<String, String> entry : cf.format(map()).entrySet()) {
+				sb.append(" ");
+				sb.append(entry.getKey());
+				sb.append(" ");
+				sb.append(entry.getValue());
+				sb.append(" ");
+			}
+			fed = new FedInfo(name(), sb.toString());
+			return fed;
+		} else {
+			throw new IllegalArgumentException(getCCType()
+					+ ": Can't proceed with arguments missing \n"
+					+ cf.neededArgs() + "\n" + Constants.HELP_GITHUB);
 		}
-		for (Map.Entry<String, String> entry : mp.entrySet()) {
-			String key = entry.getKey();
-			sb.append(" ");
-			sb.append(key);
-			sb.append(" ");
-			String value = entry.getValue();
-			sb.append(value);
-			sb.append(" ");
-		}
-		fed = new FedInfo(getName(), sb.toString());
-		for (Map.Entry<String, String> entry : mp.entrySet()) {
-			mp.values().remove(entry.getKey());
-		}
-		return fed;
 	}
 
-	public String getGroups() {
-		return cc.get(GROUPS);
-	}
-
-	public String getImage() {
-		return cc.get(IMAGE);
-	}
-
-	public String getFlavor() {
-		return cc.get(FLAVOR);
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.megam.chef.core.Condition#name()
+	 */
+	public String name() {
+		return "ComputeInfo";
 	}
 
 	public List<String> getReason() {
@@ -164,9 +167,9 @@ public class ComputeInfo implements DataMap, ScriptFeeder, Condition {
 
 	public boolean ok() {
 		boolean isOk = true;
-		isOk = isOk && validate("groups", "megam");
-		isOk = isOk && validate("image", "ami-56e6a404");
-		isOk = isOk && validate("flavor", "m1.small");
+		isOk = isOk && validate(GROUPS, getGroups());
+		isOk = isOk && validate(IMAGE, getImage());
+		isOk = isOk && validate(FLAVOR, getFlavor());
 		return isOk;
 	}
 
@@ -191,9 +194,9 @@ public class ComputeInfo implements DataMap, ScriptFeeder, Condition {
 	 */
 	public boolean inputAvailable() {
 		boolean isAvailable = true;
-		isAvailable = isAvailable && notNull("groups");
-		isAvailable = isAvailable && notNull("image");
-		isAvailable = isAvailable && notNull("flavor");
+		isAvailable = isAvailable && notNull(GROUPS);
+		isAvailable = isAvailable && notNull(IMAGE);
+		isAvailable = isAvailable && notNull(FLAVOR);
 		return isAvailable;
 	}
 
@@ -206,13 +209,17 @@ public class ComputeInfo implements DataMap, ScriptFeeder, Condition {
 		return false;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.megam.chef.core.Condition#name()
+	/**
+	 * toString method for ec2 map
 	 */
-	public String name() {
-		return "ComputeInfo";
+	public String toString() {
+		StringBuilder strbd = new StringBuilder();
+		final Formatter formatter = new Formatter(strbd);
+		for (Map.Entry<String, String> entry : map().entrySet()) {
+			formatter.format("%10s = %s%n", entry.getKey(), entry.getValue());
+		}
+		formatter.close();
+		return strbd.toString();
 	}
 
 }

@@ -41,9 +41,9 @@ public class AppYamlLoadedSetup {
 	public static final String TEST = "test";
 
 	/**
-	 * Returns the value set in configuration: in chefapp.yaml file. 
-	 * This value decides what subset of values get loaded.
-	 * can hold values  <development, production, staging, test>
+	 * Returns the value set in configuration: in chefapp.yaml file. This value
+	 * decides what subset of values get loaded. can hold values <development,
+	 * production, staging, test>
 	 * 
 	 * @param development
 	 * 
@@ -51,7 +51,7 @@ public class AppYamlLoadedSetup {
 	public String getConfiguration() {
 		return getMegamchef().get(CONFIG);
 	}
-	
+
 	/**
 	 * set development map
 	 * 
@@ -91,7 +91,6 @@ public class AppYamlLoadedSetup {
 	public Map<String, String> getProduction() {
 		return production;
 	}
-	
 
 	/**
 	 * set production map
@@ -112,7 +111,6 @@ public class AppYamlLoadedSetup {
 	public Map<String, String> getStaging() {
 		return staging;
 	}
-	
 
 	/**
 	 * set test map
@@ -160,35 +158,40 @@ public class AppYamlLoadedSetup {
 		final Formatter formatter = new Formatter(strbd);
 		formatter.format("%s%n",
 				"*----------------------- chefapp.yaml -------------------*");
-		formatter.format("%14s = %s%n",CONFIG, getConfiguration());
-		if(getMegamchef()!=null) {
-		for (Map.Entry<String, String> entry : getMegamchef().entrySet()) {
-			formatter.format("%10s = %s%n", entry.getKey(), entry.getValue());
-		}	
+		formatter.format("%14s = %s%n", CONFIG, getConfiguration());
+		if (getMegamchef() != null) {
+			for (Map.Entry<String, String> entry : getMegamchef().entrySet()) {
+				formatter.format("%10s = %s%n", entry.getKey(),
+						entry.getValue());
+			}
 		}
-		formatter.format("--%14s = %s%n",CONFIG, "development");
-		if(getDevelopment()!=null) {
-		for (Map.Entry<String, String> entry : getDevelopment().entrySet()) {
-			formatter.format("%10s = %s%n", entry.getKey(), entry.getValue());
+		formatter.format("--%14s = %s%n", CONFIG, "development");
+		if (getDevelopment() != null) {
+			for (Map.Entry<String, String> entry : getDevelopment().entrySet()) {
+				formatter.format("%10s = %s%n", entry.getKey(),
+						entry.getValue());
+			}
 		}
+		formatter.format("--%14s = %s%n", CONFIG, "production");
+		if (getProduction() != null) {
+			for (Map.Entry<String, String> entry : getProduction().entrySet()) {
+				formatter.format("%10s = %s%n", entry.getKey(),
+						entry.getValue());
+			}
 		}
-		formatter.format("--%14s = %s%n",CONFIG, "production");
-		if(getProduction()!=null) {
-		for (Map.Entry<String, String> entry : getProduction().entrySet()) {
-			formatter.format("%10s = %s%n", entry.getKey(), entry.getValue());
+		formatter.format("--%14s = %s%n", CONFIG, "staging");
+		if (getStaging() != null) {
+			for (Map.Entry<String, String> entry : getStaging().entrySet()) {
+				formatter.format("%14s = %s%n", entry.getKey(),
+						entry.getValue());
+			}
 		}
-		}
-		formatter.format("--%14s = %s%n",CONFIG, "staging");
-		if(getStaging()!=null) {
-		for (Map.Entry<String, String> entry : getStaging().entrySet()) {
-			formatter.format("%14s = %s%n", entry.getKey(), entry.getValue());
-		}
-		}
-		formatter.format("--%14s = %s%n",CONFIG, "test");
-		if(getTest()!=null) {
-		for (Map.Entry<String, String> entry : getTest().entrySet()) {
-			formatter.format("%10s = %s%n", entry.getKey(), entry.getValue());
-		}
+		formatter.format("--%14s = %s%n", CONFIG, "test");
+		if (getTest() != null) {
+			for (Map.Entry<String, String> entry : getTest().entrySet()) {
+				formatter.format("%10s = %s%n", entry.getKey(),
+						entry.getValue());
+			}
 		}
 		formatter.close();
 		return strbd.toString();
