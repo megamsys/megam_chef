@@ -1,12 +1,14 @@
 package org.megam.chef.cloudformatters;
 import java.util.Map;
+
+import org.megam.chef.core.Condition;
 /**
  * 
  * @author rajthilak
  *
  * @param <T>
  */
-public interface OutputCloudFormatter {
+public interface OutputCloudFormatter extends Condition {
 
 	/**
 	 * @param mp_value
@@ -14,7 +16,6 @@ public interface OutputCloudFormatter {
 	 */
 	Map<String, String> format(Map<String, String> mp_value);
 	
-	String neededArgs();
-	
+
 
 }

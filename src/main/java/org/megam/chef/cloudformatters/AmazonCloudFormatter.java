@@ -48,15 +48,62 @@ public class AmazonCloudFormatter implements OutputCloudFormatter {
 		return awsMap_result;
 	}
 	
-	public String neededArgs() {
+	
+	public boolean ok() {
+		boolean isOk = true;
+		isOk = isOk && validate(GROUPS, getGroups());
+		isOk = isOk && validate(IMAGE, getImage());
+		isOk = isOk && validate(FLAVOR, getFlavor());
+		return isOk;
+	}
+
+	public boolean validate(String key, String value) {
+		for (Map.Entry<String, String> entry : map().entrySet()) {
+			if (entry.getKey().equals(key)) {
+				if (entry.getValue().equals(value)) {
+					return true;
+				} else {
+					inputavailablereason.add(key + " is not valid ");
+				}
+			}
+		}
+		return false;
+
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.megam.chef.core.Condition#inputAvailable()
+	 */
+	public boolean inputAvailable() {
+		boolean isAvailable = true;
+		isAvailable = isAvailable && notNull(GROUPS);
+		isAvailable = isAvailable && notNull(IMAGE);
+		isAvailable = isAvailable && notNull(FLAVOR);
+		return isAvailable;
+	}
+
+	public boolean notNull(String str) {
+		if (map().containsKey(str)) {
+			return true;
+		} else {
+			inputavailablereason.add(str + " is Missing");
+		}
+		return false;
+	}
+	
+	
+	public String toString() {
 		StringBuilder strbd = new StringBuilder();
 		final Formatter formatter = new Formatter(strbd);
-		for (Map.Entry<String, String> entry : awsMap_key.entrySet()) {
+		for (Map.Entry<String, String> entry : map().entrySet()) {
 			formatter.format("%10s = %s%n", entry.getKey(), entry.getValue());
 		}
 		formatter.close();
 		return strbd.toString();
-		
 	}
+	
+	
 
 }

@@ -1,6 +1,5 @@
 package org.megam.chef.parser;
 
-import java.util.ArrayList;
 import java.util.Formatter;
 import java.util.HashMap;
 import java.util.List;
@@ -45,9 +44,7 @@ public class ComputeInfo implements DataMap, ScriptFeeder, Condition {
 	private Map<String, String> cc = new HashMap<String, String>();
 	private Map<String, String> access = new HashMap<String, String>();
 
-	private FedInfo fed;
-	private List<String> inputavailablereason = new ArrayList<String>();
-
+    private OutputCloudFormatter ocf = null;
 	private Logger logger = LoggerFactory.getLogger(ComputeInfo.class);
 
 	public ComputeInfo() {
@@ -116,16 +113,15 @@ public class ComputeInfo implements DataMap, ScriptFeeder, Condition {
 	}
 
 	public FedInfo feed() {
-		OutputCloudFormatter cf = null;
 		switch (getCCType()) {
 		case "ec2":
-			cf = new AmazonCloudFormatter();
+			ocf = new AmazonCloudFormatter();
 			break;
 		case "google":
-			cf = new GoogleCloudFormatter();
+			ocf = new GoogleCloudFormatter();
 			break;
 		case "hp":
-			cf = new HPCloudFormatter();
+			ocf = new HPCloudFormatter();
 			break;
 		default:
 			throw new IllegalArgumentException(
@@ -134,21 +130,20 @@ public class ComputeInfo implements DataMap, ScriptFeeder, Condition {
 							+ Constants.HELP_GITHUB);
 		}
 
-		if (cf.format(map()) != null) {
+		if (ocf.format(map()) != null) {
 			StringBuilder sb = new StringBuilder();
-			for (Map.Entry<String, String> entry : cf.format(map()).entrySet()) {
+			for (Map.Entry<String, String> entry : ocf.format(map()).entrySet()) {
 				sb.append(" ");
 				sb.append(entry.getKey());
 				sb.append(" ");
 				sb.append(entry.getValue());
 				sb.append(" ");
 			}
-			fed = new FedInfo(name(), sb.toString());
-			return fed;
+			return (new FedInfo(name(), sb.toString()));
 		} else {
 			throw new IllegalArgumentException(getCCType()
 					+ ": Can't proceed with arguments missing \n"
-					+ cf.neededArgs() + "\n" + Constants.HELP_GITHUB);
+					+ ocf.toString() + "\n" + Constants.HELP_GITHUB);
 		}
 	}
 
@@ -162,52 +157,10 @@ public class ComputeInfo implements DataMap, ScriptFeeder, Condition {
 	}
 
 	public List<String> getReason() {
-		return inputavailablereason;
+		return ocf.getReason();
 	}
 
-	public boolean ok() {
-		boolean isOk = true;
-		isOk = isOk && validate(GROUPS, getGroups());
-		isOk = isOk && validate(IMAGE, getImage());
-		isOk = isOk && validate(FLAVOR, getFlavor());
-		return isOk;
-	}
-
-	public boolean validate(String key, String value) {
-		for (Map.Entry<String, String> entry : map().entrySet()) {
-			if (entry.getKey().equals(key)) {
-				if (entry.getValue().equals(value)) {
-					return true;
-				} else {
-					inputavailablereason.add(key + " is not valid ");
-				}
-			}
-		}
-		return false;
-
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.megam.chef.core.Condition#inputAvailable()
-	 */
-	public boolean inputAvailable() {
-		boolean isAvailable = true;
-		isAvailable = isAvailable && notNull(GROUPS);
-		isAvailable = isAvailable && notNull(IMAGE);
-		isAvailable = isAvailable && notNull(FLAVOR);
-		return isAvailable;
-	}
-
-	public boolean notNull(String str) {
-		if (map().containsKey(str)) {
-			return true;
-		} else {
-			inputavailablereason.add(str + " is Missing");
-		}
-		return false;
-	}
+	
 
 	/**
 	 * toString method for ec2 map
@@ -220,6 +173,24 @@ public class ComputeInfo implements DataMap, ScriptFeeder, Condition {
 		}
 		formatter.close();
 		return strbd.toString();
+	}
+
+	/* (non-Javadoc)
+	 * @see org.megam.chef.core.Condition#ok()
+	 */
+	@Override
+	public boolean ok() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	/* (non-Javadoc)
+	 * @see org.megam.chef.core.Condition#inputAvailable()
+	 */
+	@Override
+	public boolean inputAvailable() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }
