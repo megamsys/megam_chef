@@ -47,7 +47,7 @@ public class DefaultProvisioningServiceWithShell<T> extends
 	private Logger logger = LoggerFactory
 			.getLogger(DefaultProvisioningServiceWithShell.class);
 
-	private String vaultLocation;
+	
 	
 	/**
 	 * 
@@ -139,7 +139,7 @@ public class DefaultProvisioningServiceWithShell<T> extends
 		 */		
 		ParmsValidator pv = new ParmsValidator();
 		if (pv.validate(jr.conditionList())) {	
-			vaultLocation = vaultLocationParser(jr.getAccess().getVaultLocation());
+			String vaultLocation = vaultLocationParser(jr.getAccess().getVaultLocation());
 			S3.download(vaultLocation);
 			List<IIDentity> fp = new IdentityParser(vaultLocation).identity();
 			logger.debug("-------> Shellbuilder =>");
@@ -151,7 +151,6 @@ public class DefaultProvisioningServiceWithShell<T> extends
 	}
 
 	public String vaultLocationParser(String str) {		
-	 // str = "https://s3-ap-southeast-1.amazonaws.com/cloudkeys/a@b.com/default";
 		int lst=str.lastIndexOf("/");
 		String cc = str.substring(lst);
 		str=str.replace(str.substring(lst),"");				
