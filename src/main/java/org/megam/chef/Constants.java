@@ -74,6 +74,6 @@ public class Constants {
 	public static final String MEGAM_CHEF_LOG = MEGAM_USER_HOME
 			+ java.io.File.separator + "logs" + java.io.File.separator;
 
-	public static final String HELP_GITHUB = "Refer https://github.com/indykish/megam_chef.git for more info.";
-
+	public static final String HELP_GITHUB = "Refer https://github.com/indykish/megam_chef.git for more info.";	
+	
 }

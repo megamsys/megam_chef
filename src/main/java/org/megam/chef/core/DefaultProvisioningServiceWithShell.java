@@ -15,11 +15,13 @@
  */
 package org.megam.chef.core;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
 import org.megam.chef.AppYaml;
 import org.megam.chef.BootStrapChef;
+import org.megam.chef.Constants;
 import org.megam.chef.exception.IdentifierException;
 import org.megam.chef.exception.ProvisionerException;
 import org.megam.chef.exception.ShellException;
@@ -47,7 +49,8 @@ public class DefaultProvisioningServiceWithShell<T> extends
 	private Logger logger = LoggerFactory
 			.getLogger(DefaultProvisioningServiceWithShell.class);
 
-	
+	private File fileDelete;
+	 
 	
 	/**
 	 * 
@@ -141,6 +144,9 @@ public class DefaultProvisioningServiceWithShell<T> extends
 		if (pv.validate(jr.conditionList())) {	
 			String vaultLocation = vaultLocationParser(jr.getAccess().getVaultLocation());
 			S3.download(vaultLocation);
+			String sshpubLocation = vaultLocationParser(jr.getAccess().getSshPubLocation());
+			S3.download(sshpubLocation);
+			this.fileDelete = new File(Constants.MEGAM_VAULT+sshpubLocation);			
 			List<IIDentity> fp = new IdentityParser(vaultLocation).identity();
 			logger.debug("-------> Shellbuilder =>");
 			return ShellBuilder.buildString(jr.scriptFeeder(), jrp, fp);
@@ -169,7 +175,10 @@ public class DefaultProvisioningServiceWithShell<T> extends
 	 */
 	@Override
 	public void execute(Command command) throws ShellException {
-		(new ShellProvisioningPool()).run(command);
+		(new ShellProvisioningPool()).run(command);	
+		
 	}
+
+	
 
 }

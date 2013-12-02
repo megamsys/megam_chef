@@ -47,10 +47,11 @@ public class ComputeInfo implements DataMap, ScriptFeeder, Condition {
 	private OutputCloudFormatter ocf = null;
 
 	public ComputeInfo() {
-		createOCF(); //tricky, gson populated your private vars (map) yet ? 
+		 //tricky, gson populated your private vars (map) yet ? 
 	}
 
 	private void createOCF() {
+		System.out.println("-----------------"+getCCType());
 		switch (getCCType()) {
 		case "ec2":
 			ocf = new AmazonCloudFormatter(map());
@@ -77,6 +78,10 @@ public class ComputeInfo implements DataMap, ScriptFeeder, Condition {
 		return map().get(VAULTLOCATION);
 	}
 
+	public String getSshPubLocation() {
+		return map().get(SSHPUBLOCATION);
+	}
+	
 	/**
 	 * @return ec2 map
 	 */
@@ -128,6 +133,7 @@ public class ComputeInfo implements DataMap, ScriptFeeder, Condition {
 	
 	@Override
 	public boolean inputAvailable() {
+		createOCF();
 		return ocf.inputAvailable();
 	}
 
