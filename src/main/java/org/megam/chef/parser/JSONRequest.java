@@ -66,7 +66,6 @@ public class JSONRequest {
 		list.add(cloudtool);
 		list.add(compute);
 		list.add(systemprovider);
-		list.add(getCloudTool().initCondition());
 		return list;
 	}
 

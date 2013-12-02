@@ -132,13 +132,7 @@ public class ChefInfo extends ProvisionerInfo {
 		return "CHEF :";
 	}
 
-	/**
-	 * cmd =new Command("knife ec2 server list");
-	 */
-	public Condition initCondition() {
-		return new InitChefCondition();
-	}
-
+	
 	/**
 	 * tostring method for chef map
 	 */
@@ -156,50 +150,6 @@ public class ChefInfo extends ProvisionerInfo {
 
 		return strbd.toString();
 	}
-
-	private class InitChefCondition implements Condition {
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see org.megam.chef.core.Condition#getReason()
-		 */
-		public List<String> getReason() {
-			List<String> list = new ArrayList<String>();
-			list.add("Default");
-			list.add("command");
-			list.add("not");
-			list.add("valid");
-			return list;
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see org.megam.chef.core.Condition#ok()
-		 */
-		public boolean ok() {
-			return true;
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see org.megam.chef.core.Condition#inputAvailable()
-		 */
-		public boolean inputAvailable() {
-			return true;
-		}
-
-		/*
-		 * (non-Javadoc)
-		 * 
-		 * @see org.megam.chef.core.Condition#name()
-		 */
-		public String name() {
-			return "Chef Verification:";
-		}
-
-	}
+	
 
 }

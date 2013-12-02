@@ -14,7 +14,7 @@ public interface OutputCloudFormatter extends Condition {
 	 * @param mp_value
 	 * @return
 	 */
-	Map<String, String> format(Map<String, String> mp_value);
+	Map<String, String> format();
 	
 
 

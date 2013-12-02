@@ -40,6 +40,5 @@ abstract class ProvisionerInfo implements DataMap, ScriptFeeder, Condition {
 		return prov;
 	}
 
-	abstract public Condition initCondition();
 
 }

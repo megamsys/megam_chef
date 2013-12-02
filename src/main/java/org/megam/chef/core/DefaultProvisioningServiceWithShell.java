@@ -142,7 +142,6 @@ public class DefaultProvisioningServiceWithShell<T> extends
 			vaultLocation = vaultLocationParser(jr.getAccess().getVaultLocation());
 			S3.download(vaultLocation);
 			List<IIDentity> fp = new IdentityParser(vaultLocation).identity();
-			System.out.println("========================^^^^^^^^^^+++++++" + fp);
 			logger.debug("-------> Shellbuilder =>");
 			return ShellBuilder.buildString(jr.scriptFeeder(), jrp, fp);
 		} else {

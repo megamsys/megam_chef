@@ -44,58 +44,37 @@ public class ComputeInfo implements DataMap, ScriptFeeder, Condition {
 	private Map<String, String> cc = new HashMap<String, String>();
 	private Map<String, String> access = new HashMap<String, String>();
 
-    private OutputCloudFormatter ocf = null;
-	private Logger logger = LoggerFactory.getLogger(ComputeInfo.class);
+	private OutputCloudFormatter ocf = null;
 
 	public ComputeInfo() {
+		createOCF(); //tricky, gson populated your private vars (map) yet ? 
 	}
 
-	public String getCCType() {
+	private void createOCF() {
+		switch (getCCType()) {
+		case "ec2":
+			ocf = new AmazonCloudFormatter(map());
+			break;
+		case "google":
+			ocf = new GoogleCloudFormatter(map());
+			break;
+		case "hp":
+			ocf = new HPCloudFormatter(map());
+			break;
+		default:
+			throw new IllegalArgumentException(
+					getCCType()
+							+ ": configuration not supported yet. We are working on it.\n"
+							+ Constants.HELP_GITHUB);
+		}
+	}
+
+	private String getCCType() {
 		return cctype;
 	}
 
-	public String getGroups() {
-		return cc.get(GROUPS);
-	}
-
-	public String getImage() {
-		return cc.get(IMAGE);
-	}
-
-	public String getFlavor() {
-		return cc.get(FLAVOR);
-	}
-
-	/**
-	 * 
-	 * @return sshkey
-	 */
-	public String getSshKey() {
-		return map().get(DSSHKEY);
-	}
-
-	/**
-	 * 
-	 * @return identity file
-	 */
-	public String getIdentityFile() {
-		return map().get(DIDENTITYFILE);
-	}
-
-	/**
-	 * 
-	 * @return vault location
-	 */
 	public String getVaultLocation() {
 		return map().get(VAULTLOCATION);
-	}
-
-	/**
-	 * 
-	 * @return ssh user
-	 */
-	public String getSshUser() {
-		return map().get(DSSHUSER);
 	}
 
 	/**
@@ -112,27 +91,11 @@ public class ComputeInfo implements DataMap, ScriptFeeder, Condition {
 		return true;
 	}
 
-	public FedInfo feed() {
-		switch (getCCType()) {
-		case "ec2":
-			ocf = new AmazonCloudFormatter();
-			break;
-		case "google":
-			ocf = new GoogleCloudFormatter();
-			break;
-		case "hp":
-			ocf = new HPCloudFormatter();
-			break;
-		default:
-			throw new IllegalArgumentException(
-					getCCType()
-							+ ": configuration not supported yet. We are working on it.\n"
-							+ Constants.HELP_GITHUB);
-		}
-
-		if (ocf.format(map()) != null) {
+	public FedInfo feed() {		
+		Map<String, String> ocfout = ocf.format();
+ 		if (ocfout != null) {
 			StringBuilder sb = new StringBuilder();
-			for (Map.Entry<String, String> entry : ocf.format(map()).entrySet()) {
+			for (Map.Entry<String, String> entry : ocfout.entrySet()) {
 				sb.append(" ");
 				sb.append(entry.getKey());
 				sb.append(" ");
@@ -155,16 +118,24 @@ public class ComputeInfo implements DataMap, ScriptFeeder, Condition {
 	public String name() {
 		return "ComputeInfo";
 	}
+	
+
+	@Override
+	public boolean ok() {
+		return ocf.ok();
+	}
+
+	
+	@Override
+	public boolean inputAvailable() {
+		return ocf.inputAvailable();
+	}
 
 	public List<String> getReason() {
 		return ocf.getReason();
 	}
 
 	
-
-	/**
-	 * toString method for ec2 map
-	 */
 	public String toString() {
 		StringBuilder strbd = new StringBuilder();
 		final Formatter formatter = new Formatter(strbd);
@@ -175,22 +146,6 @@ public class ComputeInfo implements DataMap, ScriptFeeder, Condition {
 		return strbd.toString();
 	}
 
-	/* (non-Javadoc)
-	 * @see org.megam.chef.core.Condition#ok()
-	 */
-	@Override
-	public boolean ok() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	/* (non-Javadoc)
-	 * @see org.megam.chef.core.Condition#inputAvailable()
-	 */
-	@Override
-	public boolean inputAvailable() {
-		// TODO Auto-generated method stub
-		return false;
-	}
+	
 
 }

@@ -30,11 +30,11 @@ import org.megam.chef.exception.ShellException;
  * @author rajthilak
  * 
  */
-public class SingleShell extends RecursiveAction {
+public class SingleShell extends RecursiveAction implements Stoppable {
 
 	private Command cmd;
 	private Logger logger = LoggerFactory.getLogger(SingleShell.class);
-
+	private ProcessBuilder shellProc;
 	/**
 	 * 
 	 * @param tempcmd
@@ -50,10 +50,10 @@ public class SingleShell extends RecursiveAction {
 
 	public void compute() {
 		try {
-			ProcessBuilder p = new ProcessBuilder(cmd.getCommandList());
-			p.redirectOutput(Redirect.appendTo(cmd.getRedirectOutputFile()));
-			p.redirectError(Redirect.appendTo(cmd.getRedirectErrorFile()));
-			p.start();
+			shellProc = new ProcessBuilder(cmd.getCommandList());
+			shellProc.redirectOutput(Redirect.appendTo(cmd.getRedirectOutputFile()));
+			shellProc.redirectError(Redirect.appendTo(cmd.getRedirectErrorFile()));
+			shellProc.start();
 			logger.debug("-------> An instance was started");
 		} catch (IOException npe) {
 			try {
@@ -64,6 +64,13 @@ public class SingleShell extends RecursiveAction {
 			}
 		}
 		logger.debug("-------> An instance was started, exited.");
+	}
+	
+	public void halt() {
+		//do nothing for now, but we need to cancel the process that runs, and start the 
+		//Rollback. Needs design in herk, to handle it.
+		
+		
 	}
 
 }
