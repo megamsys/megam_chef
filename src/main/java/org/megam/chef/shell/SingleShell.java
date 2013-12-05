@@ -49,7 +49,7 @@ public class SingleShell extends RecursiveAction implements Stoppable {
 	 */
 
 	public void compute() {
-		/*try {
+		try {
 			shellProc = new ProcessBuilder(cmd.getCommandList());
 			shellProc.redirectOutput(Redirect.appendTo(cmd.getRedirectOutputFile()));
 			shellProc.redirectError(Redirect.appendTo(cmd.getRedirectErrorFile()));
@@ -62,7 +62,7 @@ public class SingleShell extends RecursiveAction implements Stoppable {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}*/
+		}
 		logger.debug("-------> An instance was started, exited.");
 	}
 	

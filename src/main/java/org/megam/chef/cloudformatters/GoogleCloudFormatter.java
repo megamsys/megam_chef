@@ -16,7 +16,6 @@
 package org.megam.chef.cloudformatters;
 
 import static org.megam.chef.parser.ComputeInfo.FLAVOR;
-import static org.megam.chef.parser.ComputeInfo.GROUPS;
 import static org.megam.chef.parser.ComputeInfo.IDENTITYFILE;
 import static org.megam.chef.parser.ComputeInfo.IMAGE;
 import static org.megam.chef.parser.ComputeInfo.SSHUSER;
@@ -35,15 +34,16 @@ public class GoogleCloudFormatter implements OutputCloudFormatter {
 	private List<String> unsatifiedReason;
 
 	public GoogleCloudFormatter(Map<String, String> tempArgs) {
-		this.inputArgs = tempArgs;		this.gceMap_key.put(IMAGE, "-I");
-		this.gceMap_key.put(FLAVOR, "-m");
-		this.gceMap_key.put(ZONE, "-Z");
+		this.inputArgs = tempArgs;		
+		this.gceMap_key.put(IMAGE, "-I");
+		this.gceMap_key.put(FLAVOR, "-m");		
 		this.gceMap_key.put(SSHUSER, "-x");
 		this.gceMap_key.put(IDENTITYFILE, "-i");
+		this.gceMap_key.put(ZONE, "-Z");
 	}
 	
-	private String getGroups() {
-		return inputArgs.get(GROUPS);
+	private String getZone() {
+		return inputArgs.get(ZONE);
 	}
 
 	private String getImage() {
@@ -79,7 +79,7 @@ public class GoogleCloudFormatter implements OutputCloudFormatter {
 	
 	public boolean ok() {
 		boolean isOk = true;
-		isOk = isOk && validate(GROUPS, getGroups());
+		isOk = isOk && validate(ZONE, getZone());
 		isOk = isOk && validate(IMAGE, getImage());
 		isOk = isOk && validate(FLAVOR, getFlavor());
 		return isOk;
@@ -106,7 +106,7 @@ public class GoogleCloudFormatter implements OutputCloudFormatter {
 	 */
 	public boolean inputAvailable() {
 		boolean isAvailable = true;
-		isAvailable = isAvailable && notNull(GROUPS);
+		isAvailable = isAvailable && notNull(ZONE);
 		isAvailable = isAvailable && notNull(IMAGE);
 		isAvailable = isAvailable && notNull(FLAVOR);
 		return isAvailable;

@@ -43,8 +43,7 @@ public class S3 {
 
 	public static void download(String vl) throws ProvisionerException {
 
-		String bucketName = "cloudkeys";
-
+		String bucketName = Constants.BUCKET_NAME;
 		AWSCredentials credentials = new BasicAWSCredentials(Constants.MEGAM_AWS_ACCESS_KEY,
 				Constants.MEGAM_AWS_SECRET_ID);
 		AmazonS3 conn = new AmazonS3Client(credentials);
@@ -59,9 +58,9 @@ public class S3 {
 			if (objectSummary.getSize() > 0) {
 				System.out.println(" - " + Constants.MEGAM_VAULT+objectSummary.getKey() + "  "
 						+ "(size = " + objectSummary.getSize() + ")");
-				conn.getObject(new GetObjectRequest("cloudkeys",
+				conn.getObject(new GetObjectRequest(bucketName,
 						objectSummary.getKey()), new File(
-								Constants.MEGAM_VAULT+objectSummary.getKey()));
+								Constants.MEGAM_VAULT + bucketName + java.io.File.separator + objectSummary.getKey()));
 			}
 		}		
 		

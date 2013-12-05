@@ -66,7 +66,9 @@ public class Constants {
 	/**
 	 * The location of the Credential files, relative to MEGAM_USER_HOME
 	 */
-	public static String MEGAM_VAULT = MEGAM_USER_HOME + java.io.File.separator + "vault";
+	public static String MEGAM_VAULT = MEGAM_USER_HOME + java.io.File.separator ;
+	
+	public static String BUCKET_NAME = "cloudkeys";
 	
 	/**
 	 * The location of the log file
