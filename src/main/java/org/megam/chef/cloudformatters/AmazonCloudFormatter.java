@@ -20,6 +20,8 @@ import static org.megam.chef.parser.ComputeInfo.GROUPS;
 import static org.megam.chef.parser.ComputeInfo.IDENTITYFILE;
 import static org.megam.chef.parser.ComputeInfo.IMAGE;
 import static org.megam.chef.parser.ComputeInfo.SSHKEY;
+import static org.megam.chef.parser.ComputeInfo.SSHUSER;
+import static org.megam.chef.parser.ComputeInfo.REGION;
 
 import java.util.ArrayList;
 import java.util.Formatter;
@@ -40,8 +42,9 @@ public class AmazonCloudFormatter implements OutputCloudFormatter {
 		this.awsMap_key.put(IMAGE, "-I");
 		this.awsMap_key.put(FLAVOR, "-f");
 		this.awsMap_key.put(SSHKEY, "-S");
-		this.awsMap_key.put(SSHKEY, "-x");
-		this.awsMap_key.put(IDENTITYFILE, "-i");
+		this.awsMap_key.put(SSHUSER, "-x");
+		this.awsMap_key.put(IDENTITYFILE, "--identity-file");
+		this.awsMap_key.put(REGION, "--region");
 	}
 
 	private String getGroups() {
@@ -54,6 +57,22 @@ public class AmazonCloudFormatter implements OutputCloudFormatter {
 
 	private String getFlavor() {
 		return inputArgs.get(FLAVOR);
+	}
+	
+	private String getSshKey() {
+		return inputArgs.get(SSHKEY);
+	}
+
+	private String getSshUser() {
+		return inputArgs.get(SSHUSER);
+	}
+
+	private String getIdentityFile() {
+		return inputArgs.get(IDENTITYFILE);
+	}
+	
+	private String getRegion() {
+		return inputArgs.get(REGION);
 	}
 	
 	private boolean notNull(String str) {
@@ -82,6 +101,10 @@ public class AmazonCloudFormatter implements OutputCloudFormatter {
 		isOk = isOk && validate(GROUPS, getGroups());
 		isOk = isOk && validate(IMAGE, getImage());
 		isOk = isOk && validate(FLAVOR, getFlavor());
+		isOk = isOk && validate(SSHKEY, getSshKey());
+		isOk = isOk && validate(SSHUSER, getSshUser());
+		isOk = isOk && validate(IDENTITYFILE, getIdentityFile());
+		isOk = isOk && validate(REGION, getRegion());
 		return isOk;
 	}
 
@@ -109,6 +132,10 @@ public class AmazonCloudFormatter implements OutputCloudFormatter {
 		isAvailable = isAvailable && notNull(GROUPS);
 		isAvailable = isAvailable && notNull(IMAGE);
 		isAvailable = isAvailable && notNull(FLAVOR);
+		isAvailable = isAvailable && notNull(SSHKEY);
+		isAvailable = isAvailable && notNull(SSHUSER);
+		isAvailable = isAvailable && notNull(IDENTITYFILE);
+		isAvailable = isAvailable && notNull(REGION);
 		return isAvailable;
 	}
 	

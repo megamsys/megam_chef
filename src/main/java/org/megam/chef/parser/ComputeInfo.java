@@ -26,16 +26,18 @@ public class ComputeInfo implements DataMap, ScriptFeeder, Condition {
 	public static final String GROUPS = "groups";
 	public static final String IMAGE = "image";
 	public static final String FLAVOR = "flavor";
-	public static final String SSHKEY = "ssh-key";
+	public static final String TENANTID = "tenant_id";
+	public static final String SSHKEY = "ssh_key";
 	public static final String DSSHKEY = "ssh_key";
-	public static final String IDENTITYFILE = "identity-file";
+	public static final String IDENTITYFILE = "identity_file";
 	public static final String DIDENTITYFILE = "identity_file";
-	public static final String SSHUSER = "ssh-user";
+	public static final String SSHUSER = "ssh_user";
 	public static final String DSSHUSER = "ssh_user";
 	public static final String VAULTLOCATION = "vault_location";
 	public static final String SSHPUBLOCATION = "sshpub_location";
 	public static final String CREDENTIALFILE = "credential_file";
 	public static final String ZONE = "zone";
+	public static final String REGION = "region";
 
 	/**
 	 * create Map name as cc (cross cloud) from config.json file
@@ -50,8 +52,7 @@ public class ComputeInfo implements DataMap, ScriptFeeder, Condition {
 		 //tricky, gson populated your private vars (map) yet ? 
 	}
 
-	private void createOCF() {
-		System.out.println("-----------------"+getCCType());
+	private void createOCF() {		
 		switch (getCCType()) {
 		case "ec2":
 			ocf = new AmazonCloudFormatter(map());

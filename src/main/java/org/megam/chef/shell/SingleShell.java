@@ -50,6 +50,7 @@ public class SingleShell extends RecursiveAction implements Stoppable {
 
 	public void compute() {
 		try {
+			logger.debug("------------------->" + cmd.getCommandList());
 			shellProc = new ProcessBuilder(cmd.getCommandList());
 			shellProc.redirectOutput(Redirect.appendTo(cmd.getRedirectOutputFile()));
 			shellProc.redirectError(Redirect.appendTo(cmd.getRedirectErrorFile()));

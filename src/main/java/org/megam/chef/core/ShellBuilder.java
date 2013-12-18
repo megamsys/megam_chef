@@ -5,6 +5,9 @@ import java.util.List;
 
 import org.megam.chef.identity.IIDentity;
 import org.megam.chef.parser.JSONRequestParser;
+import org.megam.chef.shell.SingleShell;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * ShellBuilder builds a string that can be consumed by a Shell
@@ -22,7 +25,7 @@ public class ShellBuilder {
 	 * @param args
 	 */
 	public static String[] buildString(LinkedList<ScriptFeeder> scriptFeeder, JSONRequestParser jrp, List<IIDentity> fp) {
-
+		Logger logger = LoggerFactory.getLogger(SingleShell.class);
 		StringBuilder nameB = new StringBuilder();
 		StringBuilder shellB = new StringBuilder();		
 		for (ScriptFeeder sf : scriptFeeder) {
@@ -31,10 +34,10 @@ public class ShellBuilder {
 				shellB.append(sf.feed().getShellString());
 
 			}
-		}
-		for (IIDentity ii : fp) {
+		}		
+		for (IIDentity ii : fp) {			
 			shellB.append(ii.toString());
-		}
+		}		
 		//return new String[] { nameB.toString(), shellB.toString(), jrp.getReqId(), jrp.getNodeName() };
 		return new String[] { shellB.toString(), jrp.getReqId(), jrp.getNodeName() };
 

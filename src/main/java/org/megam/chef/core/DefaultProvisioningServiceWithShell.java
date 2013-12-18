@@ -45,13 +45,13 @@ import org.slf4j.LoggerFactory;
 
 public class DefaultProvisioningServiceWithShell<T> extends
 		DefaultProvisioningService<T> implements Shellable, Stoppable {
-
 	private Logger logger = LoggerFactory
 			.getLogger(DefaultProvisioningServiceWithShell.class);
-
+	private String cc = "";
+	private String email = "";
+	private String bucket = "";
 	private File fileDelete;
-	 
-	
+
 	/**
 	 * 
 	 * @throws ProvisionerException
@@ -130,7 +130,6 @@ public class DefaultProvisioningServiceWithShell<T> extends
 	 */
 	private String[] convertInput(String jsonRequest) throws ShellException,
 			IOException, IdentifierException, ProvisionerException {
-		logger.debug("-------> Entry");
 		logger.debug("-------> jsonRequest =>" + jsonRequest);
 		JSONRequestParser jrp = new JSONRequestParser(jsonRequest);
 		JSONRequest jr = jrp.data();
@@ -139,15 +138,20 @@ public class DefaultProvisioningServiceWithShell<T> extends
 		 * Download the stuff from S3 The location to download can be got from
 		 * parsing vault_location (in access) S3.download() If all is well
 		 * proceed Wrap this method and trap for ProvisionerException
-		 */		
+		 */
 		ParmsValidator pv = new ParmsValidator();
-		if (pv.validate(jr.conditionList())) {	
-			String vaultLocation = vaultLocationParser(jr.getAccess().getVaultLocation());
+		if (pv.validate(jr.conditionList())) {
+			String vaultLocation = vaultLocationParserwithoutBucket(jr.getAccess()
+					.getVaultLocation());
 			S3.download(vaultLocation);
-			String sshpubLocation = vaultLocationParser(jr.getAccess().getSshPubLocation());
+			String sshpubLocation = vaultLocationParserwithoutBucket(jr.getAccess()
+					.getSshPubLocation());
 			S3.download(sshpubLocation);
-			this.fileDelete = new File(Constants.MEGAM_VAULT+sshpubLocation);			
-			List<IIDentity> fp = new IdentityParser(vaultLocation).identity();
+			this.fileDelete = new File(Constants.MEGAM_VAULT + sshpubLocation);
+			logger.debug("Vault Location ---->" + vaultLocation);
+			String b_vaultLocation = vaultLocationParserwithBucket(jr.getAccess()
+					.getVaultLocation());
+			List<IIDentity> fp = new IdentityParser(b_vaultLocation).identity();
 			logger.debug("-------> Shellbuilder =>");
 			return ShellBuilder.buildString(jr.scriptFeeder(), jrp, fp);
 		} else {
@@ -156,14 +160,28 @@ public class DefaultProvisioningServiceWithShell<T> extends
 		}
 	}
 
-	public String vaultLocationParser(String str) {		
-		int lst=str.lastIndexOf("/");
+	public String vaultLocationParserwithoutBucket(String str) {
+		int lst = str.lastIndexOf("/");
 		String cc = str.substring(lst);
-		str=str.replace(str.substring(lst),"");				
-		String email = str.substring(str.lastIndexOf("/")+1);
-		return email+cc;
+		str = str.replace(str.substring(lst), "");
+		String email = str.substring(str.lastIndexOf("/") + 1);
+		return email + cc;
 	}
-	
+
+	public String vaultLocationParserwithBucket(String str) {
+		if (str.length() > 0) {
+			int lst = str.lastIndexOf("/");
+			cc = str.substring(lst);
+			str = str.replace(str.substring(lst), "");
+			email = str.substring(str.lastIndexOf("/"));
+			str = str.replace(str.substring(str.lastIndexOf("/")), "");
+			bucket = str.substring(str.lastIndexOf("/") + 1);
+			return bucket + email + cc;
+		} else {
+			return str;
+		}
+	}
+
 	public String toString() {
 		return "DefaultProvisioningWithShell";
 	}
@@ -175,10 +193,8 @@ public class DefaultProvisioningServiceWithShell<T> extends
 	 */
 	@Override
 	public void execute(Command command) throws ShellException {
-		(new ShellProvisioningPool()).run(command);	
-		
-	}
+		(new ShellProvisioningPool()).run(command);
 
-	
+	}
 
 }

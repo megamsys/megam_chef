@@ -38,7 +38,7 @@ public class GoogleCloudFormatter implements OutputCloudFormatter {
 		this.gceMap_key.put(IMAGE, "-I");
 		this.gceMap_key.put(FLAVOR, "-m");		
 		this.gceMap_key.put(SSHUSER, "-x");
-		this.gceMap_key.put(IDENTITYFILE, "-i");
+		this.gceMap_key.put(IDENTITYFILE, "--identity-file");
 		this.gceMap_key.put(ZONE, "-Z");
 	}
 	

@@ -20,6 +20,9 @@ import static org.megam.chef.parser.ComputeInfo.GROUPS;
 import static org.megam.chef.parser.ComputeInfo.IDENTITYFILE;
 import static org.megam.chef.parser.ComputeInfo.IMAGE;
 import static org.megam.chef.parser.ComputeInfo.SSHKEY;
+import static org.megam.chef.parser.ComputeInfo.SSHUSER;
+import static org.megam.chef.parser.ComputeInfo.TENANTID;
+import static org.megam.chef.parser.ComputeInfo.ZONE;
 
 import java.util.Formatter;
 import java.util.HashMap;
@@ -37,9 +40,11 @@ public class HPCloudFormatter implements OutputCloudFormatter {
 		this.hpMap_key.put(GROUPS, "-G");
 		this.hpMap_key.put(IMAGE, "-I");
 		this.hpMap_key.put(FLAVOR, "-f");
+		this.hpMap_key.put(TENANTID, "-T");
 		this.hpMap_key.put(SSHKEY, "-S");
-		this.hpMap_key.put(SSHKEY, "-x");
-		this.hpMap_key.put(IDENTITYFILE, "-i");
+		this.hpMap_key.put(SSHUSER, "-x");
+		this.hpMap_key.put(IDENTITYFILE, "--identity-file");
+		this.hpMap_key.put(ZONE, "-Z");
 	}
 
 	private String getGroups() {
@@ -52,6 +57,26 @@ public class HPCloudFormatter implements OutputCloudFormatter {
 
 	private String getFlavor() {
 		return inputArgs.get(FLAVOR);
+	}
+	
+	private String getTenantId() {
+		return inputArgs.get(TENANTID);
+	}
+	
+	private String getSshKey() {
+		return inputArgs.get(SSHKEY);
+	}
+
+	private String getSshUser() {
+		return inputArgs.get(SSHUSER);
+	}
+
+	private String getIdentityFile() {
+		return inputArgs.get(IDENTITYFILE);
+	}
+	
+	private String getZone() {
+		return inputArgs.get(ZONE);
 	}
 
 	private boolean notNull(String str) {
@@ -80,6 +105,11 @@ public class HPCloudFormatter implements OutputCloudFormatter {
 		isOk = isOk && validate(GROUPS, getGroups());
 		isOk = isOk && validate(IMAGE, getImage());
 		isOk = isOk && validate(FLAVOR, getFlavor());
+		isOk = isOk && validate(TENANTID, getTenantId());
+		isOk = isOk && validate(SSHKEY, getSshKey());
+		isOk = isOk && validate(SSHUSER, getSshUser());
+		isOk = isOk && validate(IDENTITYFILE, getIdentityFile());
+		isOk = isOk && validate(ZONE, getZone());
 		return isOk;
 	}
 
@@ -103,6 +133,11 @@ public class HPCloudFormatter implements OutputCloudFormatter {
 		isAvailable = isAvailable && notNull(GROUPS);
 		isAvailable = isAvailable && notNull(IMAGE);
 		isAvailable = isAvailable && notNull(FLAVOR);
+		isAvailable = isAvailable && notNull(TENANTID);
+		isAvailable = isAvailable && notNull(SSHKEY);
+		isAvailable = isAvailable && notNull(SSHUSER);
+		isAvailable = isAvailable && notNull(IDENTITYFILE);
+		isAvailable = isAvailable && notNull(ZONE);
 		return isAvailable;
 	}
 

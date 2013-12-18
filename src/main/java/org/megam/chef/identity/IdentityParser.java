@@ -49,18 +49,18 @@ public class IdentityParser implements Identifier {
 	@SuppressWarnings("resource")
 	public List<IIDentity> identity() throws IdentifierException, IOException {
 		res = "";
-		Path path = Paths.get(Constants.MEGAM_VAULT + vaultLocation + "/"+ typeChecker());
+		Path path = Paths.get(Constants.MEGAM_VAULT + vaultLocation + "/"+ typeChecker());		
 		if (new File(Constants.MEGAM_VAULT + vaultLocation + "/"+ typeChecker()).exists()) {
 			Scanner scanner = new Scanner(path, ENCODING.name());
 			// read CSV Files and parse it to object array
 			scanner.useDelimiter(System.getProperty("line.separator"));
 			while (scanner.hasNext()) {
 				// parse line to get Emp Object
-				keyvaluepair = parseCSVLine(scanner.next());
+				keyvaluepair = parseCSVLine(scanner.next());				
 				list.add(new IIDentity(keyvaluepair[0], keyvaluepair[1]));
 			}
 			scanner.close();
-		} else {
+		} else {			
 			list = Collections.emptyList();
 		}
 		return list;
