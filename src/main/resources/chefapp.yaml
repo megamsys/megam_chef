@@ -7,6 +7,6 @@ development:
       bucket: 'requests'
 production: 
       source: 'riak'
-      host: 'riak1.megam.co.in'
+      host: 'api.megam.co'
       port: '8098'
       bucket: 'requests'
