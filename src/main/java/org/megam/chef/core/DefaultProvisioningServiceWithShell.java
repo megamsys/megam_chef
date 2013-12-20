@@ -161,11 +161,15 @@ public class DefaultProvisioningServiceWithShell<T> extends
 	}
 
 	public String vaultLocationParserwithoutBucket(String str) {
+		if (str.length() > 0) {
 		int lst = str.lastIndexOf("/");
 		String cc = str.substring(lst);
 		str = str.replace(str.substring(lst), "");
 		String email = str.substring(str.lastIndexOf("/") + 1);
 		return email + cc;
+		} else {
+			return str;
+		}
 	}
 
 	public String vaultLocationParserwithBucket(String str) {

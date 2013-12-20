@@ -54,6 +54,14 @@ public class GoogleCloudFormatter implements OutputCloudFormatter {
 		return inputArgs.get(FLAVOR);
 	}
 	
+	private String getSshUser() {
+		return inputArgs.get(SSHUSER);
+	}
+
+	private String getIdentityFile() {
+		return inputArgs.get(IDENTITYFILE);
+	}
+	
 	private boolean notNull(String str) {
 		if (inputArgs.containsKey(str)) {
 			return true;
@@ -82,6 +90,8 @@ public class GoogleCloudFormatter implements OutputCloudFormatter {
 		isOk = isOk && validate(ZONE, getZone());
 		isOk = isOk && validate(IMAGE, getImage());
 		isOk = isOk && validate(FLAVOR, getFlavor());
+		isOk = isOk && validate(SSHUSER, getSshUser());
+		isOk = isOk && validate(IDENTITYFILE, getIdentityFile());
 		return isOk;
 	}
 
@@ -109,6 +119,8 @@ public class GoogleCloudFormatter implements OutputCloudFormatter {
 		isAvailable = isAvailable && notNull(ZONE);
 		isAvailable = isAvailable && notNull(IMAGE);
 		isAvailable = isAvailable && notNull(FLAVOR);
+		isAvailable = isAvailable && notNull(SSHUSER);
+		isAvailable = isAvailable && notNull(IDENTITYFILE);
 		return isAvailable;
 	}
 

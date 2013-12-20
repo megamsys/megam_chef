@@ -18,11 +18,9 @@ package org.megam.chef.identity;
 import java.io.File;
 
 import org.megam.chef.Constants;
-import org.megam.chef.core.DefaultProvisioningServiceWithShell;
 import org.megam.chef.exception.ProvisionerException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.services.s3.AmazonS3;
@@ -53,7 +51,7 @@ public class S3 {
 		logger.debug("--------------------------------------- ");		
 		System.out.println("Listing objects"+vl);
 		ObjectListing objectListing = conn.listObjects(new ListObjectsRequest()
-				.withBucketName(bucketName).withPrefix(vl));
+				.withBucketName(bucketName).withPrefix(vl+"/").withDelimiter("/"));
 		for (S3ObjectSummary objectSummary : objectListing.getObjectSummaries()) {
 			if (objectSummary.getSize() > 0) {
 				System.out.println(" - " + Constants.MEGAM_VAULT+objectSummary.getKey() + "  "
