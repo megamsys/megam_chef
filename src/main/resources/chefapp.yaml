@@ -1,5 +1,5 @@
 megamchef: 
-        config: 'development'
+        config: 'production'
 development: 
       source: 'riak'
       host: 'localhost'
