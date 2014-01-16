@@ -26,39 +26,41 @@ public class MainCommand extends BaseCommand {
 		// TODO Auto-generated constructor stub
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.megam.chef.shell.CommandComposable#composable()
-	 */
-	@Override
+	
 	public boolean composable() {
-		// TODO Auto-generated method stub
-		return true;
+		return false;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see org.megam.chef.shell.CommandComposable#pipeto()
-	 */
-	@Override
-	public String[] pipeto() throws FileNotFoundException {
-		// TODO Auto-generated method stub
-		String flag = "1";
-		String exec_res = new String();
-		Scanner scanner = new Scanner(super.getRedirectOutputFile(), ENCODING.name());
-		while (scanner.hasNext()) {
-			if (scanner.nextInt() == 0) {
-				flag = "0";
-				break;
+	
+	public String[] pipeto(String[] pipeIt) throws ShellException {
+		//move the code you have outside to search on placeholder from the array.
+		/*private List<String> commandlist(List<String> cmdList, Command command,
+				int size) throws FileNotFoundException {
+			List<String> newList = new ArrayList<String>();
+			String pipe;
+			if (size <= 1) {
+
+				pipe = "1";
+				System.out.println("---------------------------->" + pipe);
+			} else {
+				pipe = command.pipeto()[0];
+				System.out.println("-----------+++++++-------------->" + pipe);
 			}
-			if (flag == "1")
-				exec_res = scanner.next();
-			else
-				exec_res = null;
+			if (pipe != "0") {
+				for (int i = 0; i < cmdList.size(); i++) {
+					if (cmdList.get(i).contains("<node_name>")) {
+						newList.add(trimmer(cmdList.get(i).replace("<node_name>",
+								command.pipeto()[1])));
+					} else {
+						newList.add(trimmer(cmdList.get(i)));
+					}
+				}
+			} else
+				newList = null;
+			return newList;
 		}
-		return new String[] { flag, exec_res };
+*/
+		
 	}
 
 }

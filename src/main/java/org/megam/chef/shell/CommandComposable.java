@@ -12,5 +12,7 @@ import java.util.List;
 public interface CommandComposable {
 
 	public boolean composable();
-	public String[] pipeto() throws FileNotFoundException;
+	public String[] pipeto(String[] pipeIt) throws ShellExcepiton ;
+	public void composePlaceHolder(String placeHolder);
+	public String appliedPlaceHolder();
 }

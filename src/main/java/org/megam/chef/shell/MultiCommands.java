@@ -70,7 +70,7 @@ public class MultiCommands {
 	 * 
 	 * @return command list
 	 */
-	public LinkedList<Command> getCommandList() {
+	public LinkedList<Command> getOrderedCommands() {
 		System.out.println("");
 		System.out.println("get command list:" + list);
 		System.out.println("");

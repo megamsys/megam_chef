@@ -14,7 +14,9 @@ import java.util.Scanner;
  *
  */
 public class DeleteCommand extends BaseCommand {
-
+	
+	 private String placeHolder = "";
+	 private String appliedPlaceHolder = "";
 	/**
 	 * @param list
 	 * @param compose
@@ -22,27 +24,40 @@ public class DeleteCommand extends BaseCommand {
 	 */
 	public DeleteCommand(List<String> list, String req_id, String node_name) {
 		super(list, req_id, node_name);
-		// TODO Auto-generated constructor stub
 	}
 
-	/* (non-Javadoc)
-	 * @see org.megam.chef.shell.CommandComposable#composable()
-	 */
+	
 	@Override
 	public boolean composable() {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.megam.chef.shell.CommandComposable#pipeto()
-	 */
-	@Override
+	
 	public String[] pipeto() throws FileNotFoundException {
-		// TODO Auto-generated method stub
-		return new String[] { "1", "" };
+		String flag = "1";
+		String exec_res = new String();
+		Scanner scanner = new Scanner(super.getRedirectOutputFile(), ENCODING.name());
+		while (scanner.hasNext()) {
+			if (scanner.nextInt() == 0) {
+				flag = "0";
+				break;
+			}
+			if (flag == "1")
+				appliedPlaceHolder = scanner.next();
+			else
+				appliedPlaceHolder = null;
+		}
+		return new String[] { flag, placeHolder, appliedPlaceHolder }; //send back succes or failure, placeholdername,appliedplaceholder
 	}
 	
+	public void composePlaceHolder(String tmpPlaceHolder) {
+		placeHolder = tmpPlaceHolder;
+		
+	}
+	
+	public String appliedPlaceHolder() {
+		return appliedPlaceHolder;
+	}
 	
 	
 }

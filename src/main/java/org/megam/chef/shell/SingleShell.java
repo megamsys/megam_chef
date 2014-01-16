@@ -60,26 +60,30 @@ public class SingleShell extends RecursiveAction implements Stoppable {
 
 	public void compute() {
 		try {
-			logger.debug("------------------->" + cmd.getCommandList());
+			logger.debug("------------------->" + cmd.getOrderedCommands());
 			boolean stop_flag = false;
-            System.out.println(cmd.getCommandList().size());
-			for (Iterator<Command> iter = cmd.getCommandList().iterator(); iter.hasNext() && !stop_flag;) {
-				Command com = iter.next();
-				List<String> newList = commandlist(com.getCommandList(), com, cmd.getCommandList().size());
-				if(newList != null) {
-				shellProc = new ProcessBuilder(newList);
-				shellProc.redirectOutput(Redirect.appendTo(com.getRedirectOutputFile()));
-				shellProc.redirectError(Redirect.appendTo(com.getRedirectErrorFile()));
+			System.out.println(cmd.getOrderedCommands().size());
+			Command prevCom = null;
+			for (Iterator<Command> iter = cmd.getOrderedCommands().iterator(); iter
+					.hasNext() && !stop_flag;) {
+				Command com = iter.next(); 
+				if(prevCom!=null && prevCom.composable()) {
+					com.pipeto(null); // feed the previous pipe here.
+				}
+				shellProc = new ProcessBuilder(com.getCommandList());
+				shellProc.redirectOutput(Redirect.appendTo(com
+						.getRedirectOutputFile()));
+				shellProc.redirectError(Redirect.appendTo(com
+						.getRedirectErrorFile()));
 				Process p = shellProc.start();
 				if (com.composable()) {
 					int subrc = p.waitFor();
 					if (subrc != 0) {
 						stop_flag = true;
 					}
+					prevCom = com;
 				}
-			}			
-			else
-				stop_flag = true;
+
 			}
 			logger.debug("-------> An instance was started");
 		} catch (IOException | InterruptedException npe) {
@@ -93,34 +97,7 @@ public class SingleShell extends RecursiveAction implements Stoppable {
 		logger.debug("-------> An instance was started, exited.");
 	}
 
-	private List<String> commandlist(List<String> cmdList, Command command, int size)
-			throws FileNotFoundException {
-		List<String> newList = new ArrayList<String>();
-		String pipe;
-		if(size <= 1) {
-			
-			pipe = "1";
-			System.out.println("---------------------------->"+pipe); 
-		}
-		else {
-			pipe = command.pipeto()[0];
-			System.out.println("-----------+++++++-------------->"+pipe);
-		}
-			if ( pipe != "0") {
-			for (int i = 0; i < cmdList.size(); i++) {
-				if (cmdList.get(i).contains("<node_name>")) {
-					newList.add(trimmer(cmdList.get(i).replace("<node_name>",
-							command.pipeto()[1])));
-				} else {
-					newList.add(trimmer(cmdList.get(i)));
-				}
-			}
-		}
-		else 
-			newList = null;
-		return newList;
-	}
-
+	
 	private String trimmer(final String s) {
 		final StringBuilder sb = new StringBuilder(s);
 		while (sb.length() > 0 && Character.isWhitespace(sb.charAt(0)))
