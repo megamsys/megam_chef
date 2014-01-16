@@ -30,7 +30,8 @@ import org.megam.chef.identity.IdentityParser;
 import org.megam.chef.identity.S3;
 import org.megam.chef.parser.JSONRequest;
 import org.megam.chef.parser.JSONRequestParser;
-import org.megam.chef.shell.Command;
+import org.megam.chef.shell.MultiCommands;
+import org.megam.chef.shell.MultiCommands;
 import org.megam.chef.shell.ShellProvisioningPool;
 import org.megam.chef.shell.Shellable;
 import org.megam.chef.shell.Stoppable;
@@ -93,11 +94,11 @@ public class DefaultProvisioningServiceWithShell<T> extends
 	 * @throws IOException
 	 * @throws ProvisionerException
 	 */
-	public Command jsonToCommand(String jsonRequest) throws ShellException,
+	public MultiCommands jsonToCommand(String jsonRequest) throws ShellException,
 			IOException, IdentifierException, ProvisionerException {
 		logger.debug("-------> Entry");
 		logger.debug("-------> jsonRequest =>" + jsonRequest);
-		Command com = new org.megam.chef.shell.Command(
+		MultiCommands com = new org.megam.chef.shell.MultiCommands(
 				convertInput(jsonRequest));
 		logger.debug("Exit");
 		return com;
@@ -196,9 +197,10 @@ public class DefaultProvisioningServiceWithShell<T> extends
 	 * @see org.megam.chef.shell.Shellable#execute(org.megam.chef.shell.Command)
 	 */
 	@Override
-	public void execute(Command command) throws ShellException {
+	public void execute(MultiCommands command) throws ShellException {
 		(new ShellProvisioningPool()).run(command);
-
 	}
+
+	
 
 }

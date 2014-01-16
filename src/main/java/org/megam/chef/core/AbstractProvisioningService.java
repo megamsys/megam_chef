@@ -20,6 +20,8 @@ import org.megam.chef.BootStrapChef;
 import org.megam.chef.ProvisioningService;
 import org.megam.chef.exception.BootStrapChefException;
 import org.megam.chef.exception.ProvisionerException;
+import org.megam.chef.exception.ShellException;
+import org.megam.chef.shell.MultiCommands;
 
 /**
  * This the supercalls of all provisioning service. This implements the interface provisioning service. 
@@ -38,5 +40,14 @@ public abstract class AbstractProvisioningService<T> implements
 	 */
 	public AbstractProvisioningService() throws ProvisionerException {
 
+	}
+
+	/**
+	 * @param command
+	 * @throws ShellException
+	 */
+	public void execute(MultiCommands command) throws ShellException {
+		// TODO Auto-generated method stub
+		
 	}
 }

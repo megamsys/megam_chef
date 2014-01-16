@@ -30,15 +30,13 @@ public class ShellBuilder {
 		StringBuilder shellB = new StringBuilder();		
 		for (ScriptFeeder sf : scriptFeeder) {
 			if (sf.canFeed()) {				
-				//nameB.append(sf.feed().getName());				
 				shellB.append(sf.feed().getShellString());
 
 			}
 		}		
 		for (IIDentity ii : fp) {			
 			shellB.append(ii.toString());
-		}		
-		//return new String[] { nameB.toString(), shellB.toString(), jrp.getReqId(), jrp.getNodeName() };
+		}			
 		return new String[] { shellB.toString(), jrp.getReqId(), jrp.getNodeName() };
 
 	}

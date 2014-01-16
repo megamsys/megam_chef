@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.megam.chef.core.Condition;
-import org.megam.chef.shell.Command;
+import org.megam.chef.shell.MultiCommands;
 import org.megam.chef.shell.FedInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,19 +48,33 @@ public class ChefInfo extends ProvisionerInfo {
 	}
 
 	public String getCommand() {
-		return chef.get(COMMAND);
+		if (chef.get(COMMAND).length() > 0)
+			return chef.get(COMMAND);
+		else
+			return "";		
 	}
 
 	public String getPlugin() {
-		return chef.get(PLUGIN);
+		if (chef.get(PLUGIN).length() > 0)
+			return chef.get(PLUGIN);
+		else
+			return "";
 	}
 
 	public String getRunList() {
-		return "--" + RUNLIST + " " + chef.get(DRUNLIST);
+		if (chef.get(DRUNLIST).length() > 0)
+			return "--" + RUNLIST + " " + chef.get(DRUNLIST);
+		else
+			return "";
+
 	}
 
 	public String getName() {
-		return chef.get(NAME);
+		if (chef.get(NAME).length() > 0)
+			return chef.get(NAME);
+		else
+			return "";
+
 	}
 
 	public List<String> getReason() {
@@ -132,7 +146,6 @@ public class ChefInfo extends ProvisionerInfo {
 		return "CHEF :";
 	}
 
-	
 	/**
 	 * tostring method for chef map
 	 */
@@ -150,6 +163,5 @@ public class ChefInfo extends ProvisionerInfo {
 
 		return strbd.toString();
 	}
-	
 
 }
