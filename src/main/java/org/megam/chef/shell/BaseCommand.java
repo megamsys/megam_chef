@@ -71,10 +71,14 @@ public abstract class BaseCommand implements Command {
 	 * @return command list
 	 */
 	public List<String> getCommandList() {
+		List<String> newList = new ArrayList<String>();
+		for (int i = 0; i < cmdList.size(); i++) {			
+			newList.add(trimmer(cmdList.get(i)));							
+	} 
 		System.out.println("");
 		System.out.println("get command list:" + cmdList);
 		System.out.println("");
-		return cmdList;
+		return newList;
 	}
 
 	/**
@@ -95,6 +99,16 @@ public abstract class BaseCommand implements Command {
 
 	public String toString() {
 		return "(" + getCommandList() + ")";
+	}
+	
+	private String trimmer(final String s) {
+		final StringBuilder sb = new StringBuilder(s);
+		while (sb.length() > 0 && Character.isWhitespace(sb.charAt(0)))
+			sb.deleteCharAt(0); // delete from the beginning
+		while (sb.length() > 0
+				&& Character.isWhitespace(sb.charAt(sb.length() - 1)))
+			sb.deleteCharAt(sb.length() - 1); // delete from the end
+		return sb.toString();
 	}
 
 }

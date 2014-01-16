@@ -64,29 +64,31 @@ public class SingleShell extends RecursiveAction implements Stoppable {
 			boolean stop_flag = false;
 			System.out.println(cmd.getOrderedCommands().size());
 			Command prevCom = null;
-			for (Iterator<Command> iter = cmd.getOrderedCommands().iterator(); iter
-					.hasNext() && !stop_flag;) {
-				Command com = iter.next(); 
-				if(prevCom!=null && prevCom.composable()) {
-					com.pipeto(null); // feed the previous pipe here.
+			for (Iterator<Command> iter = cmd.getOrderedCommands().iterator(); iter.hasNext() && !stop_flag;) {
+				Command com = iter.next();
+				List<String> cmdList = new ArrayList<String>();
+				cmdList = com.getCommandList();
+				if (prevCom != null && prevCom.composable()) {
+					prevCom.pipeto(null); // feed the previous pipe here.					
+					cmdList = com.pipeto(prevCom.appliedPlaceHolder());
 				}
-				shellProc = new ProcessBuilder(com.getCommandList());
-				shellProc.redirectOutput(Redirect.appendTo(com
-						.getRedirectOutputFile()));
-				shellProc.redirectError(Redirect.appendTo(com
-						.getRedirectErrorFile()));
-				Process p = shellProc.start();
-				if (com.composable()) {
-					int subrc = p.waitFor();
-					if (subrc != 0) {
-						stop_flag = true;
+				if (cmdList != null) {
+					shellProc = new ProcessBuilder(cmdList);
+					shellProc.redirectOutput(Redirect.appendTo(com.getRedirectOutputFile()));
+					shellProc.redirectError(Redirect.appendTo(com.getRedirectErrorFile()));
+					Process p = shellProc.start();
+					if (com.composable()) {
+						int subrc = p.waitFor();
+						if (subrc != 0) {
+							stop_flag = true;
+						}
+						prevCom = com;
 					}
-					prevCom = com;
-				}
-
+				} else
+					stop_flag = true;
 			}
 			logger.debug("-------> An instance was started");
-		} catch (IOException | InterruptedException npe) {
+		} catch (IOException | InterruptedException | ShellException npe) {
 			try {
 				throw new ShellException(npe);
 			} catch (ShellException e) {
@@ -95,17 +97,6 @@ public class SingleShell extends RecursiveAction implements Stoppable {
 			}
 		}
 		logger.debug("-------> An instance was started, exited.");
-	}
-
-	
-	private String trimmer(final String s) {
-		final StringBuilder sb = new StringBuilder(s);
-		while (sb.length() > 0 && Character.isWhitespace(sb.charAt(0)))
-			sb.deleteCharAt(0); // delete from the beginning
-		while (sb.length() > 0
-				&& Character.isWhitespace(sb.charAt(sb.length() - 1)))
-			sb.deleteCharAt(sb.length() - 1); // delete from the end
-		return sb.toString();
 	}
 
 	public void halt() {

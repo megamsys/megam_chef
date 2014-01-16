@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.List;
 
+import org.megam.chef.exception.ShellException;
+
 /**
  * 
  * @author rajthilak
@@ -12,7 +14,7 @@ import java.util.List;
 public interface CommandComposable {
 
 	public boolean composable();
-	public String[] pipeto(String[] pipeIt) throws ShellExcepiton ;
+	public List<String> pipeto(String pipeIt) throws ShellException, FileNotFoundException ;
 	public void composePlaceHolder(String placeHolder);
 	public String appliedPlaceHolder();
 }

@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import org.megam.chef.exception.ShellException;
+
 /**
  * 
  * @author rajthilak
@@ -16,7 +18,8 @@ import java.util.Scanner;
 public class DeleteCommand extends BaseCommand {
 	
 	 private String placeHolder = "";
-	 private String appliedPlaceHolder = "";
+	 private String appliedPlaceHolder = new String();
+	 private final static Charset ENCODING = StandardCharsets.UTF_8;
 	/**
 	 * @param list
 	 * @param compose
@@ -30,33 +33,39 @@ public class DeleteCommand extends BaseCommand {
 	@Override
 	public boolean composable() {
 		return true;
-	}
-
-	
-	public String[] pipeto() throws FileNotFoundException {
-		String flag = "1";
-		String exec_res = new String();
-		Scanner scanner = new Scanner(super.getRedirectOutputFile(), ENCODING.name());
-		while (scanner.hasNext()) {
-			if (scanner.nextInt() == 0) {
-				flag = "0";
-				break;
-			}
-			if (flag == "1")
-				appliedPlaceHolder = scanner.next();
-			else
-				appliedPlaceHolder = null;
-		}
-		return new String[] { flag, placeHolder, appliedPlaceHolder }; //send back succes or failure, placeholdername,appliedplaceholder
-	}
+	}	
 	
 	public void composePlaceHolder(String tmpPlaceHolder) {
 		placeHolder = tmpPlaceHolder;
 		
 	}
 	
-	public String appliedPlaceHolder() {
+	public String appliedPlaceHolder() {		
 		return appliedPlaceHolder;
+	}
+
+
+	/* (non-Javadoc)
+	 * @see org.megam.chef.shell.CommandComposable#pipeto(java.lang.String[])
+	 */
+	@Override
+	public List<String> pipeto(String pipeIt) throws ShellException, FileNotFoundException {
+		String flag = "1";
+		String exec_res = new String();
+		Scanner scanner = new Scanner(super.getRedirectOutputFile(), ENCODING.name());
+		while (scanner.hasNext()) {
+			String s = scanner.next();			
+			if (Integer.parseInt(s) == 0) {
+				flag = "0";
+				break;
+			}
+			if (flag == "1")
+				this.appliedPlaceHolder = s;
+			else
+				this.appliedPlaceHolder = null;
+		}			
+		return null;
+		//return new String[] { flag, placeHolder, appliedPlaceHolder }; //send back succes or failure, placeholdername,appliedplaceholder
 	}
 	
 	

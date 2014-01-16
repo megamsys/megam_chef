@@ -52,7 +52,7 @@ public class MultiCommands {
 			}
 			if (flag == true) {
 				delList.add(str);
-				subcommand = "<node_name>";
+				subcommand = "<cocanut>";
 			} else {
 				if (subcommand.length() > 0)
 					str = "";
