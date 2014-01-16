@@ -68,8 +68,8 @@ public class ShellProvisioningPool {
 		}
 	}
 	
-	public void run(Command that) {	
-		SingleShell oneRun = new SingleShell(that);
+	public void run(MultiCommands command) {	
+		SingleShell oneRun = new SingleShell(command);
 		ourForky.invoke(oneRun);		
 	}
 }

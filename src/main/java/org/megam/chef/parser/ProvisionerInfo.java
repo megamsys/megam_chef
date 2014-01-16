@@ -17,7 +17,7 @@ package org.megam.chef.parser;
 
 import org.megam.chef.core.Condition;
 import org.megam.chef.core.ScriptFeeder;
-import org.megam.chef.shell.Command;
+import org.megam.chef.shell.MultiCommands;
 import org.megam.chef.shell.SingleShell;
 
 /**

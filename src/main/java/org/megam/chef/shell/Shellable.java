@@ -36,13 +36,13 @@ public interface Shellable {
 	 * @throws IOException 
 	 * @throws ProvisionerException 
 	 */
-	public Command jsonToCommand(String input) throws ShellException, IOException, IdentifierException, ProvisionerException;
+	public MultiCommands jsonToCommand(String input) throws ShellException, IOException, IdentifierException, ProvisionerException;
 	
 	/**
 	 * 
 	 * @param command
 	 * @throws ShellException
 	 */
-	public void execute(Command command) throws ShellException;
+	public void execute(MultiCommands command) throws ShellException;
 
 }
