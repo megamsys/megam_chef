@@ -30,8 +30,8 @@ public class MultiCommands {
 	private List<String> mainList, delList;
 	private String name;
 	private String inputCmd;
-	private boolean flag = false;
-	private String str, subcommand = "";
+	private boolean flag, config_flag = false;
+	private String str, prev_token = "", subcommand = "";
 	private LinkedList<Command> list = new LinkedList<Command>();
 
 	public MultiCommands(String[] shellArray) {
@@ -55,8 +55,15 @@ public class MultiCommands {
 				subcommand = "<cocanut>";
 			} else {
 				if (subcommand.length() > 0)
-					str = "";
-				mainList.add(subcommand + " " + str);
+					str = "";				
+				if (str.equals("-c") || prev_token.equals("-c")) {					
+					mainList.add(subcommand + " " + str);
+					if (delList.size() > 0) {						
+						delList.add(subcommand + " " + str);
+					}
+					prev_token = str;
+				} else
+					mainList.add(subcommand + " " + str);
 				subcommand = "";
 			}
 		}
@@ -70,10 +77,7 @@ public class MultiCommands {
 	 * 
 	 * @return command list
 	 */
-	public LinkedList<Command> getOrderedCommands() {
-		System.out.println("");
-		System.out.println("get command list:" + list);
-		System.out.println("");
+	public LinkedList<Command> getOrderedCommands() {		
 		return list;
 	}
 }

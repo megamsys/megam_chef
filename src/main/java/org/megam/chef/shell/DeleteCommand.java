@@ -55,7 +55,7 @@ public class DeleteCommand extends BaseCommand {
 		Scanner scanner = new Scanner(super.getRedirectOutputFile(), ENCODING.name());
 		while (scanner.hasNext()) {
 			String s = scanner.next();			
-			if (Integer.parseInt(s) == 0) {
+			if (s == "1") {
 				flag = "0";
 				break;
 			}

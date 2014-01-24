@@ -61,8 +61,7 @@ public class SingleShell extends RecursiveAction implements Stoppable {
 	public void compute() {
 		try {
 			logger.debug("------------------->" + cmd.getOrderedCommands());
-			boolean stop_flag = false;
-			System.out.println(cmd.getOrderedCommands().size());
+			boolean stop_flag = false;			
 			Command prevCom = null;
 			for (Iterator<Command> iter = cmd.getOrderedCommands().iterator(); iter.hasNext() && !stop_flag;) {
 				Command com = iter.next();

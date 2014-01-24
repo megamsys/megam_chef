@@ -50,7 +50,7 @@ public class ChefServiceTest {
 	public void test() throws SourceException, ProvisionerException,
 			BootStrapChefException, IOException, IdentifierException {
 		try {
-			(new ChefServiceRunner()).withType(TYPE.CHEF_WITH_SHELL).input(new DropIn("RIP423827429656625152")).control();
+			(new ChefServiceRunner()).withType(TYPE.CHEF_WITH_SHELL).input(new DropIn("sample6")).control();
 			assertTrue("This will succeed.", true);
 		} catch (IOException ioe) {
 			throw new BootStrapChefException(ioe);
