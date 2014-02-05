@@ -60,21 +60,26 @@ public class SingleShell extends RecursiveAction implements Stoppable {
 
 	public void compute() {
 		try {
-			logger.debug("------------------->" + cmd.getOrderedCommands());
-			boolean stop_flag = false;			
+			boolean stop_flag = false;
 			Command prevCom = null;
-			for (Iterator<Command> iter = cmd.getOrderedCommands().iterator(); iter.hasNext() && !stop_flag;) {
+			for (Iterator<Command> iter = cmd.getOrderedCommands().iterator(); iter
+					.hasNext() && !stop_flag;) {
 				Command com = iter.next();
 				List<String> cmdList = new ArrayList<String>();
 				cmdList = com.getCommandList();
+				logger.debug("*******************************************");
+				logger.debug(cmdList.toString());
+				logger.debug("*******************************************");
 				if (prevCom != null && prevCom.composable()) {
-					prevCom.pipeto(null); // feed the previous pipe here.					
+					prevCom.pipeto(null); // feed the previous pipe here.
 					cmdList = com.pipeto(prevCom.appliedPlaceHolder());
 				}
 				if (cmdList != null) {
 					shellProc = new ProcessBuilder(cmdList);
-					shellProc.redirectOutput(Redirect.appendTo(com.getRedirectOutputFile()));
-					shellProc.redirectError(Redirect.appendTo(com.getRedirectErrorFile()));
+					shellProc.redirectOutput(Redirect.appendTo(com
+							.getRedirectOutputFile()));
+					shellProc.redirectError(Redirect.appendTo(com
+							.getRedirectErrorFile()));
 					Process p = shellProc.start();
 					if (com.composable()) {
 						int subrc = p.waitFor();
@@ -86,7 +91,6 @@ public class SingleShell extends RecursiveAction implements Stoppable {
 				} else
 					stop_flag = true;
 			}
-			logger.debug("-------> An instance was started");
 		} catch (IOException | InterruptedException | ShellException npe) {
 			try {
 				throw new ShellException(npe);
@@ -95,7 +99,6 @@ public class SingleShell extends RecursiveAction implements Stoppable {
 				e.printStackTrace();
 			}
 		}
-		logger.debug("-------> An instance was started, exited.");
 	}
 
 	public void halt() {

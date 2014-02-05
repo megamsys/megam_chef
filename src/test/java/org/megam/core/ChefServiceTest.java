@@ -57,28 +57,5 @@ public class ChefServiceTest {
 		}
 	}
 
-	/*
-	 * @Test public void test() throws IOException { ProcessBuilder shellProc;
-	 * List<String> list = new ArrayList<String>(); File dir = new
-	 * File(org.megam.chef.Constants.MEGAM_CHEF_LOG + "test"); dir.mkdir(); File
-	 * dir1 = new File(org.megam.chef.Constants.MEGAM_CHEF_LOG + "test2");
-	 * dir1.mkdir(); //shellProc = new ProcessBuilder(
-	 * "knife search node name:biggie1.megam.co -c cloudrecipes/sandy@megamsandbox.com/default_chef/chef-repo/.chef/knife.rb "
-	 * ); list.add("knife"); list.add("search");list.add("node");
-	 * list.add("name:biggie1.megam.co"); list.add("-c"); list.add(
-	 * "cloudrecipes/sandy@megamsandbox.com/default_chef/chef-repo/.chef/knife.rb"
-	 * ); list.add("-a"); list.add(" ec2.instance_id"); list.add("|");
-	 * list.add("grep");
-	 * list.add("ec2.instance_id");list.add("|");list.add("awk");
-	 * list.add("'{print $2}'");
-	 * 
-	 * shellProc = new ProcessBuilder(list);
-	 * System.out.println("----------------------------------------"+shellProc);
-	 * shellProc.redirectOutput(Redirect.appendTo(new
-	 * File(org.megam.chef.Constants.MEGAM_CHEF_LOG + "test/tt")));
-	 * shellProc.redirectError(Redirect.appendTo(new
-	 * File(org.megam.chef.Constants.MEGAM_CHEF_LOG +"test2/ttt")));
-	 * shellProc.start(); }
-	 */
-
+	
 }

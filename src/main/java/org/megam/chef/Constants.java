@@ -31,7 +31,7 @@ public class Constants {
 	 * The build date of the the jar. This might get tweaked by pulling the date
 	 * when maven jars the file.
 	 */
-	public static final String BUILD_DATE = "20130903";
+	public static final String BUILD_DATE = "20142101";
 
 	/**
 	 * The current directory from where the code runs if this called from akka

@@ -9,6 +9,7 @@ import org.megam.chef.Constants;
 import org.megam.chef.cloudformatters.AmazonCloudFormatter;
 import org.megam.chef.cloudformatters.GoogleCloudFormatter;
 import org.megam.chef.cloudformatters.HPCloudFormatter;
+import org.megam.chef.cloudformatters.ProfitBricksCloudFormatter;
 import org.megam.chef.cloudformatters.OutputCloudFormatter;
 import org.megam.chef.core.Condition;
 import org.megam.chef.core.ScriptFeeder;
@@ -26,13 +27,13 @@ public class ComputeInfo implements DataMap, ScriptFeeder, Condition {
 	public static final String GROUPS = "groups";
 	public static final String IMAGE = "image";
 	public static final String FLAVOR = "flavor";
+	public static final String CPUS = "cpus";
+	public static final String RAM = "ram";
+	public static final String HDD = "hdd";
 	public static final String TENANTID = "tenant_id";
 	public static final String SSHKEY = "ssh_key";
-	public static final String DSSHKEY = "ssh_key";
 	public static final String IDENTITYFILE = "identity_file";
-	public static final String DIDENTITYFILE = "identity_file";
 	public static final String SSHUSER = "ssh_user";
-	public static final String DSSHUSER = "ssh_user";
 	public static final String VAULTLOCATION = "vault_location";
 	public static final String SSHPUBLOCATION = "sshpub_location";
 	public static final String CREDENTIALFILE = "credential_file";
@@ -49,10 +50,10 @@ public class ComputeInfo implements DataMap, ScriptFeeder, Condition {
 	private OutputCloudFormatter ocf = null;
 
 	public ComputeInfo() {
-		 //tricky, gson populated your private vars (map) yet ? 
+		// tricky, gson populated your private vars (map) yet ?
 	}
 
-	private void createOCF() {		
+	private void createOCF() {
 		switch (getCCType()) {
 		case "ec2":
 			ocf = new AmazonCloudFormatter(map());
@@ -62,6 +63,9 @@ public class ComputeInfo implements DataMap, ScriptFeeder, Condition {
 			break;
 		case "hp":
 			ocf = new HPCloudFormatter(map());
+			break;
+		case "profitbricks":
+			ocf = new ProfitBricksCloudFormatter(map());
 			break;
 		default:
 			throw new IllegalArgumentException(
@@ -82,7 +86,7 @@ public class ComputeInfo implements DataMap, ScriptFeeder, Condition {
 	public String getSshPubLocation() {
 		return map().get(SSHPUBLOCATION);
 	}
-	
+
 	/**
 	 * @return ec2 map
 	 */
@@ -97,17 +101,17 @@ public class ComputeInfo implements DataMap, ScriptFeeder, Condition {
 		return true;
 	}
 
-	public FedInfo feed() {		
+	public FedInfo feed() {
 		Map<String, String> ocfout = ocf.format();
- 		if (ocfout != null) {
+		if (ocfout != null) {
 			StringBuilder sb = new StringBuilder();
 			for (Map.Entry<String, String> entry : ocfout.entrySet()) {
-				if (entry.getValue().length() > 0 ) {
-				sb.append(" ");
-				sb.append(entry.getKey());
-				sb.append(" ");
-				sb.append(entry.getValue());
-				sb.append(" ");
+				if (entry.getValue().length() > 0) {
+					sb.append(" ");
+					sb.append(entry.getKey());
+					sb.append(" ");
+					sb.append(entry.getValue());
+					sb.append(" ");
 				}
 			}
 			return (new FedInfo(name(), sb.toString()));
@@ -126,14 +130,12 @@ public class ComputeInfo implements DataMap, ScriptFeeder, Condition {
 	public String name() {
 		return "ComputeInfo";
 	}
-	
 
 	@Override
 	public boolean ok() {
 		return ocf.ok();
 	}
 
-	
 	@Override
 	public boolean inputAvailable() {
 		createOCF();
@@ -144,7 +146,6 @@ public class ComputeInfo implements DataMap, ScriptFeeder, Condition {
 		return ocf.getReason();
 	}
 
-	
 	public String toString() {
 		StringBuilder strbd = new StringBuilder();
 		final Formatter formatter = new Formatter(strbd);
@@ -154,7 +155,5 @@ public class ComputeInfo implements DataMap, ScriptFeeder, Condition {
 		formatter.close();
 		return strbd.toString();
 	}
-
-	
 
 }

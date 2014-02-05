@@ -156,38 +156,33 @@ public class AppYamlLoadedSetup {
 	public String toString() {
 		StringBuilder strbd = new StringBuilder();
 		final Formatter formatter = new Formatter(strbd);
-		formatter.format("%s%n",
-				"*----------------------- chefapp.yaml -------------------*");
-		formatter.format("%14s = %s%n", CONFIG, getConfiguration());
-		if (getMegamchef() != null) {
-			for (Map.Entry<String, String> entry : getMegamchef().entrySet()) {
-				formatter.format("%10s = %s%n", entry.getKey(),
-						entry.getValue());
-			}
-		}
-		formatter.format("--%14s = %s%n", CONFIG, "development");
+		formatter.format("%s%s%s%n", "*--------------------- chefapp.yaml[",
+				getConfiguration(), "]-------------*");
+		
+		formatter.format("%5s = %s%n", CONFIG, "development");
 		if (getDevelopment() != null) {
 			for (Map.Entry<String, String> entry : getDevelopment().entrySet()) {
 				formatter.format("%10s = %s%n", entry.getKey(),
 						entry.getValue());
 			}
 		}
-		formatter.format("--%14s = %s%n", CONFIG, "production");
+		formatter.format("%5s = %s%n", CONFIG, "production");
 		if (getProduction() != null) {
 			for (Map.Entry<String, String> entry : getProduction().entrySet()) {
 				formatter.format("%10s = %s%n", entry.getKey(),
 						entry.getValue());
 			}
 		}
-		formatter.format("--%14s = %s%n", CONFIG, "staging");
-		if (getStaging() != null) {
+		if (getStaging() != null && !getStaging().isEmpty()) {
+			formatter.format("%5s = %s%n", CONFIG, "staging");
 			for (Map.Entry<String, String> entry : getStaging().entrySet()) {
 				formatter.format("%14s = %s%n", entry.getKey(),
 						entry.getValue());
 			}
 		}
-		formatter.format("--%14s = %s%n", CONFIG, "test");
-		if (getTest() != null) {
+		if (getTest() != null && !getTest().isEmpty()) {
+			formatter.format("%5s = %s%n", CONFIG, "test");
+
 			for (Map.Entry<String, String> entry : getTest().entrySet()) {
 				formatter.format("%10s = %s%n", entry.getKey(),
 						entry.getValue());

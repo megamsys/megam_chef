@@ -76,7 +76,6 @@ public class AppYamlLoader {
 			constructor.addTypeDescription(appDescription);
 			Yaml yaml = new Yaml(constructor);
 			loadedYaml = (AppYamlLoadedSetup) yaml.load(input);
-			logger.debug("Yaml File Loaded:\n" + loadedYaml);
 			notReady = (loadedYaml == null) ? true : false;
 		} catch (IOException ioe) {
 			throw new BootStrapChefException(ioe);
@@ -126,9 +125,6 @@ public class AppYamlLoader {
 	 * @return
 	 */
 	public String toString() {
-
-		loadedYaml.toString();
-		System.out.println(current());
-		return null;
+		return loadedYaml.toString();
 	}
 }

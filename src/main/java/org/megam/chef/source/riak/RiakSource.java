@@ -52,11 +52,9 @@ public class RiakSource implements Source {
 	 * @see org.megam.chef.riak.Source#connection()
 	 */
 	public void connection() throws SourceException {
-		// TODO Auto-generated method stub
-		logger.debug("riaksource connection : => entry");
-
+		logger.debug("Connecting Riak " + "http://" + app.getHost() + ":"
+				+ app.getPort() + "/" + app.getSource());
 		try {
-			// create Riak Factory Connection Established
 			riakClient = RiakFactory.httpClient("http://" + app.getHost() + ":"
 					+ app.getPort() + "/" + app.getSource());
 		} catch (RiakException re) {
@@ -71,8 +69,6 @@ public class RiakSource implements Source {
 	 * @see org.megam.chef.riak.Source#mutate()
 	 */
 	public void mutate() {
-		// TODO Auto-generated method stub
-
 	}
 
 	/**
@@ -83,7 +79,6 @@ public class RiakSource implements Source {
 		try {
 			IRiakObject myObject = ((com.basho.riak.client.bucket.Bucket) myBucket)
 					.fetch(str).execute();
-			logger.debug("riaksource fetch obj: => " + myObject.toString());
 			return myObject.getValueAsString();
 		} catch (UnresolvedConflictException uce) {
 			throw new SourceException("", uce);

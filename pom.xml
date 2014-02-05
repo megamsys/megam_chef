@@ -10,7 +10,7 @@
 		<java-version>1.7</java-version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<org.slf4j-version>1.7.5</org.slf4j-version>
-		<skipTests>true</skipTests>
+		<skipTests>false</skipTests>
 	</properties>
 	<parent>
 		<groupId>org.sonatype.oss</groupId>
@@ -66,20 +66,21 @@
 		<dependency>
 			<groupId>com.basho.riak</groupId>
 			<artifactId>riak-client</artifactId>
-			<version>1.4.2</version>
+			<version>1.4.4</version>
 		</dependency>
 		<!-- aws-sdk-s3 -->
 		<dependency>
 			<groupId>com.amazonaws</groupId>
 			<artifactId>aws-java-sdk</artifactId>
-			<version>1.6.4</version>
+			<version>1.6.12</version>
 		</dependency>
 		<!-- JGit Repository -->
 		<dependency>
-			<groupId>org.eclipse.jgit</groupId>
-			<artifactId>org.eclipse.jgit</artifactId>
-			<version>3.1.0.201310021548-r</version>
-		</dependency>
+	<groupId>org.eclipse.jgit</groupId>
+	<artifactId>org.eclipse.jgit</artifactId>
+	<version>3.2.0.201312181205-r</version>
+</dependency>        
+		
 	</dependencies>
 	<repositories>
 		<!-- Local project repo directory. -->

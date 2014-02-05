@@ -46,22 +46,17 @@ public class S3 {
 				Constants.MEGAM_AWS_SECRET_ID);
 		AmazonS3 conn = new AmazonS3Client(credentials);
 		conn.setEndpoint("s3-ap-southeast-1.amazonaws.com");
-		logger.debug("-------> Amazon S3Client created");
-		logger.debug("-------> Download started.....");
-		logger.debug("--------------------------------------- ");		
-		System.out.println("Listing objects"+vl);
+		logger.debug("Download ..." + vl);
 		ObjectListing objectListing = conn.listObjects(new ListObjectsRequest()
 				.withBucketName(bucketName).withPrefix(vl+"/").withDelimiter("/"));
 		for (S3ObjectSummary objectSummary : objectListing.getObjectSummaries()) {
-			if (objectSummary.getSize() > 0) {
-				System.out.println(" - " + Constants.MEGAM_VAULT+objectSummary.getKey() + "  "
-						+ "(size = " + objectSummary.getSize() + ")");
+			if (objectSummary.getSize() > 0) {				
 				conn.getObject(new GetObjectRequest(bucketName,
 						objectSummary.getKey()), new File(
 								Constants.MEGAM_VAULT + bucketName + java.io.File.separator + objectSummary.getKey()));
 			}
 		}		
 		
-		logger.debug("-------> Files Download completed.....");
+		logger.debug("Download completed.....");
 	}
 }

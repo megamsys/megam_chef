@@ -51,7 +51,6 @@ public class DefaultProvisioningServiceWithShell<T> extends
 	private String cc = "";
 	private String email = "";
 	private String bucket = "";
-	private File fileDelete;
 
 	/**
 	 * 
@@ -73,14 +72,12 @@ public class DefaultProvisioningServiceWithShell<T> extends
 	@Override
 	public T provision(String jsonString) throws ProvisionerException,
 			IOException, IdentifierException {
-		logger.debug("-------> Entry");
-		logger.debug("-------> jsonString =>" + jsonString);
+		logger.debug("Provisioning...\n*****************\n"+jsonString+"\n");
 		try {
 			execute(jsonToCommand(jsonString));
 		} catch (ShellException she) {
 			throw new ProvisionerException(she);
 		}
-		logger.debug("-------> Exit");
 		/**
 		 * TO-DO why do we return null here ?
 		 */
@@ -94,13 +91,11 @@ public class DefaultProvisioningServiceWithShell<T> extends
 	 * @throws IOException
 	 * @throws ProvisionerException
 	 */
-	public MultiCommands jsonToCommand(String jsonRequest) throws ShellException,
-			IOException, IdentifierException, ProvisionerException {
-		logger.debug("-------> Entry");
-		logger.debug("-------> jsonRequest =>" + jsonRequest);
+	public MultiCommands jsonToCommand(String jsonRequest)
+			throws ShellException, IOException, IdentifierException,
+			ProvisionerException {
 		MultiCommands com = new org.megam.chef.shell.MultiCommands(
 				convertInput(jsonRequest));
-		logger.debug("Exit");
 		return com;
 	}
 
@@ -122,7 +117,6 @@ public class DefaultProvisioningServiceWithShell<T> extends
 	 * failure is retured. command
 	 * 
 	 * @param myJSONString
-	 *            logger.debug("-------> Entry");
 	 * 
 	 * @return
 	 * @throws IOException
@@ -131,10 +125,8 @@ public class DefaultProvisioningServiceWithShell<T> extends
 	 */
 	private String[] convertInput(String jsonRequest) throws ShellException,
 			IOException, IdentifierException, ProvisionerException {
-		logger.debug("-------> jsonRequest =>" + jsonRequest);
 		JSONRequestParser jrp = new JSONRequestParser(jsonRequest);
 		JSONRequest jr = jrp.data();
-		logger.debug("-------> jr =>" + jr);
 		/**
 		 * Download the stuff from S3 The location to download can be got from
 		 * parsing vault_location (in access) S3.download() If all is well
@@ -142,18 +134,16 @@ public class DefaultProvisioningServiceWithShell<T> extends
 		 */
 		ParmsValidator pv = new ParmsValidator();
 		if (pv.validate(jr.conditionList())) {
-			String vaultLocation = vaultLocationParserwithoutBucket(jr.getAccess()
-					.getVaultLocation());
+			String vaultLocation = vaultLocationParserwithoutBucket(jr
+					.getAccess().getVaultLocation());
 			S3.download(vaultLocation);
-			String sshpubLocation = vaultLocationParserwithoutBucket(jr.getAccess()
-					.getSshPubLocation());
+			String sshpubLocation = vaultLocationParserwithoutBucket(jr
+					.getAccess().getSshPubLocation());
 			S3.download(sshpubLocation);
-			this.fileDelete = new File(Constants.MEGAM_VAULT + sshpubLocation);
-			logger.debug("Vault Location ---->" + vaultLocation);
-			String b_vaultLocation = vaultLocationParserwithBucket(jr.getAccess()
-					.getVaultLocation());
+			File sshpubfile = new File(Constants.MEGAM_VAULT + sshpubLocation);
+			String b_vaultLocation = vaultLocationParserwithBucket(jr
+					.getAccess().getVaultLocation());
 			List<IIDentity> fp = new IdentityParser(b_vaultLocation).identity();
-			logger.debug("-------> Shellbuilder =>");
 			return ShellBuilder.buildString(jr.scriptFeeder(), jrp, fp);
 		} else {
 			throw new ShellException(new IllegalArgumentException(pv
@@ -163,11 +153,11 @@ public class DefaultProvisioningServiceWithShell<T> extends
 
 	public String vaultLocationParserwithoutBucket(String str) {
 		if (str.length() > 0) {
-		int lst = str.lastIndexOf("/");
-		String cc = str.substring(lst);
-		str = str.replace(str.substring(lst), "");
-		String email = str.substring(str.lastIndexOf("/") + 1);
-		return email + cc;
+			int lst = str.lastIndexOf("/");
+			String cc = str.substring(lst);
+			str = str.replace(str.substring(lst), "");
+			String email = str.substring(str.lastIndexOf("/") + 1);
+			return email + cc;
 		} else {
 			return str;
 		}
@@ -200,7 +190,5 @@ public class DefaultProvisioningServiceWithShell<T> extends
 	public void execute(MultiCommands command) throws ShellException {
 		(new ShellProvisioningPool()).run(command);
 	}
-
-	
 
 }

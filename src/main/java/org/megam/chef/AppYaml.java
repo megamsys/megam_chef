@@ -56,7 +56,7 @@ public class AppYaml {
 	public String getBucket() {
 		return yamlSource.get(BUCKET);
 	}
-	
+
 	/**
 	 * toString() is display the map key's and their values
 	 */
@@ -64,19 +64,16 @@ public class AppYaml {
 		StringBuilder strbd = new StringBuilder();
 		final Formatter formatter = new Formatter(strbd);
 		formatter.format("%s%n",
-				"*----------------------- current yaml -------------------*");
-		
-		formatter.format("--%14s = %s%n",SOURCE, getSource());
-		formatter.format("--%14s = %s%n",BUCKET, getBucket());
-		formatter.format("--%14s = %s%n",HOST, getHost());
-		formatter.format("--%14s = %s%n",PORT, getPort());
+				"Using setup :");
+		formatter.format("%14s = %s%n", SOURCE, getSource());
+		formatter.format("%14s = %s%n", BUCKET, getBucket());
+		formatter.format("%14s = %s%n", HOST, getHost());
+		formatter.format("%14s = %s%n", PORT, getPort());
 		formatter.format("%s%n",
-				"*--------------------------------------------------------*");
-		
+				"*------------------------------------------*");
+
 		formatter.close();
 		return strbd.toString();
 	}
 
-
-	
 }

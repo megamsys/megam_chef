@@ -25,8 +25,6 @@ public class ShellBuilder {
 	 * @param args
 	 */
 	public static String[] buildString(LinkedList<ScriptFeeder> scriptFeeder, JSONRequestParser jrp, List<IIDentity> fp) {
-		Logger logger = LoggerFactory.getLogger(SingleShell.class);
-		StringBuilder nameB = new StringBuilder();
 		StringBuilder shellB = new StringBuilder();		
 		for (ScriptFeeder sf : scriptFeeder) {
 			if (sf.canFeed()) {				

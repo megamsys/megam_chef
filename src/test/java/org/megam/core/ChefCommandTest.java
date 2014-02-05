@@ -72,8 +72,7 @@ public class ChefCommandTest {
 		RiakSource rs = new RiakSource(app);
 		rs.connection();
 		rs.bucket("requests");
-		jsonString = rs.fetch("RIP374477792399589376");
-		System.out.println("JSON String : " + jsonString);
+		jsonString = rs.fetch("RIP431073015971708928");
 		(new DefaultProvisioningServiceWithShell<T>()).provision(jsonString);
 		assertTrue("This will succeed.", true);
 	}
