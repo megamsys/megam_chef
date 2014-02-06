@@ -28,6 +28,8 @@ import static org.megam.chef.parser.ComputeInfo.RAM;
 import static org.megam.chef.parser.ComputeInfo.SSHPUBLOCATION;
 import static org.megam.chef.parser.ComputeInfo.SSHUSER;
 import static org.megam.chef.parser.ComputeInfo.TENANTID;
+import static org.megam.chef.parser.ComputeInfo.GROUPS;
+import static org.megam.chef.parser.ComputeInfo.SSHKEY;
 
 import java.util.ArrayList;
 import java.util.Formatter;
@@ -41,7 +43,9 @@ public class ProfitBricksCloudFormatter implements OutputCloudFormatter {
 	private final Map<String, String> pbArgsStub = new HashMap<String, String>();
 	private Map<String, String> inputArgs;
 	private List<String> unsatifiedReason = new ArrayList<String>();
-
+	private String cc = "";
+	private String email = "";
+	private String bucket = "";
 	/*
 	 * There is no flavor in profit bricks. We decided to send it in this format
 	 * as FLAVOR as cpus=1,ram=1024,hdd-size=20
@@ -56,7 +60,9 @@ public class ProfitBricksCloudFormatter implements OutputCloudFormatter {
 		this.pbArgsStub.put(RAM, "--ram");
 		this.pbArgsStub.put(HDD, "--hdd-size");
 		this.pbArgsStub.put(IDENTITYFILE, "--identity-file");
-		this.pbArgsStub.put(SSHPUBLOCATION, "--public-key-file");
+		this.pbArgsStub.put(SSHPUBLOCATION, "--public-key-file");	
+		this.pbArgsStub.put(GROUPS, "-S");
+		this.pbArgsStub.put(SSHKEY, "--image-password");
 	}
 
 	// we expect to see cpus=1,ram=1024,hdd-size=20
@@ -95,12 +101,14 @@ public class ProfitBricksCloudFormatter implements OutputCloudFormatter {
 		return inputArgs.get(TENANTID);
 	}
 
-	private String getIdentityFile() {
-		return inputArgs.get(IDENTITYFILE);
+	private String getIdentityFile() {		
+		//return inputArgs.get(IDENTITYFILE);
+		return parserwithoutBucket(inputArgs.get(SSHPUBLOCATION))+".key";
 	}
 
-	private String getPublicIdentityFile() {
-		return inputArgs.get(SSHPUBLOCATION);
+	private String getPublicIdentityFile() {		
+		//return inputArgs.get(SSHPUBLOCATION);
+		return parserwithoutBucket(inputArgs.get(SSHPUBLOCATION))+".pub";
 	}
 
 	private boolean notNull(String str) {
@@ -112,13 +120,35 @@ public class ProfitBricksCloudFormatter implements OutputCloudFormatter {
 		return false;
 	}
 
+	public String parserwithoutBucket(String str) {
+		if (str.length() > 0) {
+			int lst = str.lastIndexOf("/");
+			cc = str.substring(lst);
+			str = str.replace(str.substring(lst), "");
+			email = str.substring(str.lastIndexOf("/"));
+			str = str.replace(str.substring(str.lastIndexOf("/")), "");
+			bucket = str.substring(str.lastIndexOf("/") + 1);
+			return bucket + email + cc;
+		} else {
+			return str;
+		}
+	}
+	
 	@Override
 	public Map<String, String> format() {
 		Map<String, String> pbArgsValPairs = new HashMap<String, String>();
 		for (Map.Entry<String, String> entry : inputArgs.entrySet()) {
-			if (pbArgsStub.containsKey(entry.getKey())) {
+			if (pbArgsStub.containsKey(entry.getKey())) {				
+				if (entry.getKey().equals(IDENTITYFILE)) {
+					pbArgsValPairs.put(pbArgsStub.get(entry.getKey()), getIdentityFile());
+				}
+				else if (entry.getKey().equals(SSHPUBLOCATION)) {
+					pbArgsValPairs.put(pbArgsStub.get(entry.getKey()), getPublicIdentityFile());
+				}
+				else {
 				pbArgsValPairs.put(pbArgsStub.get(entry.getKey()),
 						entry.getValue());
+				}
 			}
 		}
 		return pbArgsValPairs;

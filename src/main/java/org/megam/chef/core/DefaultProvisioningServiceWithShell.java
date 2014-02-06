@@ -72,7 +72,7 @@ public class DefaultProvisioningServiceWithShell<T> extends
 	@Override
 	public T provision(String jsonString) throws ProvisionerException,
 			IOException, IdentifierException {
-		logger.debug("Provisioning...\n*****************\n"+jsonString+"\n");
+		logger.debug("Provisioning...\n*****************\n" + jsonString + "\n");
 		try {
 			execute(jsonToCommand(jsonString));
 		} catch (ShellException she) {
@@ -137,10 +137,13 @@ public class DefaultProvisioningServiceWithShell<T> extends
 			String vaultLocation = vaultLocationParserwithoutBucket(jr
 					.getAccess().getVaultLocation());
 			S3.download(vaultLocation);
-			String sshpubLocation = vaultLocationParserwithoutBucket(jr
-					.getAccess().getSshPubLocation());
-			S3.download(sshpubLocation);
-			File sshpubfile = new File(Constants.MEGAM_VAULT + sshpubLocation);
+			if (jr.getAccess().getSshPubLocation().length() > 0) {
+				String sshpubLocation = vaultLocationParserwithoutBucket(jr
+						.getAccess().getSshPubLocation());
+				S3.downloadFile(sshpubLocation + ".key");
+				S3.downloadFile(sshpubLocation + ".pub");
+				File sshpubfile = new File(Constants.MEGAM_VAULT + sshpubLocation);
+			}			
 			String b_vaultLocation = vaultLocationParserwithBucket(jr
 					.getAccess().getVaultLocation());
 			List<IIDentity> fp = new IdentityParser(b_vaultLocation).identity();

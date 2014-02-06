@@ -38,25 +38,43 @@ public class S3 {
 
 	private static Logger logger = LoggerFactory.getLogger(S3.class);
 
-
 	public static void download(String vl) throws ProvisionerException {
 
 		String bucketName = Constants.BUCKET_NAME;
-		AWSCredentials credentials = new BasicAWSCredentials(Constants.MEGAM_AWS_ACCESS_KEY,
-				Constants.MEGAM_AWS_SECRET_ID);
+		AWSCredentials credentials = new BasicAWSCredentials(
+				Constants.MEGAM_AWS_ACCESS_KEY, Constants.MEGAM_AWS_SECRET_ID);
 		AmazonS3 conn = new AmazonS3Client(credentials);
 		conn.setEndpoint("s3-ap-southeast-1.amazonaws.com");
 		logger.debug("Download ..." + vl);
 		ObjectListing objectListing = conn.listObjects(new ListObjectsRequest()
-				.withBucketName(bucketName).withPrefix(vl+"/").withDelimiter("/"));
+				.withBucketName(bucketName).withPrefix(vl + "/")
+				.withDelimiter("/"));
 		for (S3ObjectSummary objectSummary : objectListing.getObjectSummaries()) {
-			if (objectSummary.getSize() > 0) {				
-				conn.getObject(new GetObjectRequest(bucketName,
-						objectSummary.getKey()), new File(
-								Constants.MEGAM_VAULT + bucketName + java.io.File.separator + objectSummary.getKey()));
+			if (objectSummary.getSize() > 0) {
+				logger.debug("Download ...----" + objectSummary.getKey());
+				conn.getObject(
+						new GetObjectRequest(bucketName, objectSummary.getKey()),
+						new File(Constants.MEGAM_VAULT + bucketName
+								+ java.io.File.separator
+								+ objectSummary.getKey()));
 			}
-		}		
-		
+		}
+
 		logger.debug("Download completed.....");
 	}
+
+	public static void downloadFile(String vl) throws ProvisionerException {
+
+		String bucketName = Constants.BUCKET_NAME;
+		AWSCredentials credentials = new BasicAWSCredentials(
+				Constants.MEGAM_AWS_ACCESS_KEY, Constants.MEGAM_AWS_SECRET_ID);
+		AmazonS3 conn = new AmazonS3Client(credentials);
+		conn.setEndpoint("s3-ap-southeast-1.amazonaws.com");
+		logger.debug("Download ..." + vl);
+		conn.getObject(new GetObjectRequest(bucketName, vl), new File(
+				Constants.MEGAM_VAULT + bucketName + java.io.File.separator
+						+ vl));
+		logger.debug("Download completed.....");
+	}
+
 }
