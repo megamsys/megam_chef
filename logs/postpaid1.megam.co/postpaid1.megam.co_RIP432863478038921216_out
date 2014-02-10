@@ -1,0 +1,54 @@
+Instance ID: i-2eaed806
+Flavor: t1.micro
+Image: ami-a0074df2
+Region: ap-southeast-1
+Availability Zone: ap-southeast-1a
+Security Groups: megam
+Tags: Name: postpaid1.megam.co
+SSH Key: megam_ec2
+
+Waiting for instance..........
+Public DNS Name: ec2-54-254-43-157.ap-southeast-1.compute.amazonaws.com
+Public IP Address: 54.254.43.157
+Private DNS Name: ip-10-130-29-180.ap-southeast-1.compute.internal
+Private IP Address: 10.130.29.180
+....done
+Bootstrapping Chef on ec2-54-254-43-157.ap-southeast-1.compute.amazonaws.com
+Failed to authenticate ubuntu - trying password auth
+Enter your password: 
+Instance ID: i-13aadc3b
+Flavor: t1.micro
+Image: ami-a0074df2
+Region: ap-southeast-1
+Availability Zone: ap-southeast-1a
+Security Groups: megam
+Tags: Name: postpaid1.megam.co
+SSH Key: megam_ec2
+
+Waiting for instance...........
+Public DNS Name: ec2-54-254-2-246.ap-southeast-1.compute.amazonaws.com
+Public IP Address: 54.254.2.246
+Private DNS Name: ip-10-142-67-7.ap-southeast-1.compute.internal
+Private IP Address: 10.142.67.7
+..done
+Bootstrapping Chef on ec2-54-254-2-246.ap-southeast-1.compute.amazonaws.com
+Failed to authenticate ubuntu - trying password auth
+Enter your password: 
+Instance ID: i-71aadc59
+Flavor: t1.micro
+Image: ami-a0074df2
+Region: ap-southeast-1
+Availability Zone: ap-southeast-1a
+Security Groups: megam
+Tags: Name: postpaid1.megam.co
+SSH Key: megam_ec2
+
+Waiting for instance........
+Public DNS Name: ec2-54-254-67-76.ap-southeast-1.compute.amazonaws.com
+Public IP Address: 54.254.67.76
+Private DNS Name: ip-10-130-18-26.ap-southeast-1.compute.internal
+Private IP Address: 10.130.18.26
+...done
+Bootstrapping Chef on ec2-54-254-67-76.ap-southeast-1.compute.amazonaws.com
+Failed to authenticate ubuntu - trying password auth
+Enter your password: 

@@ -18,6 +18,7 @@ package org.megam.chef.cloudformatters;
 import static org.megam.chef.parser.ComputeInfo.FLAVOR;
 import static org.megam.chef.parser.ComputeInfo.IDENTITYFILE;
 import static org.megam.chef.parser.ComputeInfo.IMAGE;
+import static org.megam.chef.parser.ComputeInfo.SSHPUBLOCATION;
 import static org.megam.chef.parser.ComputeInfo.SSHUSER;
 import static org.megam.chef.parser.ComputeInfo.ZONE;
 
@@ -32,7 +33,9 @@ public class GoogleCloudFormatter implements OutputCloudFormatter {
 	private final Map<String, String> gceMap_key = new HashMap<String, String>();
 	private Map<String, String> inputArgs;
 	private List<String> unsatifiedReason;
-
+	private String cc = "";
+	private String email = "";
+	private String bucket = "";
 	public GoogleCloudFormatter(Map<String, String> tempArgs) {
 		this.inputArgs = tempArgs;		
 		this.gceMap_key.put(IMAGE, "-I");
@@ -59,7 +62,8 @@ public class GoogleCloudFormatter implements OutputCloudFormatter {
 	}
 
 	private String getIdentityFile() {
-		return inputArgs.get(IDENTITYFILE);
+		//return inputArgs.get(IDENTITYFILE);
+		return parserwithoutBucket(inputArgs.get(SSHPUBLOCATION))+".key";
 	}
 	
 	private boolean notNull(String str) {
@@ -71,6 +75,19 @@ public class GoogleCloudFormatter implements OutputCloudFormatter {
 		return false;
 	}
 
+	public String parserwithoutBucket(String str) {
+		if (str.length() > 0) {
+			int lst = str.lastIndexOf("/");
+			cc = str.substring(lst);
+			str = str.replace(str.substring(lst), "");
+			email = str.substring(str.lastIndexOf("/"));
+			str = str.replace(str.substring(str.lastIndexOf("/")), "");
+			bucket = str.substring(str.lastIndexOf("/") + 1);
+			return bucket + email + cc;
+		} else {
+			return str;
+		}
+	}
 
 	@Override
 	public Map<String, String> format() {

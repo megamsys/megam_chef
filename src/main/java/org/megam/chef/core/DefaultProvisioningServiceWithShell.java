@@ -135,11 +135,11 @@ public class DefaultProvisioningServiceWithShell<T> extends
 		ParmsValidator pv = new ParmsValidator();
 		if (pv.validate(jr.conditionList())) {
 			String vaultLocation = vaultLocationParserwithoutBucket(jr
-					.getAccess().getVaultLocation());
+					.getAccess().getVaultLocation());			
 			S3.download(vaultLocation);
 			if (jr.getAccess().getSshPubLocation().length() > 0) {
 				String sshpubLocation = vaultLocationParserwithoutBucket(jr
-						.getAccess().getSshPubLocation());
+						.getAccess().getSshPubLocation());				
 				S3.downloadFile(sshpubLocation + ".key");
 				S3.downloadFile(sshpubLocation + ".pub");
 				File sshpubfile = new File(Constants.MEGAM_VAULT + sshpubLocation);

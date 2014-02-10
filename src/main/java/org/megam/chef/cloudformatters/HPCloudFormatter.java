@@ -20,6 +20,7 @@ import static org.megam.chef.parser.ComputeInfo.GROUPS;
 import static org.megam.chef.parser.ComputeInfo.IDENTITYFILE;
 import static org.megam.chef.parser.ComputeInfo.IMAGE;
 import static org.megam.chef.parser.ComputeInfo.SSHKEY;
+import static org.megam.chef.parser.ComputeInfo.SSHPUBLOCATION;
 import static org.megam.chef.parser.ComputeInfo.SSHUSER;
 import static org.megam.chef.parser.ComputeInfo.TENANTID;
 import static org.megam.chef.parser.ComputeInfo.ZONE;
@@ -34,7 +35,9 @@ public class HPCloudFormatter implements OutputCloudFormatter {
 	private final Map<String, String> hpMap_key = new HashMap<String, String>();
 	private Map<String, String> inputArgs;
 	private List<String> unsatifiedReason;
-
+	private String cc = "";
+	private String email = "";
+	private String bucket = "";
 	public HPCloudFormatter(Map<String, String> tempArgs) {
 		this.inputArgs = tempArgs;
 		this.hpMap_key.put(GROUPS, "-G");
@@ -72,7 +75,8 @@ public class HPCloudFormatter implements OutputCloudFormatter {
 	}
 
 	private String getIdentityFile() {
-		return inputArgs.get(IDENTITYFILE);
+		//return inputArgs.get(IDENTITYFILE);
+		return parserwithoutBucket(inputArgs.get(SSHPUBLOCATION))+".key";
 	}
 	
 	private String getZone() {
@@ -88,6 +92,20 @@ public class HPCloudFormatter implements OutputCloudFormatter {
 		return false;
 	}
 
+	public String parserwithoutBucket(String str) {
+		if (str.length() > 0) {
+			int lst = str.lastIndexOf("/");
+			cc = str.substring(lst);
+			str = str.replace(str.substring(lst), "");
+			email = str.substring(str.lastIndexOf("/"));
+			str = str.replace(str.substring(str.lastIndexOf("/")), "");
+			bucket = str.substring(str.lastIndexOf("/") + 1);
+			return bucket + email + cc;
+		} else {
+			return str;
+		}
+	}
+	
 	@Override
 	public Map<String, String> format() {
 		Map<String, String> hpMap_result = new HashMap<String, String>();

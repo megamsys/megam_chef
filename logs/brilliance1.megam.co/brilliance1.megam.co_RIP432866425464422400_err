@@ -1,0 +1,2 @@
+ERROR: Fog::Compute::AWS::NotFound: The key pair 'sample' does not exist
+ERROR: Fog::Compute::AWS::NotFound: The key pair 'sample' does not exist
