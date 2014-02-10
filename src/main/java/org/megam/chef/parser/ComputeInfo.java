@@ -29,7 +29,7 @@ public class ComputeInfo implements DataMap, ScriptFeeder, Condition {
 	public static final String FLAVOR = "flavor";
 	public static final String CPUS = "cpus";
 	public static final String RAM = "ram";
-	public static final String HDD = "hdd";
+	public static final String HDD = "hdd-size";
 	public static final String TENANTID = "tenant_id";
 	public static final String SSHKEY = "ssh_key";
 	public static final String IDENTITYFILE = "identity_file";
