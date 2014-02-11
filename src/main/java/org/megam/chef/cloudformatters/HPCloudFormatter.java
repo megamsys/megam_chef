@@ -111,8 +111,13 @@ public class HPCloudFormatter implements OutputCloudFormatter {
 		Map<String, String> hpMap_result = new HashMap<String, String>();
 		for (Map.Entry<String, String> entry : inputArgs.entrySet()) {
 			if (hpMap_key.containsKey(entry.getKey())) {
-				hpMap_result.put(hpMap_key.get(entry.getKey()),
-						entry.getValue());
+				if (entry.getKey().equals(IDENTITYFILE)) {
+					hpMap_result.put(hpMap_key.get(entry.getKey()), getIdentityFile());
+				}				
+				else {				
+					hpMap_result.put(hpMap_key.get(entry.getKey()),
+							entry.getValue());
+				}				
 			}
 		}
 		return hpMap_result;
@@ -126,7 +131,7 @@ public class HPCloudFormatter implements OutputCloudFormatter {
 		isOk = isOk && validate(TENANTID, getTenantId());
 		isOk = isOk && validate(SSHKEY, getSshKey());
 		isOk = isOk && validate(SSHUSER, getSshUser());
-		isOk = isOk && validate(IDENTITYFILE, getIdentityFile());
+		//isOk = isOk && validate(IDENTITYFILE, getIdentityFile());
 		isOk = isOk && validate(ZONE, getZone());
 		return isOk;
 	}
@@ -135,8 +140,12 @@ public class HPCloudFormatter implements OutputCloudFormatter {
 		for (Map.Entry<String, String> entry : inputArgs.entrySet()) {
 			if (entry.getKey().equals(key)) {
 				if (entry.getValue().equals(value)) {
+					System.out.println("================");
+					System.out.println("------"+key+"------------"+value+"--------"+entry.getValue());
 					return true;
 				} else {
+					System.out.println("=======+++++++++++++++++=========");
+					System.out.println("------"+key+"------------"+value+"--------"+entry.getValue());
 					unsatifiedReason.add(key + " is not valid ");
 				}
 			}

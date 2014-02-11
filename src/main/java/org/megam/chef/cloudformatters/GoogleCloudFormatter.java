@@ -95,8 +95,13 @@ public class GoogleCloudFormatter implements OutputCloudFormatter {
 
 		for (Map.Entry<String, String> entry : inputArgs.entrySet()) {
 			if (gceMap_key.containsKey(entry.getKey())) {
-				gceMap_result.put(gceMap_key.get(entry.getKey()),
-						entry.getValue());
+				if (entry.getKey().equals(IDENTITYFILE)) {
+					gceMap_result.put(gceMap_key.get(entry.getKey()), getIdentityFile());
+				}				
+				else {				
+					gceMap_result.put(gceMap_key.get(entry.getKey()),
+							entry.getValue());
+				}								
 			}
 		}
 		return gceMap_result;
@@ -108,7 +113,7 @@ public class GoogleCloudFormatter implements OutputCloudFormatter {
 		isOk = isOk && validate(IMAGE, getImage());
 		isOk = isOk && validate(FLAVOR, getFlavor());
 		isOk = isOk && validate(SSHUSER, getSshUser());
-		isOk = isOk && validate(IDENTITYFILE, getIdentityFile());
+		//isOk = isOk && validate(IDENTITYFILE, getIdentityFile());
 		return isOk;
 	}
 

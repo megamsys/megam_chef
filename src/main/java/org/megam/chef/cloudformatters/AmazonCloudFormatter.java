@@ -109,8 +109,13 @@ public class AmazonCloudFormatter implements OutputCloudFormatter {
 		Map<String, String> awsMap_result = new HashMap<String, String>();
 		for (Map.Entry<String, String> entry : inputArgs.entrySet()) {
 			if (awsMap_key.containsKey(entry.getKey())) {
+				if (entry.getKey().equals(IDENTITYFILE)) {
+					awsMap_result.put(awsMap_key.get(entry.getKey()), getIdentityFile());
+				}				
+				else {				
 				awsMap_result.put(awsMap_key.get(entry.getKey()),
 						entry.getValue());
+				}
 			}
 		}
 		return awsMap_result;
@@ -123,7 +128,7 @@ public class AmazonCloudFormatter implements OutputCloudFormatter {
 		isOk = isOk && validate(FLAVOR, getFlavor());
 		isOk = isOk && validate(SSHKEY, getSshKey());
 		isOk = isOk && validate(SSHUSER, getSshUser());
-		isOk = isOk && validate(IDENTITYFILE, getIdentityFile());
+		//isOk = isOk && validate(IDENTITYFILE, getIdentityFile());
 		isOk = isOk && validate(REGION, getRegion());
 		return isOk;
 	}
