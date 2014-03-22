@@ -9,7 +9,7 @@
 	<properties>
 		<java-version>1.7</java-version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<org.slf4j-version>1.7.5</org.slf4j-version>
+		<org.slf4j-version>1.7.6</org.slf4j-version>
 		<skipTests>true</skipTests>
 	</properties>
 	<parent>
@@ -32,7 +32,7 @@
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
 			<artifactId>logback-classic</artifactId>
-			<version>1.0.13</version>
+			<version>1.1.0</version>
 		</dependency>
 
 		<!-- @Inject -->
@@ -76,11 +76,10 @@
 		</dependency>
 		<!-- JGit Repository -->
 		<dependency>
-	<groupId>org.eclipse.jgit</groupId>
-	<artifactId>org.eclipse.jgit</artifactId>
-	<version>3.2.0.201312181205-r</version>
-</dependency>        
-		
+			<groupId>org.eclipse.jgit</groupId>
+			<artifactId>org.eclipse.jgit</artifactId>
+			<version>3.3.0.201403021825-r</version>
+		</dependency>
 	</dependencies>
 	<repositories>
 		<!-- Local project repo directory. -->
@@ -155,6 +154,6 @@
 	<name>Cloud Tool Management for Megam</name>
 	<organization>
 		<name>Megam Systems</name>
-		<url>https://www.megam.co</url>
+		<url>http://www.gomegam.com</url>
 	</organization>
 </project>
