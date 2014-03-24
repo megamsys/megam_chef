@@ -24,7 +24,7 @@ import org.slf4j.LoggerFactory;
  */
 public class ComputeInfo implements DataMap, ScriptFeeder, Condition {
 
-	public static final String GROUPS = "groups";
+	public static final String GROUPS = "groups";	
 	public static final String IMAGE = "image";
 	public static final String FLAVOR = "flavor";
 	public static final String CPUS = "cpus";
