@@ -16,6 +16,7 @@
 package org.megam.chef.cloudformatters;
 
 import static org.megam.chef.parser.ComputeInfo.FLAVOR;
+import static org.megam.chef.parser.ComputeInfo.GROUPS;
 import static org.megam.chef.parser.ComputeInfo.IDENTITYFILE;
 import static org.megam.chef.parser.ComputeInfo.IMAGE;
 import static org.megam.chef.parser.ComputeInfo.SSHPUBLOCATION;
@@ -37,7 +38,8 @@ public class GoogleCloudFormatter implements OutputCloudFormatter {
 	private String email = "";
 	private String bucket = "";
 	public GoogleCloudFormatter(Map<String, String> tempArgs) {
-		this.inputArgs = tempArgs;		
+		this.inputArgs = tempArgs;	
+		this.gceMap_key.put(GROUPS, "-n");
 		this.gceMap_key.put(IMAGE, "-I");
 		this.gceMap_key.put(FLAVOR, "-m");		
 		this.gceMap_key.put(SSHUSER, "-x");
@@ -53,6 +55,10 @@ public class GoogleCloudFormatter implements OutputCloudFormatter {
 		return inputArgs.get(IMAGE);
 	}
 
+	private String getGroup() {
+		return inputArgs.get(GROUPS);
+	}
+	
 	private String getFlavor() {
 		return inputArgs.get(FLAVOR);
 	}
@@ -113,6 +119,7 @@ public class GoogleCloudFormatter implements OutputCloudFormatter {
 		isOk = isOk && validate(IMAGE, getImage());
 		isOk = isOk && validate(FLAVOR, getFlavor());
 		isOk = isOk && validate(SSHUSER, getSshUser());
+		isOk = isOk && validate(GROUPS, getGroup());
 		//isOk = isOk && validate(IDENTITYFILE, getIdentityFile());
 		return isOk;
 	}
@@ -139,6 +146,7 @@ public class GoogleCloudFormatter implements OutputCloudFormatter {
 	public boolean inputAvailable() {
 		boolean isAvailable = true;
 		isAvailable = isAvailable && notNull(ZONE);
+		isAvailable = isAvailable && notNull(GROUPS);
 		isAvailable = isAvailable && notNull(IMAGE);
 		isAvailable = isAvailable && notNull(FLAVOR);
 		isAvailable = isAvailable && notNull(SSHUSER);
