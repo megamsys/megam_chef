@@ -16,6 +16,7 @@ import com.google.gson.Gson;
 public class JSONRequestParser {
 
 	private JSONRequest reqData;
+	private ComputeInfo compute;
 	private CommandJson reqCommand;
 	private String reqid;
 	private String node_name;	
@@ -38,8 +39,11 @@ public class JSONRequestParser {
 	private void parse(String jsonString) {
 		try {
 			Gson gson = new Gson();
-			reqCommand = gson.fromJson(jsonString, CommandJson.class);
+			reqCommand = gson.fromJson(jsonString, CommandJson.class);			
 			reqData = reqCommand.getReqCommand();
+			reqData.setReqType(reqCommand.getReqType());
+			compute = reqData.getAccess();
+			compute.setReqType(reqCommand.getReqType());
 			reqCommand.getnodeId();
 		} catch (Exception ex) {
 			logger.error(ex.getMessage());

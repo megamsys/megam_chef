@@ -31,7 +31,7 @@ public class CommandJson {
 	private String id;
 	private String node_id;
 	private String node_name;
-	private String req_type;
+	private String req_type;	
 	private JSONRequest command;	
 	private String created_at;
 	private Logger logger = LoggerFactory.getLogger(CommandJson.class);
@@ -39,7 +39,7 @@ public class CommandJson {
 	 * 
 	 * @return Requested Command object
 	 */
-	public JSONRequest getReqCommand() {
+	public JSONRequest getReqCommand() {		
 		return command;
 	}
 		

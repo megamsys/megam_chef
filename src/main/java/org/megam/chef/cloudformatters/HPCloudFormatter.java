@@ -38,15 +38,20 @@ public class HPCloudFormatter implements OutputCloudFormatter {
 	private String cc = "";
 	private String email = "";
 	private String bucket = "";
-	public HPCloudFormatter(Map<String, String> tempArgs) {
+	private String req_type = "";
+
+	public HPCloudFormatter(Map<String, String> tempArgs, String req_type) {
 		this.inputArgs = tempArgs;
+		this.req_type = req_type;
 		this.hpMap_key.put(GROUPS, "-G");
 		this.hpMap_key.put(IMAGE, "-I");
 		this.hpMap_key.put(FLAVOR, "-f");
 		this.hpMap_key.put(TENANTID, "-T");
 		this.hpMap_key.put(SSHKEY, "-S");
 		this.hpMap_key.put(SSHUSER, "-x");
-		this.hpMap_key.put(IDENTITYFILE, "--identity-file");
+		if (!req_type.equals("delete")) {
+			this.hpMap_key.put(IDENTITYFILE, "--identity-file");
+		}
 		this.hpMap_key.put(ZONE, "-Z");
 	}
 
@@ -61,11 +66,11 @@ public class HPCloudFormatter implements OutputCloudFormatter {
 	private String getFlavor() {
 		return inputArgs.get(FLAVOR);
 	}
-	
+
 	private String getTenantId() {
 		return inputArgs.get(TENANTID);
 	}
-	
+
 	private String getSshKey() {
 		return inputArgs.get(SSHKEY);
 	}
@@ -75,10 +80,14 @@ public class HPCloudFormatter implements OutputCloudFormatter {
 	}
 
 	private String getIdentityFile() {
-		//return inputArgs.get(IDENTITYFILE);
-		return parserwithoutBucket(inputArgs.get(SSHPUBLOCATION))+".key";
+		// return inputArgs.get(IDENTITYFILE);
+		if (req_type.equals("delete")) {
+			return "";
+		} else {
+		return parserwithoutBucket(inputArgs.get(SSHPUBLOCATION)) + ".key";
+		}
 	}
-	
+
 	private String getZone() {
 		return inputArgs.get(ZONE);
 	}
@@ -105,19 +114,19 @@ public class HPCloudFormatter implements OutputCloudFormatter {
 			return str;
 		}
 	}
-	
+
 	@Override
 	public Map<String, String> format() {
 		Map<String, String> hpMap_result = new HashMap<String, String>();
 		for (Map.Entry<String, String> entry : inputArgs.entrySet()) {
 			if (hpMap_key.containsKey(entry.getKey())) {
 				if (entry.getKey().equals(IDENTITYFILE)) {
-					hpMap_result.put(hpMap_key.get(entry.getKey()), getIdentityFile());
-				}				
-				else {				
+					hpMap_result.put(hpMap_key.get(entry.getKey()),
+							getIdentityFile());
+				} else {
 					hpMap_result.put(hpMap_key.get(entry.getKey()),
 							entry.getValue());
-				}				
+				}
 			}
 		}
 		return hpMap_result;
@@ -131,7 +140,7 @@ public class HPCloudFormatter implements OutputCloudFormatter {
 		isOk = isOk && validate(TENANTID, getTenantId());
 		isOk = isOk && validate(SSHKEY, getSshKey());
 		isOk = isOk && validate(SSHUSER, getSshUser());
-		//isOk = isOk && validate(IDENTITYFILE, getIdentityFile());
+		// isOk = isOk && validate(IDENTITYFILE, getIdentityFile());
 		isOk = isOk && validate(ZONE, getZone());
 		return isOk;
 	}
@@ -141,11 +150,13 @@ public class HPCloudFormatter implements OutputCloudFormatter {
 			if (entry.getKey().equals(key)) {
 				if (entry.getValue().equals(value)) {
 					System.out.println("================");
-					System.out.println("------"+key+"------------"+value+"--------"+entry.getValue());
+					System.out.println("------" + key + "------------" + value
+							+ "--------" + entry.getValue());
 					return true;
 				} else {
 					System.out.println("=======+++++++++++++++++=========");
-					System.out.println("------"+key+"------------"+value+"--------"+entry.getValue());
+					System.out.println("------" + key + "------------" + value
+							+ "--------" + entry.getValue());
 					unsatifiedReason.add(key + " is not valid ");
 				}
 			}
@@ -154,7 +165,6 @@ public class HPCloudFormatter implements OutputCloudFormatter {
 
 	}
 
-	
 	public boolean inputAvailable() {
 		boolean isAvailable = true;
 		isAvailable = isAvailable && notNull(GROUPS);
@@ -175,8 +185,6 @@ public class HPCloudFormatter implements OutputCloudFormatter {
 	public List<String> getReason() {
 		return unsatifiedReason;
 	}
-	
-
 
 	public String toString() {
 		StringBuilder strbd = new StringBuilder();
@@ -187,6 +195,5 @@ public class HPCloudFormatter implements OutputCloudFormatter {
 		formatter.close();
 		return strbd.toString();
 	}
-
 
 }

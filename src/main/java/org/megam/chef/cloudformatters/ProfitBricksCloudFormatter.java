@@ -46,12 +46,16 @@ public class ProfitBricksCloudFormatter implements OutputCloudFormatter {
 	private String cc = "";
 	private String email = "";
 	private String bucket = "";
+	private String req_type = "";
+
 	/*
 	 * There is no flavor in profit bricks. We decided to send it in this format
 	 * as FLAVOR as cpus=1,ram=1024,hdd-size=20
 	 */
-	public ProfitBricksCloudFormatter(Map<String, String> tempArgs) {
+	public ProfitBricksCloudFormatter(Map<String, String> tempArgs,
+			String req_type) {
 		this.inputArgs = tempArgs;
+		this.req_type = req_type;
 		breakFlavor();
 		this.pbArgsStub.put(IMAGE, "--image-name");
 		this.pbArgsStub.put(TENANTID, "--data-center");
@@ -59,8 +63,10 @@ public class ProfitBricksCloudFormatter implements OutputCloudFormatter {
 		this.pbArgsStub.put(CPUS, "--cpus");
 		this.pbArgsStub.put(RAM, "--ram");
 		this.pbArgsStub.put(HDD, "--hdd-size");
-		this.pbArgsStub.put(IDENTITYFILE, "--identity-file");
-		this.pbArgsStub.put(SSHPUBLOCATION, "--public-key-file");	
+		if (!req_type.equals("delete")) {
+			this.pbArgsStub.put(IDENTITYFILE, "--identity-file");
+		}
+		this.pbArgsStub.put(SSHPUBLOCATION, "--public-key-file");
 		this.pbArgsStub.put(GROUPS, "-S");
 		this.pbArgsStub.put(SSHKEY, "--image-password");
 	}
@@ -101,14 +107,18 @@ public class ProfitBricksCloudFormatter implements OutputCloudFormatter {
 		return inputArgs.get(TENANTID);
 	}
 
-	private String getIdentityFile() {		
-		//return inputArgs.get(IDENTITYFILE);
-		return parserwithoutBucket(inputArgs.get(SSHPUBLOCATION))+".key";
+	private String getIdentityFile() {
+		// return inputArgs.get(IDENTITYFILE);
+		if (req_type.equals("delete")) {
+			return "";
+		} else {
+			return parserwithoutBucket(inputArgs.get(SSHPUBLOCATION)) + ".key";
+		}
 	}
 
-	private String getPublicIdentityFile() {		
-		//return inputArgs.get(SSHPUBLOCATION);
-		return parserwithoutBucket(inputArgs.get(SSHPUBLOCATION))+".pub";
+	private String getPublicIdentityFile() {
+		// return inputArgs.get(SSHPUBLOCATION);
+		return parserwithoutBucket(inputArgs.get(SSHPUBLOCATION)) + ".pub";
 	}
 
 	private boolean notNull(String str) {
@@ -133,21 +143,21 @@ public class ProfitBricksCloudFormatter implements OutputCloudFormatter {
 			return str;
 		}
 	}
-	
+
 	@Override
 	public Map<String, String> format() {
 		Map<String, String> pbArgsValPairs = new HashMap<String, String>();
 		for (Map.Entry<String, String> entry : inputArgs.entrySet()) {
-			if (pbArgsStub.containsKey(entry.getKey())) {				
+			if (pbArgsStub.containsKey(entry.getKey())) {
 				if (entry.getKey().equals(IDENTITYFILE)) {
-					pbArgsValPairs.put(pbArgsStub.get(entry.getKey()), getIdentityFile());
-				}
-				else if (entry.getKey().equals(SSHPUBLOCATION)) {
-					pbArgsValPairs.put(pbArgsStub.get(entry.getKey()), getPublicIdentityFile());
-				}
-				else {
-				pbArgsValPairs.put(pbArgsStub.get(entry.getKey()),
-						entry.getValue());
+					pbArgsValPairs.put(pbArgsStub.get(entry.getKey()),
+							getIdentityFile());
+				} else if (entry.getKey().equals(SSHPUBLOCATION)) {
+					pbArgsValPairs.put(pbArgsStub.get(entry.getKey()),
+							getPublicIdentityFile());
+				} else {
+					pbArgsValPairs.put(pbArgsStub.get(entry.getKey()),
+							entry.getValue());
 				}
 			}
 		}
