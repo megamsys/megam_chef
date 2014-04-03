@@ -133,6 +133,7 @@ public class DefaultProvisioningServiceWithShell<T> extends
 		 * proceed Wrap this method and trap for ProvisionerException
 		 */
 		ParmsValidator pv = new ParmsValidator();
+		System.out.println(jr.toString());
 		if (pv.validate(jr.conditionList())) {
 			String vaultLocation = vaultLocationParserwithoutBucket(jr
 					.getAccess().getVaultLocation());			

@@ -39,7 +39,7 @@ public class ComputeInfo implements DataMap, ScriptFeeder, Condition {
 	public static final String CREDENTIALFILE = "credential_file";
 	public static final String ZONE = "zone";
 	public static final String REGION = "region";
-
+	private String req_type;
 	/**
 	 * create Map name as cc (cross cloud) from config.json file
 	 */
@@ -49,23 +49,24 @@ public class ComputeInfo implements DataMap, ScriptFeeder, Condition {
 
 	private OutputCloudFormatter ocf = null;
 
-	public ComputeInfo() {
+	public ComputeInfo(String req_type) {
+		this.req_type = req_type;
 		// tricky, gson populated your private vars (map) yet ?
 	}
 
 	private void createOCF() {
 		switch (getCCType()) {
 		case "ec2":
-			ocf = new AmazonCloudFormatter(map());
+			ocf = new AmazonCloudFormatter(map(), req_type);
 			break;
-		case "google":
-			ocf = new GoogleCloudFormatter(map());
+		case "google":			
+			ocf = new GoogleCloudFormatter(map(), req_type);
 			break;
 		case "hp":
-			ocf = new HPCloudFormatter(map());
+			ocf = new HPCloudFormatter(map(), req_type);
 			break;
 		case "profitbricks":
-			ocf = new ProfitBricksCloudFormatter(map());
+			ocf = new ProfitBricksCloudFormatter(map(), req_type);
 			break;
 		default:
 			throw new IllegalArgumentException(
@@ -75,6 +76,15 @@ public class ComputeInfo implements DataMap, ScriptFeeder, Condition {
 		}
 	}
 
+
+	public void setReqType(String req_type) {
+		this.req_type = req_type;
+	}
+	
+	public String getReqType() {
+		return req_type;
+	}
+	
 	private String getCCType() {
 		return cctype;
 	}

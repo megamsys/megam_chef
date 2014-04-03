@@ -51,12 +51,12 @@ public class ChefInfo extends ProvisionerInfo {
 		if (chef.get(COMMAND).length() > 0)
 			return chef.get(COMMAND);
 		else
-			return "";		
+			return "";
 	}
 
 	public String getPlugin() {
 		if (chef.get(PLUGIN).length() > 0)
-			return chef.get(PLUGIN);
+			return changeServerName(chef.get(PLUGIN));
 		else
 			return "";
 	}
@@ -70,9 +70,22 @@ public class ChefInfo extends ProvisionerInfo {
 	}
 
 	public String getName() {
-		if (chef.get(NAME).length() > 0)
-			return chef.get(NAME);
-		else
+		if (chef.get(NAME).length() > 0) {
+			String[] parts = chef.get(PLUGIN).split(" ");
+			String[] name = (chef.get(NAME)).split(" ");
+			String new_name = null;
+			if (parts[0].equals("google")) {
+				name[1] = name[1].replaceAll("\\W", "");
+				StringBuilder builder = new StringBuilder();
+				for (String s : name) {
+					builder.append(s + " ");
+				}
+				new_name = builder.toString();
+			} else {
+				new_name = chef.get(NAME);
+			}
+			return new_name;
+		} else
 			return "";
 
 	}
@@ -101,6 +114,23 @@ public class ChefInfo extends ProvisionerInfo {
 			}
 		}
 		return isValid;
+	}
+
+	private String changeServerName(String plugin) {
+		String[] parts = plugin.split(" ");
+		String[] name = chef.get(NAME).split(" ");
+		String new_plugin = null;
+		if (parts[0].equals("google")) {
+			parts[3] = name[1].replaceAll("\\W", "");
+			StringBuilder builder = new StringBuilder();
+			for (String s : parts) {
+				builder.append(s + " ");
+			}
+			new_plugin = builder.toString();
+		} else {
+			new_plugin = plugin;
+		}
+		return new_plugin;
 	}
 
 	/*

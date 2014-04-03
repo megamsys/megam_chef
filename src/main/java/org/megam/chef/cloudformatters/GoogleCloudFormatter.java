@@ -28,7 +28,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
 public class GoogleCloudFormatter implements OutputCloudFormatter {
 
 	private final Map<String, String> gceMap_key = new HashMap<String, String>();
@@ -37,16 +36,21 @@ public class GoogleCloudFormatter implements OutputCloudFormatter {
 	private String cc = "";
 	private String email = "";
 	private String bucket = "";
-	public GoogleCloudFormatter(Map<String, String> tempArgs) {
-		this.inputArgs = tempArgs;	
+	private String req_type = "";
+
+	public GoogleCloudFormatter(Map<String, String> tempArgs, String req_type) {
+		this.req_type = req_type;
+		this.inputArgs = tempArgs;
 		this.gceMap_key.put(GROUPS, "-n");
 		this.gceMap_key.put(IMAGE, "-I");
-		this.gceMap_key.put(FLAVOR, "-m");		
+		this.gceMap_key.put(FLAVOR, "-m");
 		this.gceMap_key.put(SSHUSER, "-x");
-		this.gceMap_key.put(IDENTITYFILE, "--identity-file");
+		if (!req_type.equals("delete")) {
+			this.gceMap_key.put(IDENTITYFILE, "--identity-file");
+		}
 		this.gceMap_key.put(ZONE, "-Z");
 	}
-	
+
 	private String getZone() {
 		return inputArgs.get(ZONE);
 	}
@@ -58,20 +62,23 @@ public class GoogleCloudFormatter implements OutputCloudFormatter {
 	private String getGroup() {
 		return inputArgs.get(GROUPS);
 	}
-	
+
 	private String getFlavor() {
 		return inputArgs.get(FLAVOR);
 	}
-	
+
 	private String getSshUser() {
 		return inputArgs.get(SSHUSER);
 	}
 
 	private String getIdentityFile() {
-		//return inputArgs.get(IDENTITYFILE);
-		return parserwithoutBucket(inputArgs.get(SSHPUBLOCATION))+".key";
+		if (req_type.equals("delete")) {
+			return "";
+		} else {
+			return parserwithoutBucket(inputArgs.get(SSHPUBLOCATION)) + ".key";
+		}
 	}
-	
+
 	private boolean notNull(String str) {
 		if (inputArgs.containsKey(str)) {
 			return true;
@@ -102,17 +109,17 @@ public class GoogleCloudFormatter implements OutputCloudFormatter {
 		for (Map.Entry<String, String> entry : inputArgs.entrySet()) {
 			if (gceMap_key.containsKey(entry.getKey())) {
 				if (entry.getKey().equals(IDENTITYFILE)) {
-					gceMap_result.put(gceMap_key.get(entry.getKey()), getIdentityFile());
-				}				
-				else {				
+					gceMap_result.put(gceMap_key.get(entry.getKey()),
+							getIdentityFile());
+				} else {
 					gceMap_result.put(gceMap_key.get(entry.getKey()),
 							entry.getValue());
-				}								
+				}
 			}
 		}
 		return gceMap_result;
 	}
-	
+
 	public boolean ok() {
 		boolean isOk = true;
 		isOk = isOk && validate(ZONE, getZone());
@@ -120,7 +127,7 @@ public class GoogleCloudFormatter implements OutputCloudFormatter {
 		isOk = isOk && validate(FLAVOR, getFlavor());
 		isOk = isOk && validate(SSHUSER, getSshUser());
 		isOk = isOk && validate(GROUPS, getGroup());
-		//isOk = isOk && validate(IDENTITYFILE, getIdentityFile());
+		// isOk = isOk && validate(IDENTITYFILE, getIdentityFile());
 		return isOk;
 	}
 
@@ -161,9 +168,6 @@ public class GoogleCloudFormatter implements OutputCloudFormatter {
 	public List<String> getReason() {
 		return unsatifiedReason;
 	}
-	
-	
-
 
 	public String toString() {
 		StringBuilder strbd = new StringBuilder();

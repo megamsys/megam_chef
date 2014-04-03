@@ -26,6 +26,8 @@ public class ParmsValidator {
 	public  boolean validate(List<Condition> conditionList) {
 		Boolean isValid = true;
 		for (Condition conditions : conditionList) {
+			System.out.println(conditions.name());
+			System.out.println(conditions.inputAvailable());
 			isValid = conditions.inputAvailable();
 			if (!isValid) {		
 					reasonsNotSatisfied.addAll(conditions.getReason());	

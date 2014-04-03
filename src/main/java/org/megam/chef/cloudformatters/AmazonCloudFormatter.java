@@ -38,15 +38,20 @@ public class AmazonCloudFormatter implements OutputCloudFormatter {
 	private String cc = "";
 	private String email = "";
 	private String bucket = "";
-	public AmazonCloudFormatter(Map<String, String> tempArgs) {
+	private String req_type = "";
+
+	public AmazonCloudFormatter(Map<String, String> tempArgs, String req_type) {
 		this.inputArgs = tempArgs;
+		this.req_type = req_type;
 		this.unsatifiedReason = new ArrayList<String>();
 		this.awsMap_key.put(GROUPS, "-G");
 		this.awsMap_key.put(IMAGE, "-I");
 		this.awsMap_key.put(FLAVOR, "-f");
 		this.awsMap_key.put(SSHKEY, "-S");
 		this.awsMap_key.put(SSHUSER, "-x");
-		this.awsMap_key.put(IDENTITYFILE, "--identity-file");
+		if (!req_type.equals("delete")) {
+			this.awsMap_key.put(IDENTITYFILE, "--identity-file");
+		}
 		this.awsMap_key.put(REGION, "--region");
 	}
 
@@ -61,7 +66,7 @@ public class AmazonCloudFormatter implements OutputCloudFormatter {
 	private String getFlavor() {
 		return inputArgs.get(FLAVOR);
 	}
-	
+
 	private String getSshKey() {
 		return inputArgs.get(SSHKEY);
 	}
@@ -71,16 +76,18 @@ public class AmazonCloudFormatter implements OutputCloudFormatter {
 	}
 
 	private String getIdentityFile() {
-		System.out.println("+++++++++++++++++++++++++++");
-		System.out.println(parserwithoutBucket(inputArgs.get(SSHPUBLOCATION)));
-		return parserwithoutBucket(inputArgs.get(SSHPUBLOCATION))+".key";
-		//return inputArgs.get(IDENTITYFILE);
+		if (req_type.equals("delete")) {
+			return "";
+		} else {
+			return parserwithoutBucket(inputArgs.get(SSHPUBLOCATION)) + ".key";
+		}
+		// return inputArgs.get(IDENTITYFILE);
 	}
-	
+
 	private String getRegion() {
 		return inputArgs.get(REGION);
 	}
-	
+
 	private boolean notNull(String str) {
 		if (inputArgs.containsKey(str)) {
 			return true;
@@ -103,18 +110,18 @@ public class AmazonCloudFormatter implements OutputCloudFormatter {
 			return str;
 		}
 	}
-	
+
 	@Override
 	public Map<String, String> format() {
 		Map<String, String> awsMap_result = new HashMap<String, String>();
 		for (Map.Entry<String, String> entry : inputArgs.entrySet()) {
 			if (awsMap_key.containsKey(entry.getKey())) {
 				if (entry.getKey().equals(IDENTITYFILE)) {
-					awsMap_result.put(awsMap_key.get(entry.getKey()), getIdentityFile());
-				}				
-				else {				
-				awsMap_result.put(awsMap_key.get(entry.getKey()),
-						entry.getValue());
+					awsMap_result.put(awsMap_key.get(entry.getKey()),
+							getIdentityFile());
+				} else {
+					awsMap_result.put(awsMap_key.get(entry.getKey()),
+							entry.getValue());
 				}
 			}
 		}
@@ -128,7 +135,7 @@ public class AmazonCloudFormatter implements OutputCloudFormatter {
 		isOk = isOk && validate(FLAVOR, getFlavor());
 		isOk = isOk && validate(SSHKEY, getSshKey());
 		isOk = isOk && validate(SSHUSER, getSshUser());
-		//isOk = isOk && validate(IDENTITYFILE, getIdentityFile());
+		// isOk = isOk && validate(IDENTITYFILE, getIdentityFile());
 		isOk = isOk && validate(REGION, getRegion());
 		return isOk;
 	}
@@ -163,16 +170,15 @@ public class AmazonCloudFormatter implements OutputCloudFormatter {
 		isAvailable = isAvailable && notNull(REGION);
 		return isAvailable;
 	}
-	
+
 	public String name() {
-		return  "acf:";
+		return "acf:";
 	}
-	
+
 	public List<String> getReason() {
 		return unsatifiedReason;
 	}
 
-	
 	public String toString() {
 		StringBuilder strbd = new StringBuilder();
 		final Formatter formatter = new Formatter(strbd);

@@ -18,8 +18,9 @@ public class JSONRequest {
 	private ComputeInfo compute;
 	private SystemProvider systemprovider;
 	private ChefInfo cloudtool;
-
-	public JSONRequest() {
+    private String req_type;
+	
+	public JSONRequest() {			
 	}
 
 	/**
@@ -46,6 +47,15 @@ public class JSONRequest {
 		return cloudtool;
 	}
 
+	
+	public void setReqType(String req_type) {
+		this.req_type = req_type;
+	}
+	
+	public String getReqType() {		
+		return req_type;
+	}
+	
 	/**
 	 * 
 	 * @return linked list object
