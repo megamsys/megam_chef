@@ -5,9 +5,9 @@
 	<groupId>com.github.indykish</groupId>
 	<artifactId>megam_chef</artifactId>
 	<packaging>jar</packaging>
-	<version>0.1.0-SNAPSHOT</version>
+	<version>0.3.0-SNAPSHOT</version>
 	<properties>
-		<java-version>1.7</java-version>
+		<java-version>1.8</java-version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<org.slf4j-version>1.7.6</org.slf4j-version>
 		<skipTests>true</skipTests>
@@ -72,13 +72,13 @@
 		<dependency>
 			<groupId>com.amazonaws</groupId>
 			<artifactId>aws-java-sdk</artifactId>
-			<version>1.6.12</version>
+			<version>1.7.5</version>
 		</dependency>
 		<!-- JGit Repository -->
 		<dependency>
 			<groupId>org.eclipse.jgit</groupId>
 			<artifactId>org.eclipse.jgit</artifactId>
-			<version>3.3.0.201403021825-r</version>
+			<version>3.3.1.201403241930-r</version>
 		</dependency>
 	</dependencies>
 	<repositories>
@@ -125,7 +125,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.16</version>
+				<version>2.17</version>
 				<configuration>
 					<configuration>
 						<forkMode>never</forkMode>
@@ -149,9 +149,9 @@
 			</plugin>
 		</plugins>
 	</build>
-	<description>Java based Cloud Tool management. The currently supported cloud tool is Opscode Chef connector. The API accepts a JSON request, builds a chef command line using (Knife). This interfaces with Riak and has option with No Riak as well.</description>
+	<description>Java based Cloud Provisioner Interface. The currently supported cloud provisioner is Opscode Chef. The API accepts a JSON request, builds a chef command line using (Knife). This interfaces with Riak and has option with No Riak as well.</description>
 	<url>https://www.megam.co</url>
-	<name>Cloud Tool Management for Megam</name>
+	<name>Cloud Provisioner for Megam(https://www.megam.co)</name>
 	<organization>
 		<name>Megam Systems</name>
 		<url>http://www.gomegam.com</url>
