@@ -10,6 +10,7 @@ import org.megam.chef.cloudformatters.AmazonCloudFormatter;
 import org.megam.chef.cloudformatters.GoogleCloudFormatter;
 import org.megam.chef.cloudformatters.HPCloudFormatter;
 import org.megam.chef.cloudformatters.ProfitBricksCloudFormatter;
+import org.megam.chef.cloudformatters.GoGridFormatter;
 import org.megam.chef.cloudformatters.OutputCloudFormatter;
 import org.megam.chef.core.Condition;
 import org.megam.chef.core.ScriptFeeder;
@@ -67,6 +68,9 @@ public class ComputeInfo implements DataMap, ScriptFeeder, Condition {
 			break;
 		case "profitbricks":
 			ocf = new ProfitBricksCloudFormatter(map(), req_type);
+			break;
+		case "gogrid":
+			ocf = new GoGridFormatter(map(), req_type);
 			break;
 		default:
 			throw new IllegalArgumentException(
