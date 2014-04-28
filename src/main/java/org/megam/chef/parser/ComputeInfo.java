@@ -72,6 +72,9 @@ public class ComputeInfo implements DataMap, ScriptFeeder, Condition {
 		case "gogrid":
 			ocf = new GoGridFormatter(map(), req_type);
 			break;
+		case "opennebula":
+			ocf = new OpenNebulaCloudFormatter(map(), req_type);
+			break;
 		default:
 			throw new IllegalArgumentException(
 					getCCType()
