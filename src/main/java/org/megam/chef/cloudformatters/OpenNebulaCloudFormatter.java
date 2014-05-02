@@ -28,7 +28,7 @@ import java.util.Map;
 
 public class OpenNebulaCloudFormatter implements OutputCloudFormatter {
 
-	private final Map<String, String> hpMap_key = new HashMap<String, String>();
+	private final Map<String, String> opMap_key = new HashMap<String, String>();
 	private Map<String, String> inputArgs;
 	private List<String> unsatifiedReason;
 	private String cc = "";
@@ -36,15 +36,15 @@ public class OpenNebulaCloudFormatter implements OutputCloudFormatter {
 	private String bucket = "";
 	private String req_type = "";
 
-	public HPCloudFormatter(Map<String, String> tempArgs, String req_type) {
+	public OpenNebulaCloudFormatter(Map<String, String> tempArgs, String req_type) {
 		this.inputArgs = tempArgs;
 		this.req_type = req_type;
-		this.hpMap_key.put(IMAGE, "--template-name");
-		this.hpMap_key.put(SSHUSER, "-x");
+		this.opMap_key.put(IMAGE, "--template-name");
+		this.opMap_key.put(SSHUSER, "-x");
 		if (!req_type.equals("delete")) {
-			this.hpMap_key.put(IDENTITYFILE, "--identity-file");
+			this.opMap_key.put(IDENTITYFILE, "--identity-file");
 		}
-		this.hpMap_key.put(ZONE, "--endpoint");
+		this.opMap_key.put(ZONE, "--endpoint");
 	}
 
 
@@ -95,19 +95,19 @@ public class OpenNebulaCloudFormatter implements OutputCloudFormatter {
 
 	@Override
 	public Map<String, String> format() {
-		Map<String, String> hpMap_result = new HashMap<String, String>();
+		Map<String, String> opMap_result = new HashMap<String, String>();
 		for (Map.Entry<String, String> entry : inputArgs.entrySet()) {
-			if (hpMap_key.containsKey(entry.getKey())) {
+			if (opMap_key.containsKey(entry.getKey())) {
 				if (entry.getKey().equals(IDENTITYFILE)) {
-					hpMap_result.put(hpMap_key.get(entry.getKey()),
+					opMap_result.put(opMap_key.get(entry.getKey()),
 							getIdentityFile());
 				} else {
-					hpMap_result.put(hpMap_key.get(entry.getKey()),
+					opMap_result.put(opMap_key.get(entry.getKey()),
 							entry.getValue());
 				}
 			}
 		}
-		return hpMap_result;
+		return opMap_result;
 	}
 
 	public boolean ok() {
