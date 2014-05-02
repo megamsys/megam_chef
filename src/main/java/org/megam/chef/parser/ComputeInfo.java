@@ -9,6 +9,7 @@ import org.megam.chef.Constants;
 import org.megam.chef.cloudformatters.AmazonCloudFormatter;
 import org.megam.chef.cloudformatters.GoogleCloudFormatter;
 import org.megam.chef.cloudformatters.HPCloudFormatter;
+import org.megam.chef.cloudformatters.OpenNebulaCloudFormatter;
 import org.megam.chef.cloudformatters.ProfitBricksCloudFormatter;
 import org.megam.chef.cloudformatters.GoGridFormatter;
 import org.megam.chef.cloudformatters.OutputCloudFormatter;
