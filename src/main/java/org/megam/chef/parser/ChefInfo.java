@@ -74,16 +74,16 @@ public class ChefInfo extends ProvisionerInfo {
 			String[] parts = chef.get(PLUGIN).split(" ");
 			String[] name = (chef.get(NAME)).split(" ");
 			String new_name = null;
-			if (parts[0].equals("google")) {
-				name[1] = name[1].replaceAll("\\W", "");
-				StringBuilder builder = new StringBuilder();
-				for (String s : name) {
-					builder.append(s + " ");
-				}
-				new_name = builder.toString();
-			} else {
+			//if (parts[0].equals("google")) {
+			//	name[1] = name[1].replaceAll("\\W", "");
+			//	StringBuilder builder = new StringBuilder();
+			//	for (String s : name) {
+			//		builder.append(s + " ");
+			//	}
+			//	new_name = builder.toString();
+			//} else {
 				new_name = chef.get(NAME);
-			}
+			//}
 			return new_name;
 		} else
 			return "";
