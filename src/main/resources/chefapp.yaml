@@ -2,7 +2,7 @@ megamchef:
         config: 'production'
 development: 
       source: 'riak'
-      host: 'localhost'
+      host: 'api.megam.co'
       port: '8098'
       bucket: 'requests'
 production: 

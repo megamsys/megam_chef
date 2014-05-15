@@ -52,7 +52,7 @@ public class ChefServiceTest {
 		try {
 			//(new ChefServiceRunner()).withType(TYPE.CHEF_WITH_SHELL).input(new DropIn("RIP432866425464422400")).control();
 			//(new ChefServiceRunner()).withType(TYPE.CHEF_WITH_SHELL).input(new DropIn("RIP432863478038921216")).control();
-			(new ChefServiceRunner()).withType(TYPE.CHEF_WITH_SHELL).input(new DropIn("RIP451721484914655232")).control();
+			(new ChefServiceRunner()).withType(TYPE.CHEF_WITH_SHELL).input(new DropIn("RIP466484788488830976")).control();
 			assertTrue("This will succeed.", true);
 		} catch (IOException ioe) {
 			throw new BootStrapChefException(ioe);
