@@ -32,9 +32,9 @@ import org.slf4j.LoggerFactory;
  * system. If the source=no is configured, then the input id is assumed to be
  * JSON string To instantiate this class pass the TYPE enumerator. The supported
  * types are CHEF_WITH_SHELL and NONE
- * 
+ *
  * @author rajthilak
- * 
+ * @version $Id: $Id
  */
 public class ChefServiceRunner {
 
@@ -44,13 +44,14 @@ public class ChefServiceRunner {
 
 	/**
 	 * Takes an input enumerator TYPE
-	 * 
-	 * @param type
-	 * @return
-	 * @throws BootStrapChefException
-	 * @throws ProvisionerException
-	 * @throws SourceException
+	 *
+	 * @param type a {@link org.megam.chef.ProvisionerFactory.TYPE} object.
+	 * @throws org.megam.chef.exception.BootStrapChefException if any.
+	 * @throws org.megam.chef.exception.ProvisionerException if any.
+	 * @throws org.megam.chef.exception.SourceException
 	 *             booting the initialization classes load the source *
+	 * @return a {@link org.megam.chef.ChefServiceRunner} object.
+	 * @throws java.io.IOException if any.
 	 */
 	public ChefServiceRunner withType(TYPE type) throws BootStrapChefException,
 			ProvisionerException, SourceException, IOException {
@@ -64,16 +65,16 @@ public class ChefServiceRunner {
 	}
 
 	/**
-	 * 
-	 * @param dropid
-	 * @return
-	 * @throws SourceException
-	 * @throws ProvisionerException
+	 * <p>input.</p>
+	 *
+	 * @param dropid a {@link org.megam.chef.DropIn} object.
+	 * @throws org.megam.chef.exception.SourceException if any.
+	 * @throws org.megam.chef.exception.ProvisionerException
 	 *             fetch the json string execute the provisioning service using
 	 *             that json string
-	 * @throws IdentifierException
-	 * @throws IOException
-	 * 
+	 * @throws org.megam.chef.exception.IdentifierException if any.
+	 * @throws java.io.IOException if any.
+	 * @return a {@link org.megam.chef.ChefServiceRunner} object.
 	 */
 	public ChefServiceRunner input(DropIn dropid) throws SourceException,
 			ProvisionerException, IOException, IdentifierException {
@@ -82,6 +83,11 @@ public class ChefServiceRunner {
 		return this;
 	}
 
+	/**
+	 * <p>control.</p>
+	 *
+	 * @return a {@link org.megam.chef.ChefServiceRunner} object.
+	 */
 	public ChefServiceRunner control() {
 		return this;
 	}

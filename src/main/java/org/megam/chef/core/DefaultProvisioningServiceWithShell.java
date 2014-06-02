@@ -39,11 +39,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * <p>DefaultProvisioningServiceWithShell class.</p>
+ *
  * @author ram
- * @param <T>
- * 
+*  @param <T>  {@link java.lang.Object} object.
+ * @version $Id: $Id
  */
-
 public class DefaultProvisioningServiceWithShell<T> extends
 		DefaultProvisioningService<T> implements Shellable, Stoppable {
 	private Logger logger = LoggerFactory
@@ -53,21 +54,20 @@ public class DefaultProvisioningServiceWithShell<T> extends
 	private String bucket = "";
 
 	/**
-	 * 
-	 * @throws ProvisionerException
+	 * <p>Constructor for DefaultProvisioningServiceWithShell.</p>
+	 *
+	 * @throws org.megam.chef.exception.ProvisionerException if any.
 	 */
 	public DefaultProvisioningServiceWithShell() throws ProvisionerException {
 		super();
 	}
 
 	/**
+	 * {@inheritDoc}
+	 *
 	 * TO-DO : What is the output we need to send ? We need a generic way to
 	 * convert a Java output to JSON output
-	 * 
-	 * @throws IdentifierException
-	 * @throws IOException
-	 * 
-	 * @see org.megam.chef.ProvisioningService#provision()
+	 * @see org.megam.chef.ProvisioningService#provision(String) provision
 	 */
 	@Override
 	public T provision(String jsonString) throws ProvisionerException,
@@ -84,13 +84,7 @@ public class DefaultProvisioningServiceWithShell<T> extends
 		return null;
 	}
 
-	/**
-	 * @param args
-	 * @throws ShellException
-	 * @throws IdentifierException
-	 * @throws IOException
-	 * @throws ProvisionerException
-	 */
+	/** {@inheritDoc} */
 	public MultiCommands jsonToCommand(String jsonRequest)
 			throws ShellException, IOException, IdentifierException,
 			ProvisionerException {
@@ -104,6 +98,7 @@ public class DefaultProvisioningServiceWithShell<T> extends
 	 * 
 	 * @see org.megam.shell.Stoppable#stop()
 	 */
+	/** {@inheritDoc} */
 	@Override
 	public void halt() {
 		throw new RuntimeException("Halt not implemented yet.");
@@ -155,6 +150,12 @@ public class DefaultProvisioningServiceWithShell<T> extends
 		}
 	}
 
+	/**
+	 * <p>vaultLocationParserwithoutBucket.</p>
+	 *
+	 * @param str a {@link java.lang.String} object.
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String vaultLocationParserwithoutBucket(String str) {
 		if (str.length() > 0) {
 			int lst = str.lastIndexOf("/");
@@ -167,6 +168,12 @@ public class DefaultProvisioningServiceWithShell<T> extends
 		}
 	}
 
+	/**
+	 * <p>vaultLocationParserwithBucket.</p>
+	 *
+	 * @param str a {@link java.lang.String} object.
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String vaultLocationParserwithBucket(String str) {
 		if (str.length() > 0) {
 			int lst = str.lastIndexOf("/");
@@ -181,6 +188,11 @@ public class DefaultProvisioningServiceWithShell<T> extends
 		}
 	}
 
+	/**
+	 * <p>toString.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String toString() {
 		return "DefaultProvisioningWithShell";
 	}
@@ -190,6 +202,7 @@ public class DefaultProvisioningServiceWithShell<T> extends
 	 * 
 	 * @see org.megam.chef.shell.Shellable#execute(org.megam.chef.shell.Command)
 	 */
+	/** {@inheritDoc} */
 	@Override
 	public void execute(MultiCommands command) throws ShellException {
 		(new ShellProvisioningPool()).run(command);

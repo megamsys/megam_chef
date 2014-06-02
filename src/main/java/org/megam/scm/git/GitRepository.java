@@ -26,21 +26,33 @@ import org.slf4j.LoggerFactory;
 /**
  * Git Repository gets the local path and git repository path, to clone the
  * project from git repository to local path
- * 
+ *
  * @author rajthilak
- * 
+ * @version $Id: $Id
  */
-
 public class GitRepository {
 
 	private String localPath;
 	private Logger logger = LoggerFactory.getLogger(GitRepository.class);
 
+	/**
+	 * <p>Constructor for GitRepository.</p>
+	 *
+	 * @param localPath a {@link java.lang.String} object.
+	 * @throws org.megam.chef.exception.SCMException if any.
+	 */
 	public GitRepository(String localPath) throws SCMException {
 		logger.debug("----> setting Repository local path ");
 		this.localPath = localPath;
 	}
 
+	/**
+	 * <p>clone.</p>
+	 *
+	 * @param remotePath a {@link java.lang.String} object.
+	 * @return a {@link org.megam.scm.git.GitRepository} object.
+	 * @throws org.megam.chef.exception.SCMException if any.
+	 */
 	public GitRepository clone(String remotePath) throws SCMException {
 		try {
 			logger.debug("----> Repository Cloning start..");

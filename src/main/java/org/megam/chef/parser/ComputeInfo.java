@@ -20,26 +20,42 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * 
+ * <p>ComputeInfo class.</p>
+ *
  * @author rajthilak
- * 
+ * @version $Id: $Id
  */
 public class ComputeInfo implements DataMap, ScriptFeeder, Condition {
 
+	/** Constant <code>GROUPS="groups"</code> */
 	public static final String GROUPS = "groups";	
+	/** Constant <code>IMAGE="image"</code> */
 	public static final String IMAGE = "image";
+	/** Constant <code>FLAVOR="flavor"</code> */
 	public static final String FLAVOR = "flavor";
+	/** Constant <code>CPUS="cpus"</code> */
 	public static final String CPUS = "cpus";
+	/** Constant <code>RAM="ram"</code> */
 	public static final String RAM = "ram";
+	/** Constant <code>HDD="hdd-size"</code> */
 	public static final String HDD = "hdd-size";
+	/** Constant <code>TENANTID="tenant_id"</code> */
 	public static final String TENANTID = "tenant_id";
+	/** Constant <code>SSHKEY="ssh_key"</code> */
 	public static final String SSHKEY = "ssh_key";
+	/** Constant <code>IDENTITYFILE="identity_file"</code> */
 	public static final String IDENTITYFILE = "identity_file";
+	/** Constant <code>SSHUSER="ssh_user"</code> */
 	public static final String SSHUSER = "ssh_user";
+	/** Constant <code>VAULTLOCATION="vault_location"</code> */
 	public static final String VAULTLOCATION = "vault_location";
+	/** Constant <code>SSHPUBLOCATION="sshpub_location"</code> */
 	public static final String SSHPUBLOCATION = "sshpub_location";
+	/** Constant <code>CREDENTIALFILE="credential_file"</code> */
 	public static final String CREDENTIALFILE = "credential_file";
+	/** Constant <code>ZONE="zone"</code> */
 	public static final String ZONE = "zone";
+	/** Constant <code>REGION="region"</code> */
 	public static final String REGION = "region";
 	private String req_type;
 	/**
@@ -51,6 +67,11 @@ public class ComputeInfo implements DataMap, ScriptFeeder, Condition {
 
 	private OutputCloudFormatter ocf = null;
 
+	/**
+	 * <p>Constructor for ComputeInfo.</p>
+	 *
+	 * @param req_type a {@link java.lang.String} object.
+	 */
 	public ComputeInfo(String req_type) {
 		this.req_type = req_type;
 		// tricky, gson populated your private vars (map) yet ?
@@ -85,10 +106,22 @@ public class ComputeInfo implements DataMap, ScriptFeeder, Condition {
 	}
 
 
+	/**
+	 * <p>setReqType.</p>
+	 *
+	 * @param req_type a {@link java.lang.String} object.
+	 * @since 0.5.0
+	 */
 	public void setReqType(String req_type) {
 		this.req_type = req_type;
 	}
 	
+	/**
+	 * <p>getReqType.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 * @since 0.5.0
+	 */
 	public String getReqType() {
 		return req_type;
 	}
@@ -97,15 +130,27 @@ public class ComputeInfo implements DataMap, ScriptFeeder, Condition {
 		return cctype;
 	}
 
+	/**
+	 * <p>getVaultLocation.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String getVaultLocation() {
 		return map().get(VAULTLOCATION);
 	}
 
+	/**
+	 * <p>getSshPubLocation.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String getSshPubLocation() {
 		return map().get(SSHPUBLOCATION);
 	}
 
 	/**
+	 * <p>map.</p>
+	 *
 	 * @return ec2 map
 	 */
 	public Map<String, String> map() {
@@ -115,10 +160,20 @@ public class ComputeInfo implements DataMap, ScriptFeeder, Condition {
 		return cc;
 	}
 
+	/**
+	 * <p>canFeed.</p>
+	 *
+	 * @return a boolean.
+	 */
 	public boolean canFeed() {
 		return true;
 	}
 
+	/**
+	 * <p>feed.</p>
+	 *
+	 * @return a {@link org.megam.chef.shell.FedInfo} object.
+	 */
 	public FedInfo feed() {
 		Map<String, String> ocfout = ocf.format();
 		if (ocfout != null) {
@@ -145,25 +200,42 @@ public class ComputeInfo implements DataMap, ScriptFeeder, Condition {
 	 * 
 	 * @see org.megam.chef.core.Condition#name()
 	 */
+	/**
+	 * <p>name.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String name() {
 		return "ComputeInfo";
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public boolean ok() {
 		return ocf.ok();
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public boolean inputAvailable() {
 		createOCF();
 		return ocf.inputAvailable();
 	}
 
+	/**
+	 * <p>getReason.</p>
+	 *
+	 * @return a {@link java.util.List} object.
+	 */
 	public List<String> getReason() {
 		return ocf.getReason();
 	}
 
+	/**
+	 * <p>toString.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String toString() {
 		StringBuilder strbd = new StringBuilder();
 		final Formatter formatter = new Formatter(strbd);

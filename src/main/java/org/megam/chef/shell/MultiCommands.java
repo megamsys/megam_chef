@@ -21,9 +21,10 @@ import java.util.List;
 import java.util.StringTokenizer;
 
 /**
- * 
+ * <p>MultiCommands class.</p>
+ *
  * @author rajthilak
- * 
+ * @version $Id: $Id
  */
 public class MultiCommands {
 
@@ -34,6 +35,11 @@ public class MultiCommands {
 	private String str, prev_token = "", subcommand = "";
 	private LinkedList<Command> list = new LinkedList<Command>();
 
+	/**
+	 * <p>Constructor for MultiCommands.</p>
+	 *
+	 * @param shellArray an array of {@link java.lang.String} objects.
+	 */
 	public MultiCommands(String[] shellArray) {
 		this.inputCmd = shellArray[0];
 		this.mainList = new ArrayList<String>();
@@ -74,7 +80,8 @@ public class MultiCommands {
 	}
 
 	/**
-	 * 
+	 * <p>getOrderedCommands.</p>
+	 *
 	 * @return command list
 	 */
 	public LinkedList<Command> getOrderedCommands() {		

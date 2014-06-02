@@ -22,10 +22,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * <p>SourceLoader class.</p>
+ *
  * @author rajthilak
- * 
+ * @version $Id: $Id
  */
-
 public class SourceLoader {
 
 	private Logger logger = LoggerFactory.getLogger(SourceLoader.class);
@@ -44,8 +45,9 @@ public class SourceLoader {
 	private AppYaml yaml;
 
 	/**
-	 * 
-	 * @param tempYaml
+	 * <p>Constructor for SourceLoader.</p>
+	 *
+	 * @param tempYaml a {@link org.megam.chef.AppYaml} object.
 	 */
 	public SourceLoader(AppYaml tempYaml) {
 		this.yaml = tempYaml;
@@ -54,8 +56,8 @@ public class SourceLoader {
 	/**
 	 * Loads the appropriate source object. The valid source are RiakSource,
 	 * NoneSource
-	 * 
-	 * @throws SourceException
+	 *
+	 * @throws org.megam.chef.exception.SourceException if any.
 	 */
 	public void load() throws SourceException {
 		logger.debug("-------> yaml source =>" + yaml.getSource());
@@ -74,15 +76,16 @@ public class SourceLoader {
 
 	/**
 	 * Returns the json as fetched by using the id passed in from the source.
-	 * The source can be RiakSource, or NoneSource. RiakSource => In case of
-	 * riak source, a fetch on the bucket using an id is performed. This means
-	 * an id containing a JSON value should exist for that host/post/bucket in
-	 * riak. NoneSource => In this case it is assumed that the passed in input
+	 * The source can be RiakSource, or NoneSource. 
+	 * RiakSource: In case of riak source, a fetch on the bucket using an id is performed. 
+	 * This means an id containing a JSON value should exist for that host/post/bucket in
+	 * riak. 
+	 * NoneSource: In this case it is assumed that the passed in input
 	 * (as id) contains the JSON string to process.
-	 * 
-	 * @param id
-	 * @return
-	 * @throws SourceException
+	 *
+	 * @param id a {@link java.lang.String} object.
+	 * @throws org.megam.chef.exception.SourceException if any.
+	 * @return a {@link java.lang.String} object.
 	 */
 	public String fetchRequestJSON(String id) throws SourceException {
 		logger.debug("-------> id =>"+ id);

@@ -18,20 +18,22 @@ package org.megam.chef;
 import java.io.File;
 
 /**
+ * <p>Constants class.</p>
+ *
  * @author ram
- * 
+ * @version $Id: $Id
  */
 public class Constants {
 
 	/**
 	 * The version that gets printed in the log after booting.
 	 */
-	public static final String VERSION = "0.1.0-SNAPSHOT";
+	public static final String VERSION = "0.5";
 	/**
 	 * The build date of the the jar. This might get tweaked by pulling the date
 	 * when maven jars the file.
 	 */
-	public static final String BUILD_DATE = "20142101";
+	public static final String BUILD_DATE = "20140206";
 
 	/**
 	 * The current directory from where the code runs if this called from akka
@@ -40,7 +42,7 @@ public class Constants {
 	public static String MEGAM_CHEF_ROOT = System.getProperty("user.dir");
 
 	/**
-	 * The user home directory in unix this is ~ or /home/<user> Fix in AWS
+	 * The user home directory in unix this is ~ or /home/user.home Fix in AWS
 	 * which doesn't allow /root/.megam to be stored. Hence we use
 	 * ENV[MEGAM_HOME] (or) user.dir.
 	 */
@@ -48,9 +50,11 @@ public class Constants {
 			.getenv("MEGAM_HOME").trim().length() > 0) ? System
 			.getenv("MEGAM_HOME") : MEGAM_CHEF_ROOT;
 
+	/** Constant <code>MEGAM_AWS_ACCESS_KEY="System.getenv(MEGAM_AWS_ACCESS_KEY)"</code> */
 	public static final String MEGAM_AWS_ACCESS_KEY = System
 			.getenv("MEGAM_AWS_ACCESS_KEY");
 
+	/** Constant <code>MEGAM_AWS_SECRET_ID="System.getenv(MEGAM_AWS_SECRET_ID)"</code> */
 	public static final String MEGAM_AWS_SECRET_ID = System
 			.getenv("MEGAM_AWS_SECRET_ID");
 	/**
@@ -61,6 +65,7 @@ public class Constants {
 			+ java.io.File.separator + ".megam" + java.io.File.separator
 			+ "chefapp.yaml";
 
+	/** Constant <code>MEGAM_DEFAULT_CHEF_APP_YAML="chefapp.yaml"</code> */
 	public static final String MEGAM_DEFAULT_CHEF_APP_YAML = "chefapp.yaml";
 
 	/**
@@ -68,6 +73,7 @@ public class Constants {
 	 */
 	public static String MEGAM_VAULT = MEGAM_USER_HOME + java.io.File.separator ;
 	
+	/** Constant <code>BUCKET_NAME="cloudkeys"</code> */
 	public static String BUCKET_NAME = "cloudkeys";
 	
 	/**
@@ -76,6 +82,7 @@ public class Constants {
 	public static final String MEGAM_CHEF_LOG = MEGAM_USER_HOME
 			+ java.io.File.separator + "logs" + java.io.File.separator;
 
+	/** Constant <code>HELP_GITHUB="Refer https://github.com/indykish/megam"{trunked}</code> */
 	public static final String HELP_GITHUB = "Refer https://github.com/indykish/megam_chef.git for more info.";	
 	
 }

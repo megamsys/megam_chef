@@ -9,9 +9,10 @@ import java.util.Map;
 import org.megam.chef.core.Condition;
 
 /**
- * 
+ * <p>SystemProvider class.</p>
+ *
  * @author rajthilak
- * 
+ * @version $Id: $Id
  */
 public class SystemProvider implements Condition {
 
@@ -23,11 +24,15 @@ public class SystemProvider implements Condition {
 	private static final String PROVISIONER = "prov";
 	private Map<String, String> provider = new HashMap<String, String>();
 
+	/**
+	 * <p>Constructor for SystemProvider.</p>
+	 */
 	public SystemProvider() {
 	}
 
 	/**
-	 * 
+	 * <p>map.</p>
+	 *
 	 * @return provider
 	 */
 	public Map<String, String> map() {
@@ -37,6 +42,8 @@ public class SystemProvider implements Condition {
 	
 	/**
 	 * toString method for provisioner
+	 *
+	 * @return a {@link java.lang.String} object.
 	 */
 	public String toString() {
 		StringBuilder strbd = new StringBuilder();
@@ -48,11 +55,21 @@ public class SystemProvider implements Condition {
 		return strbd.toString();
 	}
 
+	/**
+	 * <p>getReason.</p>
+	 *
+	 * @return a {@link java.util.List} object.
+	 */
 	public List<String> getReason() {
 		// TODO Auto-generated method stub
 		return inputavailablereason;
 	}
 
+	/**
+	 * <p>ok.</p>
+	 *
+	 * @return a boolean.
+	 */
 	public boolean ok() {
 		// TODO Auto-generated method stub
 		Boolean returnokvalue = true;
@@ -66,9 +83,10 @@ public class SystemProvider implements Condition {
 	}
 
 	/**
-	 * 
-	 * @param key
-	 * @param value
+	 * <p>validate.</p>
+	 *
+	 * @param key a {@link java.lang.String} object.
+	 * @param value a {@link java.lang.String} object.
 	 */
 	public void validate(String key, String value) {
 		for (Map.Entry<String, String> entry : map().entrySet()) {
@@ -88,6 +106,11 @@ public class SystemProvider implements Condition {
 	 * 
 	 * @see org.megam.chef.core.Condition#inputAvailable()
 	 */
+	/**
+	 * <p>inputAvailable.</p>
+	 *
+	 * @return a boolean.
+	 */
 	public boolean inputAvailable() {
 		// TODO Auto-generated method stub
 		Boolean returnvalue = true;
@@ -101,6 +124,11 @@ public class SystemProvider implements Condition {
 		return returnvalue;
 	}
 
+	/**
+	 * <p>notNull.</p>
+	 *
+	 * @param str a {@link java.lang.String} object.
+	 */
 	public void notNull(String str) {
 		if (map().containsKey(str)) {
 			list.add(true);
@@ -115,6 +143,11 @@ public class SystemProvider implements Condition {
 	 * (non-Javadoc)
 	 * 
 	 * @see org.megam.chef.core.Condition#name()
+	 */
+	/**
+	 * <p>name.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
 	 */
 	public String name() {
 		// TODO Auto-generated method stub

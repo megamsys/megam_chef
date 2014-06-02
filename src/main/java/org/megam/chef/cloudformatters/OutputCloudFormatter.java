@@ -3,16 +3,17 @@ import java.util.Map;
 
 import org.megam.chef.core.Condition;
 /**
- * 
- * @author rajthilak
+ * <p>OutputCloudFormatter interface.</p>
  *
- * @param <T>
+ * @author rajthilak
+ * @version $Id: $Id
  */
 public interface OutputCloudFormatter extends Condition {
 
 	/**
-	 * @param mp_value
-	 * @return
+	 * <p>format.</p>
+	 *
+	 * @return a {@link java.util.Map} object.
 	 */
 	Map<String, String> format();
 	

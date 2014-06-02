@@ -9,9 +9,10 @@ import org.slf4j.LoggerFactory;
 import com.google.gson.Gson;
 
 /**
- * 
+ * <p>JSONRequestParser class.</p>
+ *
  * @author rajthilak
- * 
+ * @version $Id: $Id
  */
 public class JSONRequestParser {
 
@@ -23,8 +24,9 @@ public class JSONRequestParser {
 	private Logger logger = LoggerFactory.getLogger(JSONRequestParser.class);
 
 	/**
-	 * 
-	 * @param jsonString
+	 * <p>Constructor for JSONRequestParser.</p>
+	 *
+	 * @param jsonString a {@link java.lang.String} object.
 	 */
 	public JSONRequestParser(String jsonString) {
 		parse(jsonString);
@@ -51,19 +53,39 @@ public class JSONRequestParser {
 		}
 	}
 
+	/**
+	 * <p>data.</p>
+	 *
+	 * @return a {@link org.megam.chef.parser.JSONRequest} object.
+	 */
 	public JSONRequest data() {
 		return reqData;
 	}
 	
+	/**
+	 * <p>getReqId.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String getReqId() {
 		return reqCommand.getId();
 	}
 	
+	/**
+	 * <p>getNodeName.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String getNodeName() {
 		return reqCommand.getNodeName();
 	}
 	
 	
+	/**
+	 * <p>toString.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String toString() {
 		StringBuilder strbd = new StringBuilder();
 		final Formatter formatter = new Formatter(strbd);

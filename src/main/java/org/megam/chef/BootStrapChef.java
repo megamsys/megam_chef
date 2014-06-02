@@ -36,8 +36,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * <p>BootStrapChef class.</p>
+ *
  * @author ram
- * 
+ * @version $Id: $Id
  */
 public class BootStrapChef {
 
@@ -60,10 +62,10 @@ public class BootStrapChef {
 	}
 
 	/**
-	 * 
-	 * @return
-	 * @throws BootStrapChefException
-	 * @throws IOException
+	 * <p>boot.</p>
+	 *
+	 * @throws org.megam.chef.exception.BootStrapChefException if any.
+	 * @return a {@link org.megam.chef.BootStrapChef} object.
 	 */
 	public static BootStrapChef boot() throws BootStrapChefException {
 		if (bootSingleton == null) {
@@ -73,8 +75,9 @@ public class BootStrapChef {
 	}
 
 	/**
-	 * 
-	 * @return
+	 * <p>yaml.</p>
+	 *
+	 * @return a {@link org.megam.chef.AppYaml} object.
 	 */
 	public AppYaml yaml() {
 		return bootedYaml;

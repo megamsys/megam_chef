@@ -9,9 +9,10 @@ import java.util.List;
 import java.util.Scanner;
 
 /**
- * 
+ * <p>Abstract BaseCommand class.</p>
+ *
  * @author rajthilak
- * 
+ * @version $Id: $Id
  */
 public abstract class BaseCommand implements Command {
 	private final static Charset ENCODING = StandardCharsets.UTF_8;
@@ -24,6 +25,13 @@ public abstract class BaseCommand implements Command {
 	private String node_name;
 	private boolean compose;
 
+	/**
+	 * <p>Constructor for BaseCommand.</p>
+	 *
+	 * @param list a {@link java.util.List} object.
+	 * @param req_id a {@link java.lang.String} object.
+	 * @param nodeName a {@link java.lang.String} object.
+	 */
 	public BaseCommand(List<String> list, String req_id, String nodeName) {
 		this.reqId = req_id;
 		this.node_name = nodeName;
@@ -38,20 +46,23 @@ public abstract class BaseCommand implements Command {
 				+ "/" + node_name + "_" + reqId + "_err");
 	}
 
+	/**
+	 * <p>getFileName.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String getFileName() {
 		return name;
 	}
 
-	/**
-	 * 
-	 * @param trdo
-	 */
+	/** {@inheritDoc} */
 	public void setRedirectOutput(String trdo) {
 		this.rdo = new File(trdo);
 	}
 
 	/**
-	 * 
+	 * <p>getRedirectOutputFile.</p>
+	 *
 	 * @return redirect output file
 	 */
 	public File getRedirectOutputFile() {
@@ -59,7 +70,8 @@ public abstract class BaseCommand implements Command {
 	}
 
 	/**
-	 * 
+	 * <p>getRawCommandString.</p>
+	 *
 	 * @return raw command string
 	 */
 	public String getRawCommandString() {
@@ -67,7 +79,8 @@ public abstract class BaseCommand implements Command {
 	}
 
 	/**
-	 * 
+	 * <p>getCommandList.</p>
+	 *
 	 * @return command list
 	 */
 	public List<String> getCommandList() {
@@ -78,22 +91,25 @@ public abstract class BaseCommand implements Command {
 		return newList;
 	}
 
-	/**
-	 * 
-	 * @param trde
-	 */
+	/** {@inheritDoc} */
 	public void setRedirectError(String trde) {
 		this.rde = new File(trde);
 	}
 
 	/**
-	 * 
+	 * <p>getRedirectErrorFile.</p>
+	 *
 	 * @return redirect error file
 	 */
 	public File getRedirectErrorFile() {
 		return rde;
 	}
 
+	/**
+	 * <p>toString.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String toString() {
 		return  getCommandList().toString();
 	}

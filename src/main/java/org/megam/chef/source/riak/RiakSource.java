@@ -31,8 +31,10 @@ import com.basho.riak.client.bucket.Bucket;
 import com.basho.riak.client.cap.UnresolvedConflictException;
 
 /**
+ * <p>RiakSource class.</p>
+ *
  * @author rajthilak
- * 
+ * @version $Id: $Id
  */
 public class RiakSource implements Source {
 	private AppYaml app;
@@ -42,6 +44,11 @@ public class RiakSource implements Source {
 
 	
 
+	/**
+	 * <p>Constructor for RiakSource.</p>
+	 *
+	 * @param app a {@link org.megam.chef.AppYaml} object.
+	 */
 	public RiakSource(AppYaml app) {
 		this.app = app;
 	}
@@ -50,6 +57,11 @@ public class RiakSource implements Source {
 	 * (non-Javadoc)
 	 * 
 	 * @see org.megam.chef.riak.Source#connection()
+	 */
+	/**
+	 * <p>connection.</p>
+	 *
+	 * @throws org.megam.chef.exception.SourceException if any.
 	 */
 	public void connection() throws SourceException {
 		logger.debug("Connecting Riak " + "http://" + app.getHost() + ":"
@@ -68,10 +80,15 @@ public class RiakSource implements Source {
 	 * 
 	 * @see org.megam.chef.riak.Source#mutate()
 	 */
+	/**
+	 * <p>mutate.</p>
+	 */
 	public void mutate() {
 	}
 
 	/**
+	 * {@inheritDoc}
+	 *
 	 * note that getValueAsString() will return null here if there's no value in
 	 * Riak
 	 */
@@ -89,6 +106,7 @@ public class RiakSource implements Source {
 		}
 	}
 
+	/** {@inheritDoc} */
 	public void bucket(String str) throws SourceException {
 		try {
 			myBucket = (Bucket) riakClient.fetchBucket(str).execute();

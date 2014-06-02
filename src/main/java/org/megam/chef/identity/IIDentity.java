@@ -17,19 +17,28 @@ package org.megam.chef.identity;
 
 
 /**
+ * <p>IIDentity class.</p>
+ *
  * @author ram
- * 
+ * @version $Id: $Id
  */
 public class IIDentity {
 
 	private String key;
 	private String value;
      
+    /**
+     * <p>Constructor for IIDentity.</p>
+     *
+     * @param key a {@link java.lang.String} object.
+     * @param value a {@link java.lang.String} object.
+     */
     public IIDentity(String key, String value){
     	this.key = key;
 		this.value = value;
     }
      
+    /** {@inheritDoc} */
     @Override
     public String toString(){
         //return " --" + this.key + " " + this.value;

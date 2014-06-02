@@ -32,6 +32,12 @@ import org.megam.chef.shell.SingleShell;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * <p>IdentityParser class.</p>
+ *
+ * @author ram
+ * @version $Id: $Id
+ */
 public class IdentityParser implements Identifier {
 
 	private Logger logger = LoggerFactory.getLogger(SingleShell.class);
@@ -42,10 +48,22 @@ public class IdentityParser implements Identifier {
 	String res;
 	private String vaultLocation;
 
+	/**
+	 * <p>Constructor for IdentityParser.</p>
+	 *
+	 * @param vl a {@link java.lang.String} object.
+	 */
 	public IdentityParser(String vl) {
 		this.vaultLocation = vl;
 	}
 
+	/**
+	 * <p>identity.</p>
+	 *
+	 * @return a {@link java.util.List} object.
+	 * @throws org.megam.chef.exception.IdentifierException if any.
+	 * @throws java.io.IOException if any.
+	 */
 	@SuppressWarnings("resource")
 	public List<IIDentity> identity() throws IdentifierException, IOException {
 		res = "";
@@ -67,6 +85,12 @@ public class IdentityParser implements Identifier {
 
 	}
 
+	/**
+	 * <p>typeChecker.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 * @throws java.io.IOException if any.
+	 */
 	public String typeChecker() throws IOException {
 		Path path = Paths.get(Constants.MEGAM_VAULT + vaultLocation + "/type");
 		res = "";

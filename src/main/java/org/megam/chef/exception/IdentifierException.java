@@ -16,12 +16,18 @@
 package org.megam.chef.exception;
 
 /**
- * @author ram
+ * <p>IdentifierException class.</p>
  *
+ * @author ram
+ * @version $Id: $Id
  */
-
 public class IdentifierException extends MegamChefException {
 	
+	/**
+	 * <p>Constructor for IdentifierException.</p>
+	 *
+	 * @param that a {@link java.lang.Throwable} object.
+	 */
 	public IdentifierException(Throwable that) {
 		super("", that);
 	}

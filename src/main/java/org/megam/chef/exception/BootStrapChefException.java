@@ -16,11 +16,18 @@
 package org.megam.chef.exception;
 
 /**
- * @author ram
+ * <p>BootStrapChefException class.</p>
  *
+ * @author ram
+ * @version $Id: $Id
  */
 public class BootStrapChefException extends MegamChefException {
 	
+	/**
+	 * <p>Constructor for BootStrapChefException.</p>
+	 *
+	 * @param ex a {@link java.lang.Throwable} object.
+	 */
 	public BootStrapChefException(Throwable ex) {
 		super("", ex);
 	}

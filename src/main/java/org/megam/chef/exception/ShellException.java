@@ -16,11 +16,18 @@
 package org.megam.chef.exception;
 
 /**
- * @author ram
+ * <p>ShellException class.</p>
  *
+ * @author ram
+ * @version $Id: $Id
  */
 public class ShellException extends MegamChefException {
 	
+	/**
+	 * <p>Constructor for ShellException.</p>
+	 *
+	 * @param ex a {@link java.lang.Throwable} object.
+	 */
 	public ShellException(Throwable ex) {
 		super("", ex);
 	}

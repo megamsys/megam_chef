@@ -23,8 +23,9 @@ import org.megam.chef.exception.ProvisionerException;
 /**
  * The provisioner factor acts as a creator of provisioning service.
  * The supported types ...
+ *
  * @author ram
- * 
+ * @version $Id: $Id
  */
 public class ProvisionerFactory {
 
@@ -34,9 +35,10 @@ public class ProvisionerFactory {
 
 	/**
 	 * Creates the available Provisioning client based on the enum TYPE.
-	 * 
+	 *
 	 * @return ProvisioningService
-	 * @throws ProvisionerException
+	 * @throws org.megam.chef.exception.ProvisionerException if any.
+	 * @param type a {@link org.megam.chef.ProvisionerFactory.TYPE} object.
 	 */
 	@SuppressWarnings("rawtypes")
 	public static ProvisioningService<?> create(TYPE type)

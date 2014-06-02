@@ -20,8 +20,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * @author ram
+ * <p>NoneSource class.</p>
  *
+ * @author ram
+ * @version $Id: $Id
  */
 public class NoneSource implements Source {
 	
@@ -31,6 +33,7 @@ public class NoneSource implements Source {
 	/* (non-Javadoc)
 	 * @see org.megam.chef.source.Source#connection()
 	 */
+	/** {@inheritDoc} */
 	@Override
 	public void connection() throws SourceException {
 		logger.warn("connected to none source.");
@@ -39,6 +42,7 @@ public class NoneSource implements Source {
 	/* (non-Javadoc)
 	 * @see org.megam.chef.source.Source#fetch(java.lang.String)
 	 */
+	/** {@inheritDoc} */
 	@Override
 	public String fetch(String str) throws SourceException {
 		return str;
@@ -47,6 +51,7 @@ public class NoneSource implements Source {
 	/* (non-Javadoc)
 	 * @see org.megam.chef.source.Source#bucket(java.lang.String)
 	 */
+	/** {@inheritDoc} */
 	@Override
 	public void bucket(String str) throws SourceException {
 		logger.warn("connected to none bucket.");
@@ -56,6 +61,7 @@ public class NoneSource implements Source {
 	/* (non-Javadoc)
 	 * @see org.megam.chef.source.Source#mutate()
 	 */
+	/** {@inheritDoc} */
 	@Override
 	public void mutate() {
 		throw new RuntimeException("You can't mutate a none source's bucket");

@@ -21,18 +21,21 @@ import org.megam.chef.exception.IdentifierException;
 import org.megam.chef.exception.ProvisionerException;
 
 /**
+ * <p>ProvisioningService interface.</p>
+ *
  * @author ram
- * 
+ * @version $Id: $Id
  */
 public interface ProvisioningService<T extends Object> {
 
 	/**
-	 * 
-	 * @param jsonString
-	 * @return
-	 * @throws ProvisionerException
-	 * @throws IdentifierException 
-	 * @throws IOException 
+	 * <p>provision.</p>
+	 *
+	 * @param jsonString a {@link java.lang.String} object.
+	 * @throws org.megam.chef.exception.ProvisionerException if any.
+	 * @throws org.megam.chef.exception.IdentifierException if any.
+	 * @throws java.io.IOException if any.
+	 * @return a T object.
 	 */
 	public T provision(String jsonString) throws ProvisionerException, IOException, IdentifierException;
 

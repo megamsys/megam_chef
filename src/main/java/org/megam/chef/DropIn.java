@@ -16,21 +16,38 @@
 package org.megam.chef;
 
 /**
- * @author rajthilak
+ * <p>DropIn class.</p>
  *
+ * @author rajthilak
+ * @version $Id: $Id
  */
 public class DropIn {
 	
 	private String idString;
 	
+	/**
+	 * <p>Constructor for DropIn.</p>
+	 *
+	 * @param tempIdString a {@link java.lang.String} object.
+	 */
 	public DropIn(String tempIdString) {
 		this.idString = tempIdString;
 	}
 
+	/**
+	 * <p>getId.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String getId() {
 		return idString;
 	}
 	
+	/**
+	 * <p>toString.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String toString() {
 		return "ID =>" + getId();
 	}

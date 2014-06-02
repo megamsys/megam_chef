@@ -30,6 +30,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * <p>AmazonCloudFormatter class.</p>
+ *
+ * @author ram
+ * @version $Id: $Id
+ */
 public class AmazonCloudFormatter implements OutputCloudFormatter {
 
 	private final Map<String, String> awsMap_key = new HashMap<String, String>();
@@ -40,6 +46,12 @@ public class AmazonCloudFormatter implements OutputCloudFormatter {
 	private String bucket = "";
 	private String req_type = "";
 
+	/**
+	 * <p>Constructor for AmazonCloudFormatter.</p>
+	 *
+	 * @param tempArgs a {@link java.util.Map} object.
+	 * @param req_type a {@link java.lang.String} object.
+	 */
 	public AmazonCloudFormatter(Map<String, String> tempArgs, String req_type) {
 		this.inputArgs = tempArgs;
 		this.req_type = req_type;
@@ -97,6 +109,12 @@ public class AmazonCloudFormatter implements OutputCloudFormatter {
 		return false;
 	}
 
+	/**
+	 * <p>parserwithoutBucket.</p>
+	 *
+	 * @param str a {@link java.lang.String} object.
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String parserwithoutBucket(String str) {
 		if (str.length() > 0) {
 			int lst = str.lastIndexOf("/");
@@ -111,6 +129,7 @@ public class AmazonCloudFormatter implements OutputCloudFormatter {
 		}
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public Map<String, String> format() {
 		Map<String, String> awsMap_result = new HashMap<String, String>();
@@ -128,6 +147,11 @@ public class AmazonCloudFormatter implements OutputCloudFormatter {
 		return awsMap_result;
 	}
 
+	/**
+	 * <p>ok.</p>
+	 *
+	 * @return a boolean.
+	 */
 	public boolean ok() {
 		boolean isOk = true;
 		isOk = isOk && validate(GROUPS, getGroups());
@@ -140,6 +164,13 @@ public class AmazonCloudFormatter implements OutputCloudFormatter {
 		return isOk;
 	}
 
+	/**
+	 * <p>validate.</p>
+	 *
+	 * @param key a {@link java.lang.String} object.
+	 * @param value a {@link java.lang.String} object.
+	 * @return a boolean.
+	 */
 	public boolean validate(String key, String value) {
 		for (Map.Entry<String, String> entry : inputArgs.entrySet()) {
 			if (entry.getKey().equals(key)) {
@@ -159,6 +190,11 @@ public class AmazonCloudFormatter implements OutputCloudFormatter {
 	 * 
 	 * @see org.megam.chef.core.Condition#inputAvailable()
 	 */
+	/**
+	 * <p>inputAvailable.</p>
+	 *
+	 * @return a boolean.
+	 */
 	public boolean inputAvailable() {
 		boolean isAvailable = true;
 		isAvailable = isAvailable && notNull(GROUPS);
@@ -171,14 +207,29 @@ public class AmazonCloudFormatter implements OutputCloudFormatter {
 		return isAvailable;
 	}
 
+	/**
+	 * <p>name.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String name() {
 		return "acf:";
 	}
 
+	/**
+	 * <p>getReason.</p>
+	 *
+	 * @return a {@link java.util.List} object.
+	 */
 	public List<String> getReason() {
 		return unsatifiedReason;
 	}
 
+	/**
+	 * <p>toString.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String toString() {
 		StringBuilder strbd = new StringBuilder();
 		final Formatter formatter = new Formatter(strbd);

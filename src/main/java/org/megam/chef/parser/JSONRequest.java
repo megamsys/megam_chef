@@ -9,9 +9,10 @@ import org.megam.chef.core.Condition;
 import org.megam.chef.core.ScriptFeeder;
 
 /**
- * 
+ * <p>JSONRequest class.</p>
+ *
  * @author rajthilak
- * 
+ * @version $Id: $Id
  */
 public class JSONRequest {
 	
@@ -20,11 +21,15 @@ public class JSONRequest {
 	private ChefInfo cloudtool;
     private String req_type;
 	
+	/**
+	 * <p>Constructor for JSONRequest.</p>
+	 */
 	public JSONRequest() {			
 	}
 
 	/**
-	 * 
+	 * <p>getAccess.</p>
+	 *
 	 * @return compute object
 	 */
 	public ComputeInfo getAccess() {
@@ -32,7 +37,8 @@ public class JSONRequest {
 	}
 
 	/**
-	 * 
+	 * <p>getProv.</p>
+	 *
 	 * @return system provider
 	 */
 	public SystemProvider getProv() {
@@ -40,7 +46,8 @@ public class JSONRequest {
 	}
 
 	/**
-	 * 
+	 * <p>getCloudTool.</p>
+	 *
 	 * @return chef service object
 	 */
 	public ProvisionerInfo getCloudTool() {		
@@ -48,16 +55,29 @@ public class JSONRequest {
 	}
 
 	
+	/**
+	 * <p>setReqType.</p>
+	 *
+	 * @param req_type a {@link java.lang.String} object.
+	 * @since 0.5.0
+	 */
 	public void setReqType(String req_type) {
 		this.req_type = req_type;
 	}
 	
+	/**
+	 * <p>getReqType.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 * @since 0.5.0
+	 */
 	public String getReqType() {		
 		return req_type;
 	}
 	
 	/**
-	 * 
+	 * <p>scriptFeeder.</p>
+	 *
 	 * @return linked list object
 	 */
 	public LinkedList<ScriptFeeder> scriptFeeder() {
@@ -68,7 +88,8 @@ public class JSONRequest {
 	}
 
 	/**
-	 * 
+	 * <p>conditionList.</p>
+	 *
 	 * @return condition list
 	 */
 	public List<Condition> conditionList() {
@@ -79,6 +100,11 @@ public class JSONRequest {
 		return list;
 	}
 
+	/**
+	 * <p>toString.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String toString() {
 		StringBuilder strbd = new StringBuilder();
 		final Formatter formatter = new Formatter(strbd);

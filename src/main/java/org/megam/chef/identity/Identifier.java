@@ -21,16 +21,19 @@ import java.util.List;
 import org.megam.chef.exception.IdentifierException;
 
 /**
- * @author ram
+ * <p>Identifier interface.</p>
  *
+ * @author ram
+ * @version $Id: $Id
  */
 public interface Identifier {
 	
 	/**
 	 * This returns a list of IIDentity objects
-	 * @return
-	 * @throws IdentifierException
-	 * @throws IOException 
+	 *
+	 * @throws org.megam.chef.exception.IdentifierException if any.
+	 * @throws java.io.IOException if any.
+	 * @return a {@link java.util.List} object.
 	 */
 	public List<IIDentity> identity() throws IdentifierException, IOException;	
 	

@@ -31,13 +31,21 @@ import com.amazonaws.services.s3.model.ObjectListing;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
 
 /**
+ * <p>S3 class.</p>
+ *
  * @author ram
- * 
+ * @version $Id: $Id
  */
 public class S3 {
 
 	private static Logger logger = LoggerFactory.getLogger(S3.class);
 
+	/**
+	 * <p>download.</p>
+	 *
+	 * @param vl a {@link java.lang.String} object.
+	 * @throws org.megam.chef.exception.ProvisionerException if any.
+	 */
 	public static void download(String vl) throws ProvisionerException {
 
 		String bucketName = Constants.BUCKET_NAME;
@@ -63,6 +71,12 @@ public class S3 {
 		logger.debug("Download completed.....");
 	}
 
+	/**
+	 * <p>downloadFile.</p>
+	 *
+	 * @param vl a {@link java.lang.String} object.
+	 * @throws org.megam.chef.exception.ProvisionerException if any.
+	 */
 	public static void downloadFile(String vl) throws ProvisionerException {
 
 		String bucketName = Constants.BUCKET_NAME;

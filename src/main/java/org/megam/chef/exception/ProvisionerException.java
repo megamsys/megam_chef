@@ -16,11 +16,18 @@
 package org.megam.chef.exception;
 
 /**
- * @author ram
+ * <p>ProvisionerException class.</p>
  *
+ * @author ram
+ * @version $Id: $Id
  */
 public class ProvisionerException extends MegamChefException {
 	
+	/**
+	 * <p>Constructor for ProvisionerException.</p>
+	 *
+	 * @param that a {@link java.lang.Throwable} object.
+	 */
 	public ProvisionerException(Throwable that) {
 		super("", that);
 	}

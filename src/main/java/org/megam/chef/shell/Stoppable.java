@@ -16,11 +16,16 @@
 package org.megam.chef.shell;
 
 /**
- * @author ram
+ * <p>Stoppable interface.</p>
  *
+ * @author ram
+ * @version $Id: $Id
  */
 public interface Stoppable {
 	
+	/**
+	 * <p>halt.</p>
+	 */
 	public void halt();
 
 }
