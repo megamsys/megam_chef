@@ -11,9 +11,9 @@ import org.slf4j.LoggerFactory;
 
 /**
  * ShellBuilder builds a string that can be consumed by a Shell
- * 
+ *
  * @author rajthilak
- * 
+ * @version $Id: $Id
  */
 public class ShellBuilder {
 
@@ -21,8 +21,11 @@ public class ShellBuilder {
 	 * The buildString iterates all the script feeders and prepares a string
 	 * which can be used by a shell. It only performes this function if a script
 	 * feeder "can feed" to a shell.
-	 * 
-	 * @param args
+	 *
+	 * @param scriptFeeder a {@link java.util.LinkedList} object.
+	 * @param jrp a {@link org.megam.chef.parser.JSONRequestParser} object.
+	 * @param fp a {@link java.util.List} object.
+	 * @return an array of {@link java.lang.String} objects.
 	 */
 	public static String[] buildString(LinkedList<ScriptFeeder> scriptFeeder, JSONRequestParser jrp, List<IIDentity> fp) {
 		StringBuilder shellB = new StringBuilder();		

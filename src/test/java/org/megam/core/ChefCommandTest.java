@@ -44,7 +44,7 @@ public class ChefCommandTest {
 	private ProvisioningService ps;
 
 	/**
-	 * @param <T>
+* @param <T>  {@link java.lang.Object} object.
 	 * @throws ProvisionerException
 	 * @throws BootStrapChefException
 	 * @throws IOException
@@ -62,7 +62,7 @@ public class ChefCommandTest {
 	/**
 	 * ProvisioningService
 	 * 
-	 * @param <T>
+* @param <T>  {@link java.lang.Object} object.
 	 * @throws SourceException
 	 * @throws ProvisionerException
 	 */

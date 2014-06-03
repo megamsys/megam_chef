@@ -24,27 +24,31 @@ import org.megam.chef.exception.ShellException;
 import org.megam.chef.shell.MultiCommands;
 
 /**
- * This the supercalls of all provisioning service. This implements the interface provisioning service. 
- * Any common methods that span across all the concrete service shall be included in here. 
+ * This the supercalls of all provisioning service. This implements the interface provisioning service.
+ * Any common methods that span across all the concrete service shall be included in here.
  * At the moment nothing is available.
+ *
  * @author ram
- * @param <T>
- * 
+* @param <T>  {@link java.lang.Object} object.
+ * @version $Id: $Id
  */
 public abstract class AbstractProvisioningService<T> implements
 		ProvisioningService<T> {
 
 	/**
-	 * 
-	 * @throws ProvisionerException
+	 * <p>Constructor for AbstractProvisioningService.</p>
+	 *
+	 * @throws org.megam.chef.exception.ProvisionerException if any.
 	 */
 	public AbstractProvisioningService() throws ProvisionerException {
 
 	}
 
 	/**
-	 * @param command
-	 * @throws ShellException
+	 * <p>execute.</p>
+	 *
+	 * @param command a {@link org.megam.chef.shell.MultiCommands} object.
+	 * @throws org.megam.chef.exception.ShellException if any.
 	 */
 	public void execute(MultiCommands command) throws ShellException {
 		// TODO Auto-generated method stub

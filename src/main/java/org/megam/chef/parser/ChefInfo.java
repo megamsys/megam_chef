@@ -13,9 +13,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * 
+ * <p>ChefInfo class.</p>
+ *
  * @author rajthilak
- * 
+ * @version $Id: $Id
  */
 public class ChefInfo extends ProvisionerInfo {
 
@@ -36,17 +37,27 @@ public class ChefInfo extends ProvisionerInfo {
 	private Map<String, String> chef = new HashMap<String, String>();
 	private Logger logger = LoggerFactory.getLogger(ChefInfo.class);
 
+	/**
+	 * <p>Constructor for ChefInfo.</p>
+	 */
 	public ChefInfo() {
 		super("CHEF");
 	}
 
 	/**
+	 * <p>map.</p>
+	 *
 	 * @return chef map
 	 */
 	public Map<String, String> map() {
 		return chef;
 	}
 
+	/**
+	 * <p>getCommand.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String getCommand() {
 		if (chef.get(COMMAND).length() > 0)
 			return chef.get(COMMAND);
@@ -54,6 +65,11 @@ public class ChefInfo extends ProvisionerInfo {
 			return "";
 	}
 
+	/**
+	 * <p>getPlugin.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String getPlugin() {
 		if (chef.get(PLUGIN).length() > 0)
 			return changeServerName(chef.get(PLUGIN));
@@ -61,6 +77,11 @@ public class ChefInfo extends ProvisionerInfo {
 			return "";
 	}
 
+	/**
+	 * <p>getRunList.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String getRunList() {
 		if (chef.get(DRUNLIST).length() > 0)
 			return "--" + RUNLIST + " " + chef.get(DRUNLIST);
@@ -69,6 +90,11 @@ public class ChefInfo extends ProvisionerInfo {
 
 	}
 
+	/**
+	 * <p>getName.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String getName() {
 		if (chef.get(NAME).length() > 0) {
 			String[] parts = chef.get(PLUGIN).split(" ");
@@ -90,10 +116,20 @@ public class ChefInfo extends ProvisionerInfo {
 
 	}
 
+	/**
+	 * <p>getReason.</p>
+	 *
+	 * @return a {@link java.util.List} object.
+	 */
 	public List<String> getReason() {
 		return missingReasonToList;
 	}
 
+	/**
+	 * <p>ok.</p>
+	 *
+	 * @return a boolean.
+	 */
 	public boolean ok() {
 		return validate(COMMAND, KNIFE);
 	}
@@ -138,6 +174,11 @@ public class ChefInfo extends ProvisionerInfo {
 	 * 
 	 * @see org.megam.chef.core.Condition#inputAvailable()
 	 */
+	/**
+	 * <p>inputAvailable.</p>
+	 *
+	 * @return a boolean.
+	 */
 	public boolean inputAvailable() {
 		boolean isAvailable = true;
 		isAvailable = isAvailable && notNull(COMMAND);
@@ -147,6 +188,12 @@ public class ChefInfo extends ProvisionerInfo {
 		return isAvailable;
 	}
 
+	/**
+	 * <p>notNull.</p>
+	 *
+	 * @param str a {@link java.lang.String} object.
+	 * @return a boolean.
+	 */
 	public boolean notNull(String str) {
 		if (map().containsKey(str)) {
 			return true;
@@ -156,10 +203,20 @@ public class ChefInfo extends ProvisionerInfo {
 		}
 	}
 
+	/**
+	 * <p>canFeed.</p>
+	 *
+	 * @return a boolean.
+	 */
 	public boolean canFeed() {
 		return true;
 	}
 
+	/**
+	 * <p>feed.</p>
+	 *
+	 * @return a {@link org.megam.chef.shell.FedInfo} object.
+	 */
 	public FedInfo feed() {
 		FedInfo fed = new FedInfo(getName().split(" ")[1], getCommand() + " "
 				+ getPlugin() + " " + getRunList() + " " + getName());
@@ -172,12 +229,19 @@ public class ChefInfo extends ProvisionerInfo {
 	 * 
 	 * @see org.megam.chef.core.Condition#name()
 	 */
+	/**
+	 * <p>name.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String name() {
 		return "CHEF :";
 	}
 
 	/**
 	 * tostring method for chef map
+	 *
+	 * @return a {@link java.lang.String} object.
 	 */
 	public String toString() {
 		StringBuilder strbd = new StringBuilder();

@@ -23,8 +23,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * @author rajthilak
+ * <p>CommandJson class.</p>
  *
+ * @author rajthilak
+ * @version $Id: $Id
  */
 public class CommandJson {
 	
@@ -36,34 +38,65 @@ public class CommandJson {
 	private String created_at;
 	private Logger logger = LoggerFactory.getLogger(CommandJson.class);
 	/**
-	 * 
+	 * <p>getReqCommand.</p>
+	 *
 	 * @return Requested Command object
 	 */
 	public JSONRequest getReqCommand() {		
 		return command;
 	}
 		
+	/**
+	 * <p>Getter for the field <code>id</code>.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String getId() {
 		return id;
 	}
 	
+	/**
+	 * <p>getnodeId.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String getnodeId() {		
 		return node_id;
 	}
 	
+	/**
+	 * <p>getNodeName.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String getNodeName() {
 		return node_name;
 	}
 
+	/**
+	 * <p>getReqType.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String getReqType() {
 		return req_type;
 	}	
 	
 	
+	/**
+	 * <p>getCreatedAt.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String getCreatedAt() {
 		return created_at;
 	}
 	
+	/**
+	 * <p>toString.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String toString() {
 		StringBuilder strbd = new StringBuilder();
 		final Formatter formatter = new Formatter(strbd);

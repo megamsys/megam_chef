@@ -33,19 +33,23 @@ import org.megam.chef.exception.ProvisionerException;
 import org.megam.chef.exception.SourceException;
 
 /**
+ * <p>ChefServiceTest class.</p>
+ *
  * @author rajthilak
- * 
+ * @version $Id: $Id
+ * @since 0.5.0
  */
 public class ChefServiceTest {
 
 	/**
-	 * 
-	 * @throws IOException
-	 * @throws SourceException
-	 * @throws ProvisionerException
-	 * @throws BootStrapChefException
+	 * <p>test.</p>
+	 *
+	 * @throws java.io.IOException if any.
+	 * @throws org.megam.chef.exception.SourceException if any.
+	 * @throws org.megam.chef.exception.ProvisionerException if any.
+	 * @throws org.megam.chef.exception.BootStrapChefException if any.
+	 * @throws org.megam.chef.exception.IdentifierException if any.
 	 */
-
 	@Test
 	public void test() throws SourceException, ProvisionerException,
 			BootStrapChefException, IOException, IdentifierException {

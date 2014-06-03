@@ -19,8 +19,10 @@ import java.util.Formatter;
 import java.util.Map;
 
 /**
+ * <p>AppYaml class.</p>
+ *
  * @author rajthilak
- * 
+ * @version $Id: $Id
  */
 public class AppYaml {
 
@@ -38,27 +40,45 @@ public class AppYaml {
 	}
 
 	/**
-	 * 
+	 * <p>getSource.</p>
+	 *
 	 * @return Yaml file values
 	 */
 	public String getSource() {
 		return yamlSource.get(SOURCE);
 	}
 
+	/**
+	 * <p>getHost.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String getHost() {
 		return yamlSource.get(HOST);
 	}
 
+	/**
+	 * <p>getPort.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String getPort() {
 		return yamlSource.get(PORT);
 	}
 
+	/**
+	 * <p>getBucket.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String getBucket() {
 		return yamlSource.get(BUCKET);
 	}
 
 	/**
 	 * toString() is display the map key's and their values
+	 *
+	 * @return a {@link java.lang.String} object.
 	 */
 	public String toString() {
 		StringBuilder strbd = new StringBuilder();

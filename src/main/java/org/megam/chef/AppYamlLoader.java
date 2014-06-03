@@ -31,8 +31,10 @@ import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.Constructor;
 
 /**
+ * <p>AppYamlLoader class.</p>
+ *
  * @author rajthilak
- * 
+ * @version $Id: $Id
  */
 public class AppYamlLoader {
 	/**
@@ -84,8 +86,8 @@ public class AppYamlLoader {
 
 	/**
 	 * Based on the configure: flag in the app.yaml file, send back the AppYaml
-	 * 
-	 * @return
+	 *
+	 * @return a {@link org.megam.chef.AppYaml} object.
 	 */
 	public AppYaml current() {
 		Map<String,String> currMap = null;
@@ -122,7 +124,9 @@ public class AppYamlLoader {
 	}
 
 	/**
-	 * @return
+	 * <p>toString.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
 	 */
 	public String toString() {
 		return loadedYaml.toString();

@@ -27,8 +27,11 @@ import org.megam.chef.parser.JSONRequest;
 import org.megam.chef.source.riak.RiakSource;
 
 /**
+ * <p>ProvisionerTest class.</p>
+ *
  * @author ram
- * 
+ * @version $Id: $Id
+ * @since 0.5.0
  */
 public class ProvisionerTest {
 
@@ -36,8 +39,10 @@ public class ProvisionerTest {
 	private static String jsonString;
 
 	/**
-	 * @throws java.lang.Exception
-	 * @throws BootStrapChefException
+	 * <p>setUp.</p>
+	 *
+	 * @throws java.lang.Exception if any.
+	 * @throws org.megam.chef.exception.BootStrapChefException if any.
 	 */
 	@Before
 	public void setUp() throws Exception, BootStrapChefException {
@@ -45,6 +50,11 @@ public class ProvisionerTest {
 		app = BootStrapChef.boot().yaml();
 	}
 
+	/**
+	 * <p>testProvisionerService.</p>
+	 *
+	 * @throws org.megam.chef.exception.SourceException if any.
+	 */
 	@Test
 	public void testProvisionerService() throws SourceException {
 		// assert to see the classname is what you need.

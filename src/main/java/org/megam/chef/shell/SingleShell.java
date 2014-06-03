@@ -35,9 +35,10 @@ import org.slf4j.LoggerFactory;
 import org.megam.chef.exception.ShellException;
 
 /**
- * 
+ * <p>SingleShell class.</p>
+ *
  * @author rajthilak
- * 
+ * @version $Id: $Id
  */
 public class SingleShell extends RecursiveAction implements Stoppable {
 
@@ -46,8 +47,9 @@ public class SingleShell extends RecursiveAction implements Stoppable {
 	private ProcessBuilder shellProc;
 
 	/**
-	 * 
-	 * @param command
+	 * <p>Constructor for SingleShell.</p>
+	 *
+	 * @param command a {@link org.megam.chef.shell.MultiCommands} object.
 	 */
 	public SingleShell(MultiCommands command) {
 		this.cmd = command;
@@ -57,7 +59,6 @@ public class SingleShell extends RecursiveAction implements Stoppable {
 	 * Processed the command using ProcessBuilder class Print the output's are
 	 * wrote in the some file
 	 */
-
 	public void compute() {
 		try {
 			boolean stop_flag = false;
@@ -101,6 +102,9 @@ public class SingleShell extends RecursiveAction implements Stoppable {
 		}
 	}
 
+	/**
+	 * <p>halt.</p>
+	 */
 	public void halt() {
 		// do nothing for now, but we need to cancel the process that runs, and
 		// start the

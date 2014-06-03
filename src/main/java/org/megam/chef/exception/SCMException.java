@@ -16,11 +16,19 @@
 package org.megam.chef.exception;
 
 /**
- * @author rajthilak
+ * <p>SCMException class.</p>
  *
+ * @author rajthilak
+ * @version $Id: $Id
  */
 public class SCMException extends MegamChefException {
 
+	/**
+	 * <p>Constructor for SCMException.</p>
+	 *
+	 * @param str a {@link java.lang.String} object.
+	 * @param throwable a {@link java.lang.Throwable} object.
+	 */
 	public SCMException(String str, Throwable throwable) {
         super(str, throwable);
     }

@@ -11,17 +11,20 @@ import java.util.Scanner;
 import org.megam.chef.exception.ShellException;
 
 /**
- * 
+ * <p>MainCommand class.</p>
+ *
  * @author rajthilak
- * 
+ * @version $Id: $Id
  */
 public class MainCommand extends BaseCommand {
 	private final static Charset ENCODING = StandardCharsets.UTF_8;
 
 	/**
-	 * @param list
-	 * @param compose
-	 * @param shellArray
+	 * <p>Constructor for MainCommand.</p>
+	 *
+	 * @param list a {@link java.util.List} object.
+	 * @param req_id a {@link java.lang.String} object.
+	 * @param node_name a {@link java.lang.String} object.
 	 */
 	public MainCommand(List<String> list, String req_id, String node_name) {
 		super(list, req_id, node_name);
@@ -29,11 +32,17 @@ public class MainCommand extends BaseCommand {
 	}
 
 	
+	/**
+	 * <p>composable.</p>
+	 *
+	 * @return a boolean.
+	 */
 	public boolean composable() {
 		return false;
 	}
 
 	
+	/** {@inheritDoc} */
 	public List<String> pipeto(String pipeIt) throws ShellException {
 		
 		//move the code you have outside to search on placeholder from the array.		
@@ -55,6 +64,7 @@ public class MainCommand extends BaseCommand {
 	/* (non-Javadoc)
 	 * @see org.megam.chef.shell.CommandComposable#composePlaceHolder(java.lang.String)
 	 */
+	/** {@inheritDoc} */
 	@Override
 	public void composePlaceHolder(String placeHolder) {
 		// TODO Auto-generated method stub
@@ -65,6 +75,7 @@ public class MainCommand extends BaseCommand {
 	/* (non-Javadoc)
 	 * @see org.megam.chef.shell.CommandComposable#appliedPlaceHolder()
 	 */
+	/** {@inheritDoc} */
 	@Override
 	public String appliedPlaceHolder() {
 		// TODO Auto-generated method stub

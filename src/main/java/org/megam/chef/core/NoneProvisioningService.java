@@ -18,14 +18,17 @@ package org.megam.chef.core;
 import org.megam.chef.exception.ProvisionerException;
 
 /**
+ * <p>NoneProvisioningService class.</p>
+ *
  * @author ram
- * 
+ * @version $Id: $Id
  */
 public class NoneProvisioningService<T> extends AbstractProvisioningService<T> {
 
 	/**
-	 * 
-	 * @throws ProvisionerException
+	 * <p>Constructor for NoneProvisioningService.</p>
+	 *
+	 * @throws org.megam.chef.exception.ProvisionerException if any.
 	 */
 	public NoneProvisioningService() throws ProvisionerException {
 		super();
@@ -37,6 +40,7 @@ public class NoneProvisioningService<T> extends AbstractProvisioningService<T> {
 	 * @see org.megam.chef.ProvisioningService#provision(java.lang.String)
 	 */
 
+	/** {@inheritDoc} */
 	@Override
 	public T provision(String jsonString) throws ProvisionerException {
 		return null;

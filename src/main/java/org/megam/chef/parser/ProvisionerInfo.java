@@ -36,6 +36,11 @@ abstract class ProvisionerInfo implements DataMap, ScriptFeeder, Condition {
 		this.prov = prov;
 	}
 
+	/**
+	 * <p>getName.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String getName() {
 		return prov;
 	}

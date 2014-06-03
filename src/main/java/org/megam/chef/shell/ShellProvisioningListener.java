@@ -16,13 +16,17 @@
 package org.megam.chef.shell;
 
 /**
- * @author ram
+ * <p>ShellProvisioningListener interface.</p>
  *
+ * @author ram
+ * @version $Id: $Id
  */
 public interface ShellProvisioningListener {
 
 	/**
-	 * @param se
+	 * <p>tell.</p>
+	 *
+	 * @param se a {@link org.megam.chef.shell.ShellEvent} object.
 	 */
 	void tell(ShellEvent se);
 

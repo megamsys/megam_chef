@@ -22,26 +22,30 @@ import org.megam.chef.exception.ProvisionerException;
 import org.megam.chef.exception.ShellException;
 
 /**
- * @author ram
+ * <p>Shellable interface.</p>
  *
+ * @author ram
+ * @version $Id: $Id
  */
 public interface Shellable {
 	
 	/**
-	 * 
-	 * @param input
-	 * @return
-	 * @throws ShellException
-	 * @throws IdentifierException 
-	 * @throws IOException 
-	 * @throws ProvisionerException 
+	 * <p>jsonToCommand.</p>
+	 *
+	 * @param input a {@link java.lang.String} object.
+	 * @throws org.megam.chef.exception.ShellException if any.
+	 * @throws org.megam.chef.exception.IdentifierException if any.
+	 * @throws java.io.IOException if any.
+	 * @throws org.megam.chef.exception.ProvisionerException if any.
+	 * @return a {@link org.megam.chef.shell.MultiCommands} object.
 	 */
 	public MultiCommands jsonToCommand(String input) throws ShellException, IOException, IdentifierException, ProvisionerException;
 	
 	/**
-	 * 
-	 * @param command
-	 * @throws ShellException
+	 * <p>execute.</p>
+	 *
+	 * @param command a {@link org.megam.chef.shell.MultiCommands} object.
+	 * @throws org.megam.chef.exception.ShellException if any.
 	 */
 	public void execute(MultiCommands command) throws ShellException;
 

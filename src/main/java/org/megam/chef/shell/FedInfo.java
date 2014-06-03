@@ -16,14 +16,22 @@
 package org.megam.chef.shell;
 
 /**
+ * <p>FedInfo class.</p>
+ *
  * @author subash
- * 
+ * @version $Id: $Id
  */
 public class FedInfo {
 
 	private String name;
 	private String shellString;
 
+	/**
+	 * <p>Constructor for FedInfo.</p>
+	 *
+	 * @param name a {@link java.lang.String} object.
+	 * @param ShellString a {@link java.lang.String} object.
+	 */
 	public FedInfo(String name, String ShellString) {
 		this.name = name;
 		this.shellString = ShellString;
@@ -31,24 +39,44 @@ public class FedInfo {
 
 	// return the name
 
+	/**
+	 * <p>Getter for the field <code>name</code>.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String getName() {
 		return name;
 	}
 
 	// set the name
 
+	/**
+	 * <p>Setter for the field <code>name</code>.</p>
+	 *
+	 * @param name a {@link java.lang.String} object.
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 
 	// return the shellString
 
+	/**
+	 * <p>Getter for the field <code>shellString</code>.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String getShellString() {
 		return shellString;
 	}
 
 	// set the shellString
 
+	/**
+	 * <p>Setter for the field <code>shellString</code>.</p>
+	 *
+	 * @param shellString a {@link java.lang.String} object.
+	 */
 	public void setShellString(String shellString) {
 		this.shellString = shellString;
 	}

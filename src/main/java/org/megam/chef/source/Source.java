@@ -18,32 +18,40 @@ package org.megam.chef.source;
 import org.megam.chef.exception.SourceException;
 
 /**
- * @author rajthilak
+ * <p>Source interface.</p>
  *
+ * @author rajthilak
+ * @version $Id: $Id
  */
 public interface Source {
 	
 	/**
-	 * 
-	 * @throws SourceException
+	 * <p>connection.</p>
+	 *
+	 * @throws org.megam.chef.exception.SourceException if any.
 	 */
 	public void connection() throws SourceException;
 	
 	/**
-	 * 
-	 * @param str
-	 * @return
-	 * @throws SourceException
+	 * <p>fetch.</p>
+	 *
+	 * @param str a {@link java.lang.String} object.
+	 * @throws org.megam.chef.exception.SourceException if any.
+	 * @return a {@link java.lang.String} object.
 	 */
 	public String fetch(String str) throws SourceException ;
 	
 	/**
-	 * 
-	 * @param str
-	 * @throws SourceException
+	 * <p>bucket.</p>
+	 *
+	 * @param str a {@link java.lang.String} object.
+	 * @throws org.megam.chef.exception.SourceException if any.
 	 */
 	public void bucket(String str) throws SourceException;
 	
+	/**
+	 * <p>mutate.</p>
+	 */
 	public void mutate();
 
 }

@@ -4,9 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 
+ * <p>ParmsValidator class.</p>
+ *
  * @author rajthilak
- * 
+ * @version $Id: $Id
  */
 public class ParmsValidator {
 	
@@ -17,11 +18,10 @@ public class ParmsValidator {
 	}
 
 	/**
-	 * 
-	 * @param conditionList
-	 * @return 
-	 * Verifies if the conditions contain an input, if they are then, the the conditions predicate needs to succeeed.
-	 *  
+	 * <p>validate.</p>
+	 *
+	 * @param conditionList a {@link java.util.List} object.
+	 * @return a boolean.
 	 */
 	public  boolean validate(List<Condition> conditionList) {
 		Boolean isValid = true;
@@ -38,6 +38,11 @@ public class ParmsValidator {
 		return isValid;
 	}
 	
+	/**
+	 * <p>reasonsNotSatisfied.</p>
+	 *
+	 * @return a {@link java.util.List} object.
+	 */
 	protected List<String> reasonsNotSatisfied() {
 		return reasonsNotSatisfied;
 	}

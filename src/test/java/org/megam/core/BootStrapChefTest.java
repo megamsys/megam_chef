@@ -25,15 +25,20 @@ import org.megam.chef.BootStrapChef;
 import org.megam.chef.exception.BootStrapChefException;
 
 /**
+ * <p>BootStrapChefTest class.</p>
+ *
  * @author ram
- * 
+ * @version $Id: $Id
+ * @since 0.5.0
  */
 public class BootStrapChefTest {
 
 	/**
-	 * @throws IOException
-	 * @throws java.lang.Exception
-	 * @throws BootStrapChefException
+	 * <p>setUp.</p>
+	 *
+	 * @throws java.io.IOException if any.
+	 * @throws java.lang.Exception if any.
+	 * @throws BootStrapChefException if any.
 	 */
 	@Before
 	public void setUp() throws IOException {
@@ -45,18 +50,27 @@ public class BootStrapChefTest {
 		}
 	}
 
+	/**
+	 * <p>testVersion.</p>
+	 */
 	@Test
 	public void testVersion() {
 		// test the Constants.VERSION
 
 	}
 
+	/**
+	 * <p>testMegamChefRoot.</p>
+	 */
 	@Test
 	public void testMegamChefRoot() {
 		// test the Constants.MEGAM_CHEF_ROOT
 
 	}
 
+	/**
+	 * <p>testMegamChefYaml.</p>
+	 */
 	@Test
 	public void testMegamChefYaml() {
 		// test the Constants.MEGAM_CHEF_YAML

@@ -16,8 +16,10 @@
 package org.megam.chef.shell;
 
 /**
- * @author ram
+ * <p>ShellEvent class.</p>
  *
+ * @author ram
+ * @version $Id: $Id
  */
 public class ShellEvent {
 

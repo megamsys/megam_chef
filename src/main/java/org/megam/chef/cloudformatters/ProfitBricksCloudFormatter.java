@@ -16,8 +16,10 @@
 package org.megam.chef.cloudformatters;
 
 /**
- * @author ram
+ * <p>ProfitBricksCloudFormatter class.</p>
  *
+ * @author ram
+ * @version $Id: $Id
  */
 import static org.megam.chef.parser.ComputeInfo.CPUS;
 import static org.megam.chef.parser.ComputeInfo.FLAVOR;
@@ -37,7 +39,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
-
 public class ProfitBricksCloudFormatter implements OutputCloudFormatter {
 
 	private final Map<String, String> pbArgsStub = new HashMap<String, String>();
@@ -51,6 +52,12 @@ public class ProfitBricksCloudFormatter implements OutputCloudFormatter {
 	/*
 	 * There is no flavor in profit bricks. We decided to send it in this format
 	 * as FLAVOR as cpus=1,ram=1024,hdd-size=20
+	 */
+	/**
+	 * <p>Constructor for ProfitBricksCloudFormatter.</p>
+	 *
+	 * @param tempArgs a {@link java.util.Map} object.
+	 * @param req_type a {@link java.lang.String} object.
 	 */
 	public ProfitBricksCloudFormatter(Map<String, String> tempArgs,
 			String req_type) {
@@ -130,6 +137,12 @@ public class ProfitBricksCloudFormatter implements OutputCloudFormatter {
 		return false;
 	}
 
+	/**
+	 * <p>parserwithoutBucket.</p>
+	 *
+	 * @param str a {@link java.lang.String} object.
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String parserwithoutBucket(String str) {
 		if (str.length() > 0) {
 			int lst = str.lastIndexOf("/");
@@ -144,6 +157,7 @@ public class ProfitBricksCloudFormatter implements OutputCloudFormatter {
 		}
 	}
 
+	/** {@inheritDoc} */
 	@Override
 	public Map<String, String> format() {
 		Map<String, String> pbArgsValPairs = new HashMap<String, String>();
@@ -164,6 +178,11 @@ public class ProfitBricksCloudFormatter implements OutputCloudFormatter {
 		return pbArgsValPairs;
 	}
 
+	/**
+	 * <p>ok.</p>
+	 *
+	 * @return a boolean.
+	 */
 	public boolean ok() {
 		boolean isOk = true;
 		isOk = isOk && validate(IMAGE, getImage());
@@ -176,6 +195,13 @@ public class ProfitBricksCloudFormatter implements OutputCloudFormatter {
 		return isOk;
 	}
 
+	/**
+	 * <p>validate.</p>
+	 *
+	 * @param key a {@link java.lang.String} object.
+	 * @param value a {@link java.lang.String} object.
+	 * @return a boolean.
+	 */
 	public boolean validate(String key, String value) {
 		for (Map.Entry<String, String> entry : inputArgs.entrySet()) {
 			if (entry.getKey().equals(key)) {
@@ -190,6 +216,11 @@ public class ProfitBricksCloudFormatter implements OutputCloudFormatter {
 
 	}
 
+	/**
+	 * <p>inputAvailable.</p>
+	 *
+	 * @return a boolean.
+	 */
 	public boolean inputAvailable() {
 		boolean isAvailable = true;
 		isAvailable = isAvailable && notNull(IMAGE);
@@ -202,14 +233,29 @@ public class ProfitBricksCloudFormatter implements OutputCloudFormatter {
 		return isAvailable;
 	}
 
+	/**
+	 * <p>name.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String name() {
 		return "pb:";
 	}
 
+	/**
+	 * <p>getReason.</p>
+	 *
+	 * @return a {@link java.util.List} object.
+	 */
 	public List<String> getReason() {
 		return unsatifiedReason;
 	}
 
+	/**
+	 * <p>toString.</p>
+	 *
+	 * @return a {@link java.lang.String} object.
+	 */
 	public String toString() {
 		StringBuilder strbd = new StringBuilder();
 		final Formatter formatter = new Formatter(strbd);

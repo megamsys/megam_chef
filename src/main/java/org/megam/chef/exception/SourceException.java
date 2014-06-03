@@ -16,11 +16,19 @@
 package org.megam.chef.exception;
 
 /**
- * @author rajthilak
+ * <p>SourceException class.</p>
  *
+ * @author rajthilak
+ * @version $Id: $Id
  */
 public class SourceException extends MegamChefException {
 
+	/**
+	 * <p>Constructor for SourceException.</p>
+	 *
+	 * @param str a {@link java.lang.String} object.
+	 * @param throwable a {@link java.lang.Throwable} object.
+	 */
 	public SourceException(String str, Throwable throwable) {
         super(str, throwable);
     }
