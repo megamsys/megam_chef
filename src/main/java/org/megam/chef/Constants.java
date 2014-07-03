@@ -1,4 +1,4 @@
-/* 
+/*
  ** Copyright [2012-2013] [Megam Systems]
  **
  ** Licensed under the Apache License, Version 2.0 (the "License");
@@ -62,7 +62,7 @@ public class Constants {
 	 * MEGAM_CHEF_ROOT
 	 */
 	public static String MEGAM_CHEF_APP_YAML = MEGAM_USER_HOME
-			+ java.io.File.separator + ".megam" + java.io.File.separator
+			+ java.io.File.separator + "megamd" + java.io.File.separator
 			+ "chefapp.yaml";
 
 	/** Constant <code>MEGAM_DEFAULT_CHEF_APP_YAML="chefapp.yaml"</code> */
@@ -72,10 +72,10 @@ public class Constants {
 	 * The location of the Credential files, relative to MEGAM_USER_HOME
 	 */
 	public static String MEGAM_VAULT = MEGAM_USER_HOME + java.io.File.separator ;
-	
+
 	/** Constant <code>BUCKET_NAME="cloudkeys"</code> */
 	public static String BUCKET_NAME = "cloudkeys";
-	
+
 	/**
 	 * The location of the log file
 	 */
@@ -83,6 +83,6 @@ public class Constants {
 			+ java.io.File.separator + "logs" + java.io.File.separator;
 
 	/** Constant <code>HELP_GITHUB="Refer https://github.com/indykish/megam"{trunked}</code> */
-	public static final String HELP_GITHUB = "Refer https://github.com/indykish/megam_chef.git for more info.";	
-	
+	public static final String HELP_GITHUB = "Refer https://github.com/indykish/megam_chef.git for more info.";
+
 }

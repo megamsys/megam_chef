@@ -1,4 +1,4 @@
-/* 
+/*
  ** Copyright [2012-2013] [Megam Systems]
  **
  ** Licensed under the Apache License, Version 2.0 (the "License");
@@ -48,7 +48,7 @@ public class BootStrapChef {
 	private Logger logger = LoggerFactory.getLogger(BootStrapChef.class);
 
 	/**
-	 * 
+	 *
 	 * @throws BootStrapChefException
 	 * @throws IOException
 	 */
@@ -92,7 +92,7 @@ public class BootStrapChef {
 	}
 
 	/**
-	 * 
+	 *
 	 * @throws BootStrapChefException
 	 *             configure the yaml file
 	 */
@@ -122,7 +122,7 @@ public class BootStrapChef {
 	/**
 	 * Copy the default chefapp.yaml to .megam/chefappyaml if one doesn't exist.
 	 * If one exists then, use it.
-	 * 
+	 *
 	 * @throws BootStrapChefException
 	 */
 	private void yamlSetup() throws BootStrapChefException {
@@ -134,7 +134,7 @@ public class BootStrapChef {
 			if (!file.exists()) {
 				String source = MEGAM_DEFAULT_CHEF_APP_YAML;
 				String target = MEGAM_USER_HOME + java.io.File.separator
-						+ ".megam" + java.io.File.separator;
+						+ "megamd" + java.io.File.separator;
 				Path targetDir = Paths.get(target);
 				targetDir.toFile().mkdirs();
 				Path targetPath = targetDir.resolve(source);
