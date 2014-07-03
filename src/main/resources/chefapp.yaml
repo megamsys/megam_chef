@@ -1,12 +1,12 @@
-megamchef: 
+megamchef:
         config: 'production'
-development: 
+development:
       source: 'riak'
-      host: 'api.megam.co'
+      host: 'localhost'
       port: '8098'
       bucket: 'requests'
-production: 
+production:
       source: 'riak'
-      host: 'api.megam.co'
+      host: 'localhost'
       port: '8098'
       bucket: 'requests'
