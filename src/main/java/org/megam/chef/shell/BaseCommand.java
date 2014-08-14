@@ -40,10 +40,12 @@ public abstract class BaseCommand implements Command {
 		}
 		File dir = new File(org.megam.chef.Constants.MEGAM_CHEF_LOG + node_name);
 		dir.mkdir();
+		//limitation in heka, it doesn't pull all the files under node_name hence ignore reqId
+    //+ "/" + node_name + "_" + reqId + "_out");
 		setRedirectOutput(org.megam.chef.Constants.MEGAM_CHEF_LOG + node_name
-				+ "/" + node_name + "_" + reqId + "_out");
-		setRedirectError(org.megam.chef.Constants.MEGAM_CHEF_LOG + node_name
-				+ "/" + node_name + "_" + reqId + "_err");
+		+ "/" + node_name + "_out");
+		setRedirectError(org.megam.chef.Constants.MEGAM_CHEF_LOG + 	node_name
+		+ "/" + node_name + "_err");
 	}
 
 	/**

@@ -1,4 +1,4 @@
-/* 
+/*
  ** Copyright [2012-2013] [Megam Systems]
  **
  ** Licensed under the Apache License, Version 2.0 (the "License");
@@ -68,9 +68,9 @@ public class SingleShell extends RecursiveAction implements Stoppable {
 				Command com = iter.next();
 				List<String> cmdList = new ArrayList<String>();
 				cmdList = com.getCommandList();
-				logger.debug("*******************************************");
+				logger.debug("#-------------------------------------------------------#");
 				logger.debug(cmdList.toString());
-				logger.debug("*******************************************");
+				logger.debug("#-------------------------------------------------------#");
 				if (prevCom != null && prevCom.composable()) {
 					prevCom.pipeto(null); // feed the previous pipe here.
 					cmdList = com.pipeto(prevCom.appliedPlaceHolder());
