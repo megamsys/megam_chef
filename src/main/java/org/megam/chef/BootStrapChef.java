@@ -18,7 +18,6 @@ package org.megam.chef;
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 import static org.megam.chef.Constants.BUILD_DATE;
 import static org.megam.chef.Constants.MEGAM_CHEF_APP_YAML;
-import static org.megam.chef.Constants.MEGAM_CHEF_ROOT;
 import static org.megam.chef.Constants.MEGAM_DEFAULT_CHEF_APP_YAML;
 import static org.megam.chef.Constants.MEGAM_USER_HOME;
 import static org.megam.chef.Constants.VERSION;
@@ -87,8 +86,7 @@ public class BootStrapChef {
 	 * configure the MEGAM_ROOT_DIRECTORY
 	 */
 	private void configureRoot() {
-		logger.debug("user.dir=" + System.getProperty("user.dir"));
-		MEGAM_CHEF_ROOT = System.getProperty("user.dir");
+		logger.debug("user.dir=" + MEGAM_USER_HOME);
 	}
 
 	/**
@@ -129,7 +127,6 @@ public class BootStrapChef {
 		try {
 			File file = new File(MEGAM_CHEF_APP_YAML);
 			logger.debug("user.home=" + MEGAM_USER_HOME);
-			logger.debug("user.dir=" + MEGAM_CHEF_ROOT);
 
 			if (!file.exists()) {
 				String source = MEGAM_DEFAULT_CHEF_APP_YAML;

@@ -39,7 +39,7 @@ public class Constants {
 	 * The current directory from where the code runs if this called from akka
 	 * (/usr/local/share/megamakka, then that would be the user.dir.
 	 */
-	public static String MEGAM_CHEF_ROOT = System.getProperty("user.dir");
+	private static String MEGAM_DEFAULT_HOME = System.getProperty("user.dir");
 
 	/**
 	 * The user home directory in unix this is ~ or /home/user.home Fix in AWS
@@ -48,7 +48,7 @@ public class Constants {
 	 */
 	public static final String MEGAM_USER_HOME = (System.getenv("MEGAM_HOME") != null && System
 			.getenv("MEGAM_HOME").trim().length() > 0) ? System
-			.getenv("MEGAM_HOME") : MEGAM_CHEF_ROOT;
+			.getenv("MEGAM_HOME") : MEGAM_DEFAULT_HOME;
 
 	/** Constant <code>MEGAM_AWS_ACCESS_KEY="System.getenv(MEGAM_AWS_ACCESS_KEY)"</code> */
 	public static final String MEGAM_AWS_ACCESS_KEY = System
